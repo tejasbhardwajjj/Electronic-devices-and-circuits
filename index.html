@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>EDCT Study Hub – Boylestad 11e</title>
+<meta name="description" content="Chapter-wise MCQs, short notes and derivations for Boylestad Electronic Devices and Circuit Theory, Ch 1–14.">
+<style>
+:root{--bg:#0e1117;--card:#171c26;--card2:#1f2633;--tx:#e8ecf3;--mut:#9aa6b8;--ac:#7c5cff;--ac2:#22d3ee;--ok:#22c55e;--bad:#ef4444;--bd:#2b3445}
+[data-t=light]{--bg:#f4f6fb;--card:#fff;--card2:#eef1f8;--tx:#1b2233;--mut:#5b6679;--ac:#5b3df5;--ac2:#0891b2;--ok:#16a34a;--bad:#dc2626;--bd:#d9dfec}
+*{box-sizing:border-box}body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);font:16px/1.6 system-ui,Segoe UI,sans-serif;background:var(--bg);color:var(--tx)}
+header{display:flex;gap:12px;align-items:center;padding:14px 22px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:5}
+h1{font-size:1.15rem;margin:0;flex:1;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;color:transparent}
+button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:8px 14px;border-radius:10px}
+button:hover{border-color:var(--ac)}button.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+.wrap{display:grid;grid-template-columns:260px 1fr;gap:20px;max-width:1100px;margin:auto;padding:20px}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}}
+nav .ch{display:block;width:100%;text-align:left;margin-bottom:8px}nav .ch.on{border-color:var(--ac);background:var(--card2)}
+.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:14px}
+.bar{height:6px;background:var(--card2);border-radius:9px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2))}
+.opt{display:block;width:100%;text-align:left;margin:8px 0}.opt.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,transparent)}
+.exp{margin-top:10px;padding:10px 12px;border-left:3px solid var(--ac2);background:var(--card2);border-radius:8px;color:var(--mut)}
+.mut{color:var(--mut);font-size:.9rem}.eq{background:var(--card2);padding:8px 12px;border-radius:8px;margin:8px 0;font-family:Cambria,Georgia,serif;overflow-x:auto}
+h3{margin:.2em 0 .4em}ul{padding-left:20px}
+</style></head><body>
+<header><h1>⚡ EDCT Study Hub · Boylestad 11th Ed.</h1><button id="th">🌓 Theme</button></header>
+<div class="wrap"><nav id="nav"></nav><main id="main"></main></div>
+<script>
+// ===== DATA: q = [question, [4 options], correctIndex, explanation] =====
+const CH=[
+{n:1,title:"Semiconductor Diodes",topics:[
+{t:"Materials, bonding & energy levels (1.2–1.4)",q:[
+["Which material has the largest energy gap?",["Ge (0.67 eV)","Si (1.1 eV)","GaAs (1.43 eV)","They are equal"],2,"Eg: Ge 0.67 eV, Si 1.1 eV, GaAs 1.43 eV."],
+["Semiconductors have a ______ temperature coefficient of resistance.",["positive","negative","zero","infinite"],1,"Heat frees more carriers, so resistance falls as temperature rises."],
+["In a pure Si crystal, atoms are held together by:",["Ionic bonds","Metallic bonds","Covalent bonds","Hydrogen bonds"],2,"Each atom shares its 4 valence electrons with 4 neighbours."],
+["Which has more energy in a band diagram?",["Valence band electron","Conduction band electron","Both equal","Bound electron"],1,"Electrons must gain at least Eg to jump into the conduction band."]]},
+{t:"n-type & p-type materials (1.5)",q:[
+["Which is a donor (pentavalent) impurity?",["Boron","Gallium","Antimony","Indium"],2,"Antimony, arsenic, phosphorus are donors; boron, gallium, indium are acceptors."],
+["In p-type material, majority carriers are:",["Electrons","Holes","Donor ions","Neutrons"],1,"Trivalent impurities create holes, which are the majority carriers."],
+["n-type material is:",["Positively charged","Negatively charged","Electrically neutral","Depends on bias"],2,"Impurity ions balance the carriers, so the crystal stays neutral."]]},
+{t:"Diode operation & characteristics (1.6–1.7)",q:[
+["At zero bias, the depletion region exists because:",["Of external voltage","Majority carriers diffuse across and recombine","Of Zener breakdown","Of leakage only"],1,"Diffusion across the junction leaves uncovered ions that form the depletion region."],
+["Forward bias ______ the depletion region.",["widens","narrows","doesn’t change","removes ions of"],1,"Forward bias pushes majority carriers toward the junction."],
+["Knee voltages of Si, Ge, GaAs are about:",["0.3, 0.7, 1.2 V","0.7, 0.3, 1.2 V","1.2, 0.7, 0.3 V","0.7, 1.2, 0.3 V"],1,"Si 0.7 V, Ge 0.3 V, GaAs 1.2 V."],
+["Reverse saturation current Is roughly ______ for every 10 °C rise.",["halves","stays same","doubles","triples"],2,"Is doubles per 10 °C increase."],
+["Thermal voltage VT = kT/q at room temperature ≈",["2.6 mV","26 mV","260 mV","0.7 V"],1,"VT ≈ 26 mV near 300 K."]]},
+{t:"Resistance levels, equivalent circuits, capacitance (1.8–1.11)",q:[
+["Static (dc) resistance of a diode is:",["ΔVD/ΔID","VD/ID at the Q-point","26 mV/ID","Always zero"],1,"RD = VD/ID."],
+["Dynamic resistance at low current (ID in mA) is approximately:",["26 mV/ID","VD/ID","VT·ID","0.7/ID"],0,"rd ≈ 26 mV/ID, from the slope of the Shockley equation."],
+["Diffusion capacitance dominates in ______ bias; transition capacitance in ______ bias.",["reverse, forward","forward, reverse","both forward","both reverse"],1,"CD: forward (stored minority carriers); CT: reverse (depletion region)."],
+["Reverse recovery time trr is the time to:",["turn the diode on","switch from forward conduction to reverse blocking","reach breakdown","heat up"],1,"Stored minority carriers must be removed before blocking."]]},
+{t:"Zener & LED (1.15–1.16)",q:[
+["A Zener diode normally operates in:",["forward region","reverse breakdown region","cutoff only","saturation"],1,"It holds VZ nearly constant in reverse breakdown."],
+["Zener breakdown (below ~5 V) has a ______ temperature coefficient; avalanche (above ~5 V) has a ______ one.",["positive, negative","negative, positive","both positive","both negative"],1,"Zener effect: negative TC; avalanche: positive TC."],
+["LEDs emit visible light because:",["Si and Ge are used","recombination releases photons in direct-gap materials like GaAsP/GaP","of reverse bias","they get hot"],1,"Si/Ge release heat; GaAs-based compounds release photons."]]}
+],
+notes:[
+{h:"Semiconductor basics",b:"<ul><li>Ge 0.67 eV, Si 1.1 eV, GaAs 1.43 eV.</li><li>Intrinsic: pure crystal; negative temperature coefficient.</li><li>n-type: donors (Sb, As, P), electrons majority. p-type: acceptors (B, Ga, In), holes majority.</li></ul>"},
+{h:"Diode characteristics",b:"<ul><li>Forward: knee ≈ 0.7 V (Si), 0.3 V (Ge), 1.2 V (GaAs).</li><li>Reverse: tiny Is until Zener/avalanche breakdown.</li><li>Is doubles per 10 °C; forward drop falls ≈ 2.5 mV/°C.</li></ul><div class='eq'>I<sub>D</sub> = I<sub>s</sub>(e<sup>V<sub>D</sub>/nV<sub>T</sub></sup> − 1), V<sub>T</sub> = kT/q, T<sub>K</sub> = T<sub>C</sub> + 273</div>"},
+{h:"Resistance levels",b:"<div class='eq'>R<sub>D</sub> = V<sub>D</sub>/I<sub>D</sub> &nbsp;(dc)<br>r<sub>d</sub> = 26 mV/I<sub>D</sub> &nbsp;(ac, dynamic)<br>r<sub>av</sub> = ΔV<sub>d</sub>/ΔI<sub>d</sub> &nbsp;(piecewise, between two points)</div>"}],
+deriv:[
+{h:"Dynamic resistance r<sub>d</sub> = 26 mV / I<sub>D</sub>",b:"<p>Start with I<sub>D</sub> = I<sub>s</sub>(e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1) (n = 1).</p><div class='eq'>dI<sub>D</sub>/dV<sub>D</sub> = (I<sub>s</sub>/V<sub>T</sub>) e<sup>V<sub>D</sub>/V<sub>T</sub></sup></div><p>For forward bias I<sub>s</sub>e<sup>V<sub>D</sub>/V<sub>T</sub></sup> ≫ I<sub>s</sub>, so it ≈ I<sub>D</sub>:</p><div class='eq'>dI<sub>D</sub>/dV<sub>D</sub> ≈ I<sub>D</sub>/V<sub>T</sub> ⇒ r<sub>d</sub> = V<sub>T</sub>/I<sub>D</sub> = 26 mV/I<sub>D</sub></div>"}]},
+{n:2,title:"Diode Applications",topics:[
+{t:"Rectifiers (2.6–2.7)",q:[
+["Vdc of an ideal half-wave rectifier with peak Vm is:",["0.318 Vm","0.636 Vm","0.707 Vm","Vm"],0,"Vdc = Vm/π = 0.318 Vm."],
+["Vdc of a full-wave rectifier is:",["0.318 Vm","0.636 Vm","0.5 Vm","1.414 Vm"],1,"Vdc = 2Vm/π = 0.636 Vm."],
+["PIV rating needed for each diode in a bridge rectifier is:",["Vm","2Vm","Vm/2","0.636 Vm"],0,"Each reverse-biased diode sees about Vm. The centre-tap type needs 2Vm."],
+["For Si diodes in a half-wave rectifier, Vdc ≈",["0.318(Vm − 0.7)","0.318Vm + 0.7","0.636Vm","Vm − 0.7"],0,"Effective peak is Vm − VK."]]},
+{t:"Clippers, clampers & Zener (2.8–2.11)",q:[
+["A clamper:",["removes part of a waveform","shifts the dc level without changing the shape","rectifies","amplifies"],1,"A capacitor, a diode and a resistor shift the dc level."],
+["A Zener regulator works correctly when:",["Zener is forward biased","IZ stays between IZmin and IZmax","RL is open always","Vi < VZ"],1,"Zener needs Vi large enough to keep it in breakdown, and the power limit must not be exceeded."],
+["A voltage doubler output is about:",["Vm","2Vm","0.5Vm","4Vm"],1,"The capacitors charge to Vm each, giving 2Vm."]]}
+],
+notes:[{h:"Rectifier formulas",b:"<div class='eq'>HW: V<sub>dc</sub> = 0.318V<sub>m</sub> · FW: V<sub>dc</sub> = 0.636V<sub>m</sub><br>PIV: bridge = V<sub>m</sub>, centre-tap = 2V<sub>m</sub></div>"}],
+deriv:[{h:"Half-wave average value",b:"<div class='eq'>V<sub>dc</sub> = (1/2π)∫<sub>0</sub><sup>π</sup> V<sub>m</sub> sin θ dθ = (V<sub>m</sub>/2π)·2 = V<sub>m</sub>/π = 0.318 V<sub>m</sub></div><p>Full-wave doubles the area per cycle, giving 2V<sub>m</sub>/π.</p>"}]},
+{n:3,title:"Bipolar Junction Transistors",topics:[
+{t:"Construction & operation (3.2–3.3)",q:[
+["In the active region, the junctions are biased:",["both forward","both reverse","BE forward, BC reverse","BE reverse, BC forward"],2,"Active region: base–emitter forward, base–collector reverse."],
+["The base region is made thin and lightly doped so that:",["it conducts heat","most carriers from the emitter reach the collector","the BC junction conducts","IB is large"],1,"Only a small fraction recombines in the base, so IB is small."],
+["Which relation always holds?",["IE = IC − IB","IE = IC + IB","IC = IE + IB","IB = IC + IE"],1,"Kirchhoff’s current law gives IE = IC + IB."]]},
+{t:"CB, CE, CC configurations (3.4–3.6)",q:[
+["α(dc) = ",["IC/IB","IC/IE","IE/IC","IB/IE"],1,"α = IC/IE, always slightly below 1."],
+["β(dc) = ",["IC/IB","IC/IE","IB/IC","IE/IB"],0,"β = IC/IB."],
+["β in terms of α:",["α/(1−α)","α/(1+α)","(1−α)/α","1/α"],0,"β = α/(1−α), equivalently α = β/(β+1)."],
+["In the cutoff region of the CE configuration, IC ≈",["IB","ICEO","IE","β·IB"],1,"IC = ICEO ≈ βICBO when IB = 0."],
+["In saturation, VCE(sat) is typically about:",["0.3 V","0.7 V","5 V","VCC"],0,"The transistor behaves like a closed switch, with VCE ≈ 0.1–0.3 V."]]},
+{t:"Limits & testing (3.7–3.9)",q:[
+["The maximum collector power dissipation is:",["VCE·IC","VCC·IB","VBE·IB","β·IB"],0,"PCmax = VCE·IC, the limit that sets the hyperbola on the characteristics."],
+["On a curve tracer or DMM, a good npn transistor shows:",["both junctions open","both junctions conduct in either direction","each junction conducting only in forward bias","only one junction"],2,"Each junction behaves like a diode."]]}
+],
+notes:[
+{h:"Key BJT relations",b:"<div class='eq'>I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub> · I<sub>C</sub> = βI<sub>B</sub> · I<sub>E</sub> = (β+1)I<sub>B</sub><br>α = I<sub>C</sub>/I<sub>E</sub> · β = α/(1−α) · α = β/(β+1)</div>"},
+{h:"Operating regions",b:"<ul><li>Active: BE forward, BC reverse (amplifier).</li><li>Saturation: both forward, V<sub>CE(sat)</sub> ≈ 0.3 V (closed switch).</li><li>Cutoff: both reverse, I<sub>C</sub> ≈ I<sub>CEO</sub> (open switch).</li><li>V<sub>BE</sub> ≈ 0.7 V in the active region.</li></ul>"}],
+deriv:[{h:"β = α/(1−α)",b:"<div class='eq'>I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub> ⇒ I<sub>C</sub>/α = I<sub>C</sub> + I<sub>B</sub></div><div class='eq'>I<sub>C</sub>(1/α − 1) = I<sub>B</sub> ⇒ β = I<sub>C</sub>/I<sub>B</sub> = 1/(1/α − 1) = α/(1−α)</div>"}]},
+{n:4,title:"DC Biasing — BJTs",topics:[
+{t:"Operating point & fixed bias (4.2–4.3)",q:[
+["The Q-point is set to the middle of the load line to:",["reduce power","allow maximum undistorted symmetrical swing","increase β","reduce VBE"],1,"It gives equal room for the signal to swing in both directions."],
+["Fixed bias: IB =",["(VCC−VBE)/RB","VCC/RB","(VCC−VBE)/RC","VBE/RB"],0,"KVL around the base–emitter loop."],
+["Fixed bias: VCE =",["VCC − IC·RC","VCC − IB·RB","VCC + IC·RC","IC·RC"],0,"KVL around the collector–emitter loop."],
+["Saturation current in fixed bias (ideal) is:",["VCC/RC","VCC/RB","β·IB","VCC/β"],0,"With VCE ≈ 0, ICsat ≈ VCC/RC."]]},
+{t:"Emitter, voltage-divider & collector feedback bias (4.4–4.6)",q:[
+["Emitter bias: IB =",["(VCC−VBE)/(RB+(β+1)RE)","(VCC−VBE)/RB","(VCC−VBE)/(RB+RE)","VCC/(βRE)"],0,"RE is reflected into the base circuit multiplied by (β+1)."],
+["Which bias gives the best stability against β changes?",["Fixed bias","Voltage-divider bias","Collector feedback with no RE","None are different"],1,"With βRE ≥ 10R2, IC is nearly independent of β."],
+["The approximate method for the voltage divider is valid when:",["βRE ≥ 10R2","βRE ≤ R2","RE = 0","R1 = R2"],0,"Then the base loading is negligible and VB ≈ VCC·R2/(R1+R2)."],
+["Collector feedback: IB =",["(VCC−VBE)/(RB+β(RC+RE))","(VCC−VBE)/RB","VCC/(RC+RE)","(VCC−VBE)/(RC+RE)"],0,"The collector current flows through RC (+RE) and appears in the base loop."]]},
+{t:"Stability, switching & pnp (4.15–4.18)",q:[
+["In a pnp transistor, compared with npn:",["voltage polarities and current directions are reversed","β is negative","VBE is +0.7 V","only RC changes"],0,"The same equations apply, with the polarities reversed."],
+["The stability factor S(ICO) should be as ______ as possible.",["large","small (close to 1)","negative","infinite"],1,"A small S means IC changes little with ICBO."],
+["Fixed bias has S(ICO) ≈",["1","β+1","0","β"],1,"S = β+1, the poorest stability of all the configurations."]]}
+],
+notes:[
+{h:"Bias equations",b:"<div class='eq'>Fixed: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/R<sub>B</sub>, V<sub>CE</sub>=V<sub>CC</sub>−I<sub>C</sub>R<sub>C</sub><br>Emitter: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/(R<sub>B</sub>+(β+1)R<sub>E</sub>)<br>Divider: E<sub>Th</sub>=V<sub>CC</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>), R<sub>Th</sub>=R<sub>1</sub>‖R<sub>2</sub>, I<sub>B</sub>=(E<sub>Th</sub>−V<sub>BE</sub>)/(R<sub>Th</sub>+(β+1)R<sub>E</sub>)<br>Collector fb: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/(R<sub>B</sub>+β(R<sub>C</sub>+R<sub>E</sub>))</div>"}],
+deriv:[{h:"Emitter-bias base current",b:"<p>KVL on the base loop: V<sub>CC</sub> − I<sub>B</sub>R<sub>B</sub> − V<sub>BE</sub> − I<sub>E</sub>R<sub>E</sub> = 0, and I<sub>E</sub> = (β+1)I<sub>B</sub>.</p><div class='eq'>I<sub>B</sub>[R<sub>B</sub> + (β+1)R<sub>E</sub>] = V<sub>CC</sub> − V<sub>BE</sub> ⇒ I<sub>B</sub> = (V<sub>CC</sub>−V<sub>BE</sub>)/(R<sub>B</sub>+(β+1)R<sub>E</sub>)</div>"}]}
+];
+// ===== EXTRA QUESTIONS (merged into topics: "chapter:topicIndex") =====
+const X={
+"1:0":[
+["How many valence electrons do Si and Ge have?",["2","4","5","8"],1,"Both are tetravalent; each atom shares 4 electrons covalently."],
+["GaAs is a compound semiconductor made from:",["Ga (3 valence) + As (5 valence)","Ga (5) + As (3)","Two group IV atoms","Ga and As, both 4 valence"],0,"Group III + group V gives an average of 4 valence electrons per atom."],
+["An intrinsic semiconductor is one that is:",["heavily doped","carefully refined to a very low impurity level","always n-type","an insulator at all temperatures"],1,"Intrinsic means extremely pure, with essentially no impurities."],
+["1 eV equals:",["1.6×10⁻¹⁹ J","1.6×10⁻¹⁹ C","6.02×10²³ J","1 V·s"],0,"W = QV, so 1 eV = (1.6×10⁻¹⁹ C)(1 V) = 1.6×10⁻¹⁹ J."],
+["At room temperature, free carriers in intrinsic Si are mainly produced by:",["doping","thermal energy creating electron–hole pairs","light only","the applied dc voltage"],1,"Thermal energy breaks covalent bonds, giving electron–hole pairs."],
+["Why is Si preferred over Ge in most devices?",["larger Is","less temperature sensitive and more abundant","smaller energy gap","lower knee voltage"],1,"Si has a larger gap, so it is less temperature sensitive, and it is abundant and easy to refine."]],
+"1:1":[
+["Adding a pentavalent atom to Si leaves one extra loosely bound electron, called the:",["acceptor electron","donor electron","hole","minority carrier"],1,"The fifth electron is free to move at room temperature."],
+["A trivalent impurity such as boron creates:",["a free electron","a hole","a positive ion with an extra electron","no change"],1,"It has only 3 valence electrons, leaving one covalent bond vacant (a hole)."],
+["Minority carriers in n-type material are:",["electrons","holes","donor ions","protons"],1,"Holes exist only in small numbers, from thermal generation."],
+["Doping a pure semiconductor ______ its conductivity greatly.",["decreases","increases","does not change","zeroes"],1,"Even about 1 impurity atom per 10⁷ atoms increases conductivity strongly."],
+["Hole flow direction is:",["same as electron flow","same as conventional current, opposite to electron flow","random","always toward the cathode"],1,"A hole moves toward the negative terminal as electrons move the other way."],
+["Impurity atoms in p-type material are called:",["donors","acceptors","isotopes","ligands"],1,"They accept electrons from neighbouring bonds."],
+["The number of majority carriers in an extrinsic material is set mainly by:",["doping level","the size of the crystal","the applied voltage","gravity"],0,"The doping concentration decides the majority-carrier density."]],
+"1:2":[
+["Reverse bias ______ the depletion region.",["narrows","widens","removes","has no effect on"],1,"The external polarity pulls majority carriers away from the junction."],
+["The reverse saturation current Is is due to:",["majority carriers","minority carriers","donor ions","impurity atoms"],1,"Minority carriers are swept across the junction by the reverse field."],
+["The forward current in a diode increases ______ with VD.",["linearly","exponentially","logarithmically","not at all"],1,"ID = Is(e^(VD/nVT) − 1)."],
+["Breakdown in the reverse region is caused by:",["the Zener effect or avalanche ionization collisions","too low a temperature","forward bias","a dc offset"],0,"High reverse field gives either Zener tunneling or avalanche multiplication."],
+["Peak inverse voltage (PIV) is the:",["maximum forward voltage","maximum reverse voltage the diode can withstand","average voltage","knee voltage"],1,"Exceeding PIV pushes the diode into breakdown."]],
+"1:3":[
+["A diode with VD = 0.8 V and ID = 10 mA has static resistance:",["8 Ω","80 Ω","800 Ω","0.08 Ω"],1,"R = 0.8 V / 10 mA = 80 Ω."],
+["At ID = 2 mA, the dynamic resistance is about:",["13 Ω","26 Ω","52 Ω","0.7 Ω"],0,"rd = 26 mV / 2 mA = 13 Ω."],
+["As forward current increases, the diode’s dc resistance:",["increases","decreases","is unchanged","becomes infinite"],1,"Higher current gives lower resistance."],
+["In the reverse region, the diode’s resistance is typically:",["very low","very high (MΩ range)","exactly 26 Ω","zero"],1,"Is is tiny, so the resistance is very large."],
+["The piecewise-linear equivalent circuit contains:",["an ideal diode, a VK source and rav in series","only a capacitor","a current source alone","only an inductor"],0,"It models the knee voltage and the average slope resistance."],
+["The ideal diode equivalent in forward bias is a:",["0.7 V battery","short circuit","open circuit","1 kΩ resistor"],1,"An ideal diode is a short in forward bias and an open circuit in reverse."]],
+"1:4":[
+["The Zener voltage VZ is determined mainly by:",["doping level","package size","forward current","the lead length"],0,"Heavier doping gives a lower VZ."],
+["The maximum Zener power dissipation is:",["VZ·IZM","VZ/IZM","IZM²/VZ","VZ+IZM"],0,"PZ(max) = VZ·IZM."],
+["The Zener diode symbol differs from a normal diode in:",["the arrow direction","a bent (Z-shaped) cathode bar","an extra anode","a circle only"],1,"The cathode bar has bent ends."],
+["An LED emits light when it is:",["reverse biased","forward biased, as recombination releases photons","at breakdown","unbiased"],1,"Forward current drives electron–hole recombination."],
+["The LED series resistor is calculated as:",["(Vs − VLED)/ILED","Vs·ILED","VLED/ILED","(Vs + VLED)/ILED"],0,"It limits the current, with the drop across R equal to Vs − VLED."],
+["LED forward voltage is generally ______ that of Si.",["lower than","higher than","equal to","negative of"],1,"About 1.7–3 V or more, depending on colour and material."],
+["LED brightness increases with:",["increasing forward current","increasing reverse voltage","lower current","a heavier package"],0,"Light output is roughly proportional to forward current."]]
+};
+for(const k in X){const[a,b]=k.split(':');CH[a-1].topics[b].q.push(...X[k])}
+CH[0].notes=[
+{h:"1. Semiconductor materials",b:"<ul><li>Ge (32 e⁻, tetravalent) Eg = 0.67 eV · Si (14 e⁻) Eg = 1.1 eV · GaAs Eg = 1.43 eV.</li><li>Intrinsic = ultra-pure. Extrinsic = doped.</li><li>Negative temperature coefficient: resistance falls as temperature rises, since more bonds break.</li><li>Si dominates because it is less temperature sensitive, abundant and easy to refine. GaAs is faster (higher mobility) and is used for RF and optical devices.</li></ul>"},
+{h:"2. Bonding & energy levels",b:"<ul><li>Covalent bonds: each atom shares 4 electrons with 4 neighbours.</li><li>Bound electrons sit in the valence band. A free electron needs ≥ Eg to reach the conduction band.</li><li>Energy unit: 1 eV = 1.6×10⁻¹⁹ J (W = QV).</li><li>Each free electron leaves a hole behind. Thermal generation produces electron–hole pairs (EHPs).</li></ul>"},
+{h:"3. n-type and p-type",b:"<ul><li>n-type: donors (Sb, As, P) with 5 valence electrons. Majority carriers: electrons. Minority: holes.</li><li>p-type: acceptors (B, Ga, In) with 3 valence electrons. Majority carriers: holes. Minority: electrons.</li><li>Both are electrically neutral. The impurity ions balance the carrier charge.</li><li>Hole current direction = conventional current.</li></ul>"},
+{h:"4. The p–n junction & bias",b:"<ul><li>Diffusion of majority carriers across the junction leaves uncovered ions, forming the depletion region and a barrier potential.</li><li>No bias: ID = 0. The diffusion current and the drift (minority) current cancel.</li><li>Forward bias: the depletion region narrows, ID rises exponentially, and the knee is reached at VK.</li><li>Reverse bias: the depletion region widens, only Is flows (minority carriers), and Is is nearly constant until breakdown.</li><li>Breakdown: Zener effect (low VZ, field-induced) or avalanche (high VZ, ionization collisions).</li></ul>"},
+{h:"5. Shockley equation & temperature",b:"<div class='eq'>I<sub>D</sub> = I<sub>s</sub>(e<sup>V<sub>D</sub>/nV<sub>T</sub></sup> − 1), V<sub>T</sub> = kT/q ≈ 26 mV at room temperature</div><ul><li>n = 1 to 2 (Si discrete devices often n ≈ 2 at low current, n = 1 at higher current).</li><li>I<sub>s</sub> doubles for every 10 °C rise.</li><li>Forward voltage drops ≈ 2 mV/°C at constant current.</li><li>Knee voltages: Si 0.7 V, Ge 0.3 V, GaAs 1.2 V.</li></ul>"},
+{h:"6. Resistance levels",b:"<ul><li>DC: R<sub>D</sub> = V<sub>D</sub>/I<sub>D</sub> at the Q-point. It falls as current rises.</li><li>AC (dynamic): r<sub>d</sub> = ΔV<sub>d</sub>/ΔI<sub>d</sub> = 26 mV/I<sub>D</sub> (plus a small r<sub>B</sub> bulk term).</li><li>Average AC: r<sub>av</sub> = ΔV/ΔI between two limit points, used for the piecewise-linear model.</li></ul>"},
+{h:"7. Equivalent circuits",b:"<ul><li>Piecewise-linear: ideal diode + V<sub>K</sub> + r<sub>av</sub>.</li><li>Simplified: ideal diode + V<sub>K</sub> (the usual choice for hand analysis).</li><li>Ideal: short in forward bias, open in reverse.</li></ul>"},
+{h:"8. Capacitance & reverse recovery",b:"<ul><li>Transition (depletion) capacitance C<sub>T</sub> dominates in reverse bias and decreases as reverse voltage increases.</li><li>Diffusion capacitance C<sub>D</sub> dominates in forward bias. It comes from stored minority carriers and grows with current.</li><li>t<sub>rr</sub> = t<sub>s</sub> (storage) + t<sub>t</sub> (transition). It limits the switching speed of rectifiers.</li></ul>"},
+{h:"9. Zener diodes",b:"<ul><li>Operates in reverse breakdown, holding V<sub>Z</sub> nearly constant.</li><li>V<sub>Z</sub> is set by doping. P<sub>Zmax</sub> = V<sub>Z</sub>·I<sub>ZM</sub>.</li><li>Below ~5 V, the Zener effect gives a negative temperature coefficient. Above ~5 V, avalanche gives a positive one.</li><li>Equivalent: V<sub>Z</sub> source in series with r<sub>Z</sub> in breakdown.</li></ul>"},
+{h:"10. LEDs",b:"<ul><li>Forward-biased recombination releases photons (GaAsP, GaP, GaN). Si and Ge release only heat.</li><li>V<sub>F</sub> ≈ 1.7–3+ V depending on colour, higher than Si.</li><li>Series resistor: R = (V<sub>s</sub> − V<sub>LED</sub>)/I<sub>LED</sub>. Brightness rises with I<sub>F</sub>.</li></ul>"}];
+// ===== CH2 + CH3 REBUILD =====
+CH[1].topics=[
+{t:"Load-line analysis & series diode configurations (2.2–2.3)",q:[
+["Load line for a diode in series with E and R meets the ID axis at:",["E/R","E","R/E","0.7/R"],0,"At VD = 0, ID = E/R."],
+["The load line meets the VD axis at:",["VD = E (ID = 0)","VD = 0","VD = E/R","VD = 0.7 V"],0,"At ID = 0, VD = E."],
+["The Q-point is the:",["intersection of load line and diode characteristic","midpoint of load line","knee voltage","origin"],0,"It gives the actual ID and VD."],
+["Si diode forward, E = 12 V, R = 2.2 kΩ: ID ≈",["5.14 mA","5.45 mA","12 mA","0.7 mA"],0,"(12 − 0.7)/2.2k = 5.14 mA."],
+["Two Si diodes in series (forward), E = 10 V, R = 1 kΩ: ID =",["8.6 mA","9.3 mA","10 mA","7.2 mA"],0,"(10 − 1.4)/1k = 8.6 mA."],
+["Ge diode, E = 5 V, R = 1 kΩ: ID =",["4.7 mA","4.3 mA","5 mA","3.8 mA"],0,"(5 − 0.3)/1k = 4.7 mA."],
+["A reverse-biased diode in a series circuit is replaced by:",["an open circuit (ID = 0)","a short circuit","0.7 V battery","a resistor R"],0,"With ID = 0, VD = the full source voltage."],
+["A Si and a Ge diode in series, both forward: total drop is",["1.0 V","0.7 V","0.3 V","1.4 V"],0,"0.7 + 0.3 = 1.0 V."],
+["A diode is ON when:",["forward voltage exceeds VK","reverse voltage exceeds VK","ID = 0","VD = 0"],0,"Check the pressure (net voltage) across the diode."],
+["In series circuits the diode ON-state voltage is taken as:",["VK (0.7 V for Si)","0 V always","E","VZ"],0,"Practical model: VD = VK."]]},
+{t:"Parallel / series-parallel configs & AND/OR gates (2.4–2.5)",q:[
+["A positive-logic OR gate output is high when:",["at least one input is high","all inputs high","all inputs low","no input is high"],0,"Any conducting diode pulls the output up."],
+["A positive-logic AND gate output is high when:",["all inputs are high","any input is high","any input is low","no input"],0,"Any low input pulls the output low via its diode."],
+["In positive logic, logic 1 is the:",["more positive level","more negative level","0 V only","ground"],0,"By definition of positive logic."],
+["Diode OR gate, Si, input 10 V: output ≈",["9.3 V","10 V","0.7 V","0 V"],0,"10 − 0.7 = 9.3 V."],
+["Diode AND gate (5 V supply), inputs 0 V and 5 V: output ≈",["0.7 V","5 V","0 V","4.3 V"],0,"The 0 V input diode conducts, and Vo = 0 + 0.7."],
+["The resistor of a diode AND gate connects the output to:",["the + supply","ground","the input","the cathode of the Zener"],0,"The pull-up resistor connects to +V."],
+["The resistor of a diode OR gate connects the output to:",["ground","+ supply","input","none"],0,"A pull-down resistor."],
+["Two identical Si diodes in parallel, total current 10 mA: each carries",["5 mA","10 mA","2.5 mA","20 mA"],0,"Equal division."],
+["Drawback of diode logic:",["0.7 V drop at each stage degrades levels","needs ac","no gain at all","only 1 input allowed"],0,"Levels degrade through cascaded stages."],
+["With parallel diodes, KCL gives:",["IR = ID1 + ID2","IR = ID1·ID2","IR = ID1 − ID2","VR = 0"],0,"Currents add at the node."]]},
+{t:"Half-wave & full-wave rectification (2.6–2.7)",q:[
+["A half-wave rectifier conducts for:",["180° of the cycle","360°","90°","270°"],0,"One alternation."],
+["Ideal half-wave rectifier, Vm = 20 V: Vdc =",["6.36 V","12.7 V","14.1 V","20 V"],0,"0.318 × 20 = 6.36 V."],
+["Si half-wave rectifier, Vm = 20 V: Vdc ≈",["6.14 V","6.36 V","12.3 V","13.3 V"],0,"0.318(20 − 0.7) = 6.14 V."],
+["Ideal full-wave rectifier, Vm = 10 V: Vdc =",["6.36 V","3.18 V","7.07 V","10 V"],0,"0.636 × 10."],
+["Si bridge rectifier output peak is:",["Vm − 1.4 V","Vm − 0.7 V","Vm","Vm + 0.7 V"],0,"Two diodes in series conduct."],
+["Centre-tap full-wave rectifier needs PIV =",["2Vm","Vm","Vm/2","0.636Vm"],0,"Per diode."],
+["A bridge rectifier uses:",["4 diodes","2 diodes","1 diode","3 diodes"],0,"Four diodes."],
+["Output frequency of a full-wave rectifier is ______ the input frequency.",["twice","the same as","half","four times"],0,"Two pulses per cycle."],
+["Output frequency of a half-wave rectifier is ______ the input.",["the same as","twice","half","zero"],0,"One pulse per cycle."],
+["Compared with half-wave, full-wave rectification gives:",["a higher dc value and a lower ripple","lower dc","the same dc","no dc"],0,"0.636Vm vs 0.318Vm."]]},
+{t:"Clippers & clampers (2.8–2.9)",q:[
+["A clipper:",["trims part of the waveform","shifts the dc level","amplifies","filters"],0,"It limits the voltage excursion."],
+["A series clipper has the diode:",["in series with the load","across the load","across the source","absent"],0,"Parallel clippers place it across the output."],
+["A battery in a clipper:",["sets the clipping level","changes frequency","has no effect","adds ripple"],0,"It biases the diode threshold."],
+["A clamper must contain:",["a capacitor, a diode and a resistor","only a diode","an inductor","a transformer"],0,"A dc battery is optional."],
+["For a clamper, RC time constant should satisfy:",["5τ ≫ T/2","τ ≪ T","τ = 0","τ = T/100"],0,"The capacitor must hold its charge."],
+["A clamper preserves:",["waveform shape (peak-to-peak)","peak value","dc value","phase only"],0,"It shifts the dc level only."],
+["Ideal clamper input ±Vm, clamping negative peaks to 0: output swings",["0 to 2Vm","−Vm to Vm","−2Vm to 0","0 to Vm"],0,"The capacitor charges to Vm."],
+["A clipper changes the waveform:",["shape","only dc level","nothing","only frequency"],0,"A clamper changes only the level."],
+["Back-to-back Zeners clip both peaks at about:",["VZ + 0.7 V","VZ only","0.7 V","2VZ"],0,"One is in breakdown and one is forward."],
+["A Si diode clamper capacitor charges to about:",["Vm − 0.7 V","Vm + 0.7 V","2Vm","0 V"],0,"The diode drop reduces the charge."]]},
+{t:"Networks with dc & ac source; voltage multipliers (2.10, 2.12)",q:[
+["A diode with a dc source plus an ac source conducts when:",["the total instantaneous voltage exceeds VK","only at the peak","ac = 0","always off"],0,"Sum of dc and ac."],
+["Voltage doubler output ≈",["2Vm","Vm","0.5Vm","4Vm"],0,"Two caps each charged to Vm."],
+["Voltage tripler output ≈",["3Vm","2Vm","Vm","6Vm"],0,"Three capacitors."],
+["Quadrupler output ≈",["4Vm","2Vm","8Vm","Vm"],0,"Four capacitors."],
+["A voltage doubler uses:",["2 diodes + 2 capacitors","1 diode + 1 capacitor","4 diodes","only resistors"],0,"Standard doubler."],
+["PIV of each doubler diode is about:",["2Vm","Vm","0.5Vm","4Vm"],0,"Each diode blocks 2Vm."],
+["Multipliers are suited to:",["high voltage, low current","low voltage, high current","audio","amplification"],0,"Poor regulation under load."],
+["Capacitors in a multiplier charge to about:",["Vm","2Vm","Vm/2","0"],0,"Each capacitor stores Vm."],
+["Si diode, 10 V dc forward, 5 V peak ac: diode conducts",["the whole cycle","half the cycle","never","at peaks only"],0,"10 − 5 − 0.7 > 0."],
+["Doubler output is taken across:",["two capacitors in series","one capacitor","the diodes","the transformer"],0,"Series capacitors add."]]},
+{t:"Zener diode regulation (2.11)",q:[
+["The Zener in a regulator must be in:",["reverse breakdown","forward bias only","cutoff","saturation"],0,"IZ must exceed IZmin."],
+["Minimum Vi to turn the Zener on:",["VZ(RL + Rs)/RL","VZ","VZ·Rs/RL","VZ/Rs"],0,"From the Thevenin voltage across the Zener."],
+["VZ = 10 V, RL = 1 kΩ, Rs = 0.5 kΩ: Vi min =",["15 V","10 V","5 V","20 V"],0,"10 × 1.5/1 = 15 V."],
+["Zener current:",["IZ = IR − IL","IZ = IR + IL","IZ = IL","IZ = 0"],0,"KCL at the cathode."],
+["Maximum IZ occurs when:",["RL is open (IL = 0)","RL is shorted","Vi = 0","IR = 0"],0,"All current goes through the Zener."],
+["Minimum RL for regulation (fixed Vi):",["Rs·VZ/(Vi − VZ)","Rs(Vi − VZ)/VZ","VZ/Rs","Vi/Rs"],0,"From IR = IL + IZ with IZ = 0."],
+["If Vi < Vmin (Zener off), VL =",["Vi·RL/(RL + Rs)","VZ","Vi","0"],0,"Voltage divider."],
+["Zener power dissipation:",["PZ = VZ·IZ","VZ/IZ","IZ²/VZ","VZ + IZ"],0,"Must stay ≤ PZM."],
+["Vi = 16 V, VZ = 10 V, Rs = 1 kΩ, RL open: IZ =",["6 mA","10 mA","16 mA","1.6 mA"],0,"(16 − 10)/1k."],
+["Increasing the load current IL (fixed IR) ______ IZ.",["decreases","increases","doesn’t change","saturates"],0,"IZ = IR − IL."]]}
+];
+CH[1].notes=[
+{h:"Load line & series diodes",b:"<ul><li>Load line: V<sub>D</sub> = E − I<sub>D</sub>R. Intercepts: I<sub>D</sub> = E/R and V<sub>D</sub> = E.</li><li>Q-point = intersection with the characteristic.</li><li>ON: V<sub>D</sub> = V<sub>K</sub>; OFF: open circuit, I<sub>D</sub> = 0. Series V<sub>K</sub> drops add (Si+Ge = 1.0 V).</li></ul>"},
+{h:"Logic gates",b:"<ul><li>OR: output follows the highest input (minus V<sub>K</sub>); resistor to ground.</li><li>AND: the lowest input pulls the output low (+V<sub>K</sub>); resistor to +V.</li></ul>"},
+{h:"Rectifiers",b:"<div class='eq'>HW: V<sub>dc</sub> = 0.318V<sub>m</sub>, PIV = V<sub>m</sub><br>FW bridge: V<sub>dc</sub> = 0.636V<sub>m</sub>, PIV = V<sub>m</sub>, peak = V<sub>m</sub> − 2V<sub>K</sub><br>Centre-tap: PIV = 2V<sub>m</sub>, peak = V<sub>m</sub> − V<sub>K</sub></div><p>FW output frequency is 2f.</p>"},
+{h:"Clippers & clampers",b:"<ul><li>Series/parallel clippers trim the waveform. Battery = clip level.</li><li>Clamper: C + diode + R. It shifts the dc level and preserves the shape. 5τ ≫ T/2.</li></ul>"},
+{h:"Multipliers & Zener regulator",b:"<ul><li>Doubler 2V<sub>m</sub>, tripler 3V<sub>m</sub>, quadrupler 4V<sub>m</sub>. Low-current only.</li><li>Zener: V<sub>L</sub> = V<sub>Z</sub> if V<sub>i</sub> ≥ V<sub>Z</sub>(R<sub>L</sub>+R<sub>s</sub>)/R<sub>L</sub>. I<sub>Z</sub> = I<sub>R</sub> − I<sub>L</sub>.</li></ul>"}];
+CH[2].topics=[
+{t:"Transistor construction & operation (3.2–3.3)",q:[
+["The two transistor types are:",["npn and pnp","nnp and ppn","pnn and npp","only npn"],0,"Three layers, two junctions."],
+["The most heavily doped region is the:",["emitter","base","collector","substrate"],0,"The emitter supplies carriers."],
+["The base region is:",["thin and lightly doped","thick and heavily doped","wider than the collector","metallic"],0,"So most carriers cross over to the collector."],
+["The widest region is the:",["collector","emitter","base","all equal"],0,"It dissipates the most heat."],
+["In operation, the BE junction is ______ and the BC junction ______ biased.",["forward, reverse","reverse, forward","both forward","both reverse"],0,"Active region."],
+["Injected carriers in the base are:",["minority carriers","majority carriers","donor ions","absent"],0,"Electrons in the p-type base (npn)."],
+["IC =",["ICmajority + ICOminority","IB + IE","IE − ICBO only","β·IE"],0,"The minority part is ICBO."],
+["IB compared with IE is:",["very small (μA vs mA)","equal","larger","zero"],0,"Most carriers reach the collector."],
+["The emitter arrow in the symbol shows:",["the conventional current direction","electron flow","hole flow only","voltage"],0,"Out for npn, in for pnp."],
+["ICBO is the leakage current with:",["emitter open","base open","collector open","all shorted"],0,"Minority carrier current across the BC junction."]]},
+{t:"Common-base configuration (3.4)",q:[
+["In CB, input terminals are:",["emitter–base","base–collector","collector–emitter","base–ground only"],0,"Output is collector–base."],
+["CB active region: IC ≈",["IE","IB","β·IB","0"],0,"α ≈ 1."],
+["CB cutoff: IE = 0 and IC =",["ICBO","0 exactly","IE","β·ICBO"],0,"Leakage only."],
+["CB saturation: junctions are:",["both forward biased","both reverse biased","BE reverse","BC reverse"],0,"VCB ≤ 0."],
+["α(ac) =",["ΔIC/ΔIE at constant VCB","ΔIC/ΔIB","ΔIB/ΔIE","IE/IC"],0,"Definition."],
+["Typical α is:",["0.90–0.998","10–100","1–2","0.1"],0,"Slightly below 1."],
+["VBE in CB active region ≈",["0.7 V (Si)","0 V","5 V","VCB"],0,"Forward-biased junction."],
+["CB input resistance is:",["low (≈10–100 Ω)","very high","infinite","MΩ"],0,"Low ri."],
+["CB output resistance is:",["high (≈ up to MΩ)","very low","0","10 Ω"],0,"High ro."],
+["Current gain of CB is:",["slightly less than 1","≈ 100","≈ 1000","negative"],0,"α < 1."]]},
+{t:"Common-emitter configuration (3.5)",q:[
+["In CE, the output terminals are:",["collector–emitter","base–emitter","base–collector","emitter–ground"],0,"Input is base–emitter."],
+["Typical β is:",["50–400","0.9–1","1–2","10⁶"],0,"Wide spread between devices."],
+["β(ac) =",["ΔIC/ΔIB at constant VCE","ΔIC/ΔIE","IB/IC","ΔIE/ΔIB"],0,"Definition."],
+["ICEO =",["ICBO/(1 − α)","α·ICBO","ICBO·(1 − α)","ICBO"],0,"≈ βICBO."],
+["CE cutoff means:",["IC = ICEO (not 0)","IC = 0 exactly","IB large","VCE = 0"],0,"IB = 0 still leaves ICEO."],
+["IB = 20 μA, β = 100: IC =",["2 mA","0.2 mA","20 mA","200 μA"],0,"β·IB."],
+["IC = 3 mA, IB = 30 μA: β =",["100","90","10","1000"],0,"IC/IB."],
+["IC = 2 mA, IB = 20 μA: IE =",["2.02 mA","1.98 mA","2 mA","22 mA"],0,"IC + IB."],
+["β = 100: α =",["0.990","0.999","0.909","0.99 ·100"],0,"β/(β+1) = 100/101."],
+["α = 0.98: β =",["49","98","0.02","50.2"],0,"α/(1 − α) = 0.98/0.02."]]},
+{t:"Common-collector configuration & limits of operation (3.6–3.7)",q:[
+["In CC, the output is taken at the:",["emitter","collector","base","ground"],0,"The input goes to the base."],
+["CC is also called:",["emitter follower","collector follower","base amplifier","inverter"],0,"Output follows the input."],
+["CC voltage gain is approximately:",["1","100","0","−1"],0,"A buffer."],
+["CC has:",["high input resistance, low output resistance","low in, high out","low both","high both"],0,"Impedance matching."],
+["PCmax =",["VCE·IC","VCC·IB","β·IB","VBE·IE"],0,"Collector power."],
+["PCmax = 300 mW, VCE = 10 V: IC max =",["30 mA","3 mA","300 mA","0.3 mA"],0,"P/V."],
+["The safe operating region is bounded by:",["ICmax, VCEmax, PCmax","only ICmax","only VCE","none"],0,"Plus the cutoff and saturation lines."],
+["Power dissipation rating ______ as temperature rises.",["decreases (derating)","increases","stays","becomes infinite"],0,"Derate above 25 °C."],
+["VCEO(max) is the maximum VCE with:",["base open","emitter open","collector open","base shorted"],0,"The breakdown rating."],
+["Exceeding ratings may:",["damage the device","improve gain","nothing","reduce noise"],0,"Thermal or breakdown failure."]]},
+{t:"Specification sheet, testing & casing (3.8–3.11)",q:[
+["hFE on a data sheet is the:",["dc current gain β","ac current gain only","input impedance","α"],0,"hFE = β(dc)."],
+["Absolute maximum ratings include:",["VCEO, ICmax, PD","only β","only colour","hFE only"],0,"Limits."],
+["A DMM diode test of a forward junction reads about:",["0.6–0.7 V","OL","0 V","5 V"],0,"Si junction drop."],
+["A reverse-biased junction reads:",["OL (open)","0.7 V","0 V","1 V"],0,"No conduction."],
+["Good npn: red lead on base, black on emitter/collector reads:",["a forward-diode drop","OL","0 V","negative"],0,"The base is the p-type, like an anode."],
+["Collector–emitter with either polarity should read:",["OL","0 V","0.7 V","1.5 V"],0,"Two back-to-back junctions."],
+["Power transistor cases are usually connected to:",["the collector","the base","the emitter","none"],0,"For heat sinking."],
+["The first transistor was built at:",["Bell Labs (1947)","IBM (1960)","Intel (1971)","MIT (1930)"],0,"Bardeen, Brattain and Shockley."],
+["A curve tracer displays:",["IC vs VCE for various IB","only β","only VBE","power factor"],0,"The CE characteristics."],
+["Leakage ICBO increases with:",["temperature","decreasing temperature","lower VCB","base doping only"],0,"Doubles about every 10 °C."]]}
+];
+CH[2].notes=[
+{h:"Structure & regions",b:"<ul><li>Emitter heavily doped, base thin and light, collector widest.</li><li>Active: BE forward, BC reverse. Saturation: both forward. Cutoff: both reverse.</li><li>V<sub>BE</sub> ≈ 0.7 V, V<sub>CE(sat)</sub> ≈ 0.3 V.</li></ul>"},
+{h:"Currents & gains",b:"<div class='eq'>I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub>, I<sub>C</sub> = βI<sub>B</sub>, I<sub>E</sub> = (β+1)I<sub>B</sub><br>α = β/(β+1), β = α/(1−α), I<sub>CEO</sub> = I<sub>CBO</sub>/(1−α) ≈ βI<sub>CBO</sub></div>"},
+{h:"Configurations",b:"<ul><li>CB: in E–B, out C–B, α ≈ 1, low r<sub>i</sub>, high r<sub>o</sub>.</li><li>CE: in B–E, out C–E, β 50–400.</li><li>CC: out at E, gain ≈ 1, high r<sub>i</sub>, low r<sub>o</sub>.</li></ul>"},
+{h:"Limits & testing",b:"<ul><li>P<sub>Cmax</sub> = V<sub>CE</sub>I<sub>C</sub>; also I<sub>Cmax</sub>, V<sub>CEO</sub>; derate with temperature.</li><li>DMM: each junction reads ≈ 0.6–0.7 V forward, OL reverse; C–E reads OL.</li></ul>"}];
+// ===== CH4 REBUILD + CH5 NEW =====
+CH[3].topics=[
+{t:"Operating point & dc load line (4.1–4.2)",q:[
+["The Q-point is:",["the dc operating point (ICQ, VCEQ)","the ac signal peak","the knee voltage","the β value"],0,"Fixed by the dc bias."],
+["Biasing means:",["applying dc voltages to set operating currents/voltages","adding ac signal","removing the load","cooling the transistor"],0,"Establishes the Q-point."],
+["For linear amplification the Q-point lies in the:",["active region, near mid load line","saturation region","cutoff region","breakdown region"],0,"Gives the maximum symmetrical swing."],
+["A Q-point near saturation causes:",["clipping/distortion on one half-cycle","higher β","no distortion","lower dissipation"],0,"The transistor leaves the active region."],
+["The dc load line for fixed bias: VCE =",["VCC − IC·RC","VCC + IC·RC","IC/RC","VCC·RC"],0,"KVL on the output loop."],
+["Fixed-bias saturation current:",["VCC/RC","VCC/RB","β·VCC","VCC/(β·RC)"],0,"At VCE ≈ 0."],
+["At cutoff on the dc load line:",["VCE = VCC, IC ≈ 0","VCE = 0","IC = ICmax","VBE = 0.7"],0,"Open-switch state."],
+["The Q-point must stay within:",["ICmax, VCEmax, PCmax limits","only ICmax","only β","VBE only"],0,"The device ratings region."],
+["The dc bias circuit sets:",["the Q-point","the signal frequency","the capacitor value","ro only"],0,"It makes the operating point stable."],
+["A Q-point near cutoff clips:",["one half of the output","nothing","the input","only dc"],0,"The device turns off."]]},
+{t:"Fixed-bias configuration (4.3)",q:[
+["Fixed bias: IB =",["(VCC − VBE)/RB","VCC/RB","(VCC − VBE)/RC","VBE/RB"],0,"KVL on the base loop."],
+["VCC = 12 V, RB = 240 kΩ: IB =",["47.1 μA","50 μA","0.7 μA","28.3 μA"],0,"11.3 V/240 kΩ."],
+["With β = 50, IB = 47.1 μA: IC ≈",["2.35 mA","0.94 mA","47 mA","4.7 mA"],0,"β·IB."],
+["With RC = 2.2 kΩ and IC = 2.35 mA: VCE ≈",["6.83 V","12 V","5.17 V","0.3 V"],0,"12 − 5.17."],
+["Fixed-bias saturation, RC = 2.2 kΩ, VCC = 12 V: ICsat =",["5.45 mA","2.35 mA","12 mA","0.5 mA"],0,"12/2.2k."],
+["In fixed bias, VB =",["VBE (0.7 V)","VCC","0 V","VCE"],0,"VE = 0 V."],
+["VE in fixed bias is:",["0 V","0.7 V","VCC","VCE"],0,"The emitter is grounded."],
+["Increasing β moves the Q-point toward:",["saturation","cutoff","origin","no change"],0,"IC = βIB rises."],
+["Fixed bias is poorly stable because it:",["depends directly on β","uses RE","uses a Zener","has feedback"],0,"S = β + 1."],
+["To move a saturated fixed-bias stage back to active, ______ RB.",["increase","decrease","short","remove"],0,"Lower IB reduces IC."]]},
+{t:"Emitter-bias configuration (4.4)",q:[
+["Emitter bias: IB =",["(VCC − VBE)/(RB + (β+1)RE)","(VCC − VBE)/RB","VCC/(RB+RE)","(VCC − VBE)/βRE"],0,"KVL, with IE = (β+1)IB."],
+["RE reflects into the base circuit as:",["(β+1)RE","RE/β","RE·RC","RE"],0,"Because IE = (β+1)IB."],
+["VCC = 20 V, RB = 430 kΩ, RE = 1 kΩ, β = 50: IB =",["40.1 μA","46 μA","19.3 μA","80 μA"],0,"19.3 V/(430k + 51k)."],
+["For that circuit, IC =",["2.01 mA","0.8 mA","4 mA","20 mA"],0,"50 × 40.1 μA."],
+["VCE (emitter bias) =",["VCC − IC(RC + RE)","VCC − ICRC","VCC","IC·RE"],0,"IE ≈ IC."],
+["Emitter-bias saturation current:",["VCC/(RC + RE)","VCC/RC","VCC/RE","VCC/RB"],0,"Both resistors in the loop."],
+["VB =",["VE + VBE","VE − VBE","VCC","VBE only"],0,"Base is a diode drop above the emitter."],
+["Emitter bias, compared with fixed bias, is:",["more stable","less stable","identical","β-proportional"],0,"RE gives negative feedback."],
+["RE reduces the sensitivity of IC to β because it:",["provides negative feedback","raises VCC","adds gain","removes RB"],0,"Rising IC raises VE and cuts IB."],
+["VE =",["IE·RE","IB·RB","VCC","β·RE"],0,"Ohm’s law."]]},
+{t:"Voltage-divider bias (4.5)",q:[
+["Two analysis methods are:",["exact (Thevenin) and approximate","only exact","graphical only","none"],0,"Pick by βRE vs R2."],
+["The approximate method is valid when:",["βRE ≥ 10R2","βRE ≤ R2","RE = 0","β = 1"],0,"The base current is negligible."],
+["VB (approximate) =",["VCC·R2/(R1+R2)","VCC·R1/(R1+R2)","VCC","VBE"],0,"Unloaded divider."],
+["VCC = 22 V, R1 = 39 kΩ, R2 = 3.9 kΩ: VB =",["2 V","20 V","0.7 V","11 V"],0,"22 × 3.9/42.9."],
+["With VB = 2 V: VE =",["1.3 V","2.7 V","2 V","0.7 V"],0,"VB − 0.7."],
+["With RE = 1.5 kΩ and VE = 1.3 V: IE ≈",["0.87 mA","1.3 mA","2 mA","0.7 mA"],0,"VE/RE."],
+["Exact method: ETh =",["VCC·R2/(R1+R2)","VCC·R1/(R1+R2)","VCC","VCC·R1R2"],0,"Thevenin voltage."],
+["RTh =",["R1‖R2","R1 + R2","R1R2","R2/R1"],0,"Thevenin resistance."],
+["Exact: IB =",["(ETh − VBE)/(RTh + (β+1)RE)","(ETh − VBE)/RTh","ETh/RE","(VCC−VBE)/RB"],0,"KVL on the base loop."],
+["Voltage-divider bias is nearly independent of:",["β","VCC","RC","RE"],0,"When βRE ≥ 10R2."]]},
+{t:"Collector feedback, emitter-follower, common-base & misc. bias (4.6–4.9)",q:[
+["Collector feedback: IB =",["(VCC − VBE)/(RB + β(RC + RE))","(VCC − VBE)/RB","VCC/RC","(VCC − VBE)/(RB+RE)"],0,"IC flows through RC and RE."],
+["Feedback from collector to base gives:",["improved stability","a bigger β","no change","ac gain only"],0,"Rising IC lowers VC and IB."],
+["Collector-feedback saturation current:",["VCC/(RC + RE)","VCC/RB","VCC/RE","VCC·RC"],0,"Same as emitter bias."],
+["Emitter follower: output is taken at the:",["emitter","collector","base","VCC"],0,"The collector is common."],
+["Emitter follower: VCE =",["VCC − IE·RE","VCC − IC·RC","VCC","0"],0,"RC is zero or ignored."],
+["Emitter-follower IB =",["(VCC − VBE)/(RB + (β+1)RE)","(VCC − VBE)/RB","VCC/RE","VBE/RE"],0,"Same as emitter bias."],
+["Common-base bias: IE =",["(VEE − VBE)/RE","VCC/RC","VEE/RB","VEE·RE"],0,"KVL on the emitter loop."],
+["CB: IC ≈",["IE","IB","β·IE","0"],0,"α ≈ 1."],
+["CB: VCB =",["VCC − IC·RC","VCC","IC·RC","VEE"],0,"Collector-loop KVL."],
+["Collector feedback reflects RC into the base loop as:",["βRC","RC/β","RC","0"],0,"β(RC + RE) in the denominator."]]},
+{t:"Design operations (4.11)",q:[
+["Design: RE =",["VE/IE","VCC/IE","VCE/IC","VBE/IB"],0,"Ohm’s law."],
+["A common rule sets VE ≈",["VCC/10","VCC","0","2VCC"],0,"Good stability without wasting headroom."],
+["RC =",["VRC/IC","VCE/IC","VE/IE","VCC/IB"],0,"Drop across RC over IC."],
+["For maximum swing choose VCE ≈",["VCC/2","VCC","0.3 V","0"],0,"Mid load line."],
+["Design resistors are rounded to:",["nearest standard values","exact calculated values","zero","10 MΩ"],0,"Then re-analyse."],
+["After design, you should:",["re-check the Q-point with standard values","ignore it","change β","skip checks"],0,"Tolerances shift the Q-point."],
+["For voltage-divider design, R2 chosen so that:",["βRE ≥ 10R2","R2 = 0","R2 = ∞","R2 = RE"],0,"Keeps the divider stiff."],
+["Design uses VBE =",["0.7 V for Si","0 V","VCC","5 V"],0,"Standard assumption."],
+["IC is chosen from:",["required gain/power and device limits","random","VBE","RB"],0,"Within safe ratings."],
+["Design starts from:",["specified VCC, ICQ and VCEQ","β only","resistor colours","VBE"],0,"Specs define the Q-point."]]},
+{t:"Multiple BJT networks, current mirrors & current sources (4.12–4.14)",q:[
+["Capacitor-coupled stages are analysed for dc:",["independently","as one stage","only ac","without VCC"],0,"The capacitors block dc."],
+["Direct-coupled: VB2 =",["VC1","VE1","0","VCC"],0,"The collector feeds the next base."],
+["Darlington: βD =",["β1·β2","β1 + β2","β1/β2","β1 − β2"],0,"Very high current gain."],
+["Darlington VBE total ≈",["1.4 V","0.7 V","0.35 V","2.8 V"],0,"Two base-emitter drops."],
+["A current mirror makes IO ≈",["IREF","β·IREF","IREF/β","0"],0,"Matched transistors, same VBE."],
+["IREF =",["(VCC − VBE)/R","VCC/R","VBE/R","VCC·R"],0,"Through the reference resistor."],
+["Mirror transistors must be:",["matched and at the same temperature","different types","only pnp","unmatched"],0,"So the same VBE gives the same IC."],
+["An ideal current source has output resistance:",["infinite","0","1 kΩ","β"],0,"Current is independent of the load."],
+["A Zener-based BJT current source: IC ≈",["(VZ − VBE)/RE","VZ/RC","VBE/RE","VCC/RC"],0,"VE = VZ − VBE."],
+["A current source BJT must stay in the:",["active region","saturation","cutoff","breakdown"],0,"Otherwise the current isn’t constant."]]},
+{t:"pnp, switching, troubleshooting & bias stability (4.15–4.18)",q:[
+["pnp analysis uses equations like npn but with:",["reversed polarities and current directions","different β","no VBE","ac only"],0,"Same form, opposite signs."],
+["Transistor switch: cutoff acts as:",["an open switch","a closed switch","a resistor","a battery"],0,"IC ≈ 0."],
+["Saturation acts as a:",["closed switch (VCE ≈ 0.3 V)","open switch","diode","capacitor"],0,"Large IC, small VCE."],
+["To saturate a switch: IB ≥",["ICsat/β","ICsat·β","VCC/β","0"],0,"Ensures saturation."],
+["Switching times: ton =",["td + tr","ts + tf","td + ts","tr + tf"],0,"toff = ts + tf."],
+["Troubleshooting: VCE ≈ VCC suggests:",["cutoff (no base drive)","saturation","normal","short"],0,"IC ≈ 0."],
+["VCE ≈ 0 V suggests:",["saturation or a short C–E","cutoff","normal","open RC"],0,"Large IC."],
+["Stability factor S(ICO) =",["ΔIC/ΔICO","ΔIB/ΔIC","ΔVBE/ΔIC","β"],0,"Lower is better."],
+["Fixed-bias S(ICO) =",["β + 1","1","0","β/2"],0,"Worst stability."],
+["Best stability (lowest S) occurs in:",["voltage-divider bias","fixed bias","emitter follower with no RE","open base"],0,"S approaches 1."]]}
+];
+CH[3].notes=[
+{h:"Bias equations",b:"<div class='eq'>Fixed: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/R<sub>B</sub><br>Emitter: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/(R<sub>B</sub>+(β+1)R<sub>E</sub>)<br>Divider (exact): E<sub>Th</sub>=V<sub>CC</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>), R<sub>Th</sub>=R<sub>1</sub>‖R<sub>2</sub>, I<sub>B</sub>=(E<sub>Th</sub>−V<sub>BE</sub>)/(R<sub>Th</sub>+(β+1)R<sub>E</sub>)<br>Divider (approx, βR<sub>E</sub> ≥ 10R<sub>2</sub>): V<sub>B</sub>=V<sub>CC</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>), V<sub>E</sub>=V<sub>B</sub>−0.7<br>Collector fb: I<sub>B</sub>=(V<sub>CC</sub>−V<sub>BE</sub>)/(R<sub>B</sub>+β(R<sub>C</sub>+R<sub>E</sub>))</div>"},
+{h:"Workflow for any bias problem",b:"<ul><li>Write KVL for the base–emitter loop to get I<sub>B</sub>, then I<sub>C</sub> = βI<sub>B</sub>.</li><li>Write KVL for the collector–emitter loop to get V<sub>CE</sub>.</li><li>Check: V<sub>CE(sat)</sub> ≈ 0.3 V → saturated; I<sub>C</sub> ≈ 0 → cutoff.</li></ul>"},
+{h:"Stability",b:"<ul><li>S(I<sub>CO</sub>): fixed β+1; emitter/divider far smaller.</li><li>Fixed bias depends on β; divider is nearly independent.</li></ul>"},
+{h:"Switching, mirrors, sources",b:"<ul><li>Switch: cutoff = open, saturation = closed; I<sub>B</sub> ≥ I<sub>Csat</sub>/β. t<sub>on</sub> = t<sub>d</sub> + t<sub>r</sub>; t<sub>off</sub> = t<sub>s</sub> + t<sub>f</sub>.</li><li>Mirror: I<sub>O</sub> ≈ I<sub>REF</sub> = (V<sub>CC</sub>−V<sub>BE</sub>)/R.</li><li>Darlington: β<sub>D</sub> = β<sub>1</sub>β<sub>2</sub>, V<sub>BE</sub> ≈ 1.4 V.</li></ul>"}];
+CH.push({n:5,title:"BJT AC Analysis",topics:[
+{t:"Amplification & the re model (5.2–5.4)",q:[
+["Amplification transfers power from the:",["dc supply to the ac signal","ac to dc","load to source","ground to input"],0,"The transistor controls dc power."],
+["ac and dc analyses are done separately using:",["superposition","Kirchhoff only","Thevenin only","Norton only"],0,"Linear small-signal operation."],
+["In the ac equivalent, dc supplies are:",["set to ground (short)","open","doubled","kept"],0,"Ideal supplies have zero ac resistance."],
+["At midband, coupling and bypass capacitors act as:",["short circuits","open circuits","resistors","inductors"],0,"Reactance is negligible."],
+["re =",["26 mV/IE","26 mV·IE","IE/26 mV","VBE/IC"],0,"The dynamic emitter resistance."],
+["IE = 2.6 mA: re =",["10 Ω","26 Ω","2.6 Ω","100 Ω"],0,"26 mV/2.6 mA."],
+["Input impedance looking into the base:",["βre","re/β","re","RC"],0,"Zb = βre."],
+["The re model has a diode (re) between B and E and a:",["current source βIb from C to E","voltage source","capacitor","inductor"],0,"Plus ro in parallel."],
+["ro is the transistor’s:",["output resistance (in parallel with the source)","input resistance","load","bias resistor"],0,"Often ignored when large."],
+["Small-signal analysis is valid when the signal is:",["small relative to the Q-point swing","very large","dc","zero"],0,"The transistor then behaves linearly."]]},
+{t:"CE fixed-bias & voltage-divider bias (5.5–5.6)",q:[
+["CE fixed bias: Zi ≈",["RB‖βre","RC","re","RB + RC"],0,"Base input."],
+["Zo ≈",["RC (‖ro)","RB","βre","re"],0,"The output sees RC."],
+["Av =",["−RC/re","RC/re","−re/RC","RC·re"],0,"Gain magnitude RC/re."],
+["The minus sign means:",["180° phase shift","gain below 1","a 90° shift","no phase change"],0,"CE inverts."],
+["RB = 470 kΩ, β = 100, re = 10 Ω: Zi ≈",["≈1 kΩ","470 kΩ","10 Ω","47 kΩ"],0,"RB ≫ βre = 1 kΩ."],
+["RC = 2.2 kΩ, re = 10 Ω: Av ≈",["−220","−22","220","−2.2"],0,"−2200/10."],
+["Voltage divider: Zi =",["R1‖R2‖βre","R1 + R2","RC","βre only"],0,"The bias resistors are in parallel."],
+["Voltage divider: Zo =",["RC‖ro","R1‖R2","βre","re"],0,"Same as fixed bias."],
+["Including ro: Av =",["−(RC‖ro)/re","−RC·ro/re","−ro/re","RC/re"],0,"ro in parallel with RC."],
+["Current gain Ai ≈",["β (when RB ≫ βre)","1","re","0"],0,"Most input current enters the base."]]},
+{t:"CE emitter-bias, unbypassed RE (5.7)",q:[
+["Unbypassed RE: Zb =",["β(re + RE)","βre","RE","re + RE"],0,"RE is reflected ×β."],
+["Zi =",["RB‖Zb","RC","RB","Zb·RB"],0,"Bias resistor in parallel."],
+["Zo ≈",["RC","RE","re","β(re + RE)"],0,"Output at the collector."],
+["Av =",["−RC/(re + RE)","−RC/re","RC/RE","−RE/RC"],0,"RE reduces the gain."],
+["For RE ≫ re: Av ≈",["−RC/RE","−RC/re","1","0"],0,"Gain set by the resistor ratio."],
+["RE bypassed by a capacitor: Av =",["−RC/re","−RC/RE","1","RC·re"],0,"Full gain."],
+["RC = 4.7 kΩ, RE = 1 kΩ: Av ≈",["−4.7","−470","47","−0.2"],0,"RC/RE."],
+["Unbypassed RE ______ the input impedance.",["increases","decreases","doesn’t change","zeros"],0,"β(re + RE) > βre."],
+["Unbypassed RE ______ gain but ______ stability.",["lowers, improves","raises, improves","lowers, worsens","raises, worsens"],0,"Negative feedback."],
+["Output phase is:",["180° from input","in phase","90°","270°"],0,"CE inverts."]]},
+{t:"Emitter-follower & common-base (5.8–5.9)",q:[
+["Emitter follower Av ≈",["1 (slightly < 1)","RC/re","−100","β"],0,"Buffer."],
+["Output is ______ the input.",["in phase with","180° from","90° from","unrelated to"],0,"Non-inverting."],
+["EF: Zb =",["β(re + RE)","βre","RE","re"],0,"Input resistance is high."],
+["EF: Zo ≈",["re (‖RE)","RC","β·re","RB"],0,"Very low."],
+["EF: Av =",["RE/(RE + re)","RC/re","−RE/re","1 + RE/re"],0,"Voltage divider action."],
+["Emitter followers are used as:",["buffers / impedance matching","oscillators","rectifiers","filters"],0,"High Zi, low Zo."],
+["CB: Zi =",["RE‖re","β·re","RC","RB"],0,"Very low."],
+["CB: Zo ≈",["RC","re","RE","βre"],0,"Output at the collector."],
+["CB: Av ≈",["RC/re (in phase)","−RC/re","1","β"],0,"Non-inverting."],
+["CB current gain Ai ≈",["−1 (≈ α)","β","100","0"],0,"IC ≈ IE."]]},
+{t:"Collector feedback & collector dc feedback (5.10–5.11)",q:[
+["Collector feedback: Zi ≈",["re/(1/β + RC/RF)","βre","RF","RC"],0,"Miller-type reduction."],
+["Zo ≈",["RC‖RF","RB","re","βre"],0,"Seen at the collector."],
+["Av ≈",["−RC/re","RC/re","−RF/re","1"],0,"Same as CE."],
+["RF from collector to base provides:",["feedback (dc and ac)","coupling only","bypass","decoupling"],0,"Improves stability."],
+["The ac effect of RF at the input appears as roughly:",["RF/|Av| (Miller)","RF·Av","RF","0"],0,"Lowers Zi."],
+["Phase shift:",["180°","0°","90°","45°"],0,"Inverting."],
+["Collector dc feedback has RF split with a capacitor to ground, which:",["removes ac feedback (keeps gain)","removes dc feedback","adds gain","shorts RC"],0,"Only dc feedback remains."],
+["For dc feedback: Av ≈",["−RC/re","−RC/RF","1","0"],0,"As in a CE stage."],
+["DC feedback stabilises the:",["Q-point","signal frequency","phase","β"],0,"Without lowering ac gain."],
+["For dc feedback: Zi ≈",["RF1‖βre","RC","re","β·RC"],0,"Base-side resistor."]]},
+{t:"Effect of RL and Rs, current gain, summary (5.12–5.14)",q:[
+["Loaded gain: AvL =",["AvNL·RL/(RL + Ro)","AvNL·Ro","AvNL/RL","AvNL"],0,"A voltage divider at the output."],
+["Source effect: Avs =",["Zi/(Zi + Rs) · Av","Av·Rs","Av/Zi","Rs/Zi"],0,"Loss at the input."],
+["Rs = 1 kΩ, Zi = 1 kΩ: Vi =",["Vs/2","Vs","0","2Vs"],0,"Equal divider."],
+["RL = RC = 2 kΩ, AvNL = −100: AvL =",["−50","−100","−200","−10"],0,"RL/(RL + RC) = 1/2."],
+["Loading ______ the voltage gain.",["reduces","increases","doesn’t change","reverses"],0,"A lower load resistance gives a lower gain."],
+["Zo is found with the source:",["set to zero (Vs = 0)","at full value","open","doubled"],0,"Standard definition."],
+["Current gain Ai =",["−Av·Zi/RL","Av·RL","Zi/RL·Rs","β²"],0,"Power consistency."],
+["For maximum signal transfer:",["Zi ≫ Rs","Zi ≪ Rs","Zi = 0","Rs = ∞"],0,"Avoid loading the source."],
+["Overall gain with both Rs and RL:",["lower than AvNL","higher","equal","infinite"],0,"Two dividers."],
+["For CE, Zi is generally ______ of RL.",["independent","proportional","inverse","square"],0,"Unless feedback exists."]]},
+{t:"Two-port, cascaded systems, Darlington & feedback pair (5.15–5.18)",q:[
+["Two-port model parameters:",["Zi, Zo, Av(NL)","only Zi","only Av","Rs, RL"],0,"Thevenin-like output."],
+["Cascaded gain: AvT =",["Av1·Av2","Av1 + Av2","Av1/Av2","Av1 − Av2"],0,"Include loading."],
+["Stage 2 input acts as ______ of stage 1.",["the load","the source","the bias","ro"],0,"RL1 = Zi2."],
+["In dB, cascaded gains:",["add","multiply","subtract","divide"],0,"Logarithmic."],
+["Darlington βD =",["β1β2","β1 + β2","β1/β2","β1 − β2"],0,"Very high gain."],
+["Darlington input impedance is:",["very high","very low","zero","equal to re"],0,"βD·RE."],
+["Darlington (emitter follower) Av ≈",["1","β","100","0"],0,"Buffer."],
+["Darlington current gain ≈",["βD","1","0.5","β/2"],0,"Product of the two β values."],
+["Darlington VBE ≈",["1.4 V","0.7 V","0.3 V","5 V"],0,"Two drops."],
+["Overall input impedance of a cascade is:",["Zi of the first stage","Zi of the last","sum","zero"],0,"Output impedance is that of the last stage."]]},
+{t:"Hybrid model, parameter variation & troubleshooting (5.19–5.24)",q:[
+["h-parameters:",["hi, hr, hf, ho","only hi","α, β only","re only"],0,"Two-port parameters."],
+["hie =",["βre","re/β","RC","ro"],0,"Input impedance."],
+["hfe =",["β (ac)","α","re","1/ro"],0,"Forward current gain."],
+["hoe =",["1/ro","ro","β","re"],0,"Output admittance."],
+["hre is:",["very small (≈10⁻⁴), often ignored","large","1","β"],0,"Reverse voltage feedback."],
+["Hybrid π model uses:",["rπ and gm","only β","only RC","only RL"],0,"gm = 1/re."],
+["Transistor parameters vary with:",["temperature, IC and VCE","nothing","colour","only VCC"],0,"Check the datasheet curves."],
+["Troubleshooting: check ______ first.",["dc levels","ac signal","load","probe"],0,"The bias must be right before ac."],
+["An open bypass capacitor:",["lowers the gain","raises the gain","stops dc","shorts RC"],0,"Av drops to RC/(re+RE)."],
+["gm =",["1/re","re","β·re","RC/re"],0,"Transconductance."]]}
+],
+notes:[
+{h:"ac analysis procedure",b:"<ul><li>Set dc supplies to 0, capacitors short; replace the BJT by the r<sub>e</sub> model (diode r<sub>e</sub> in B–E, current source βI<sub>b</sub>).</li><li>r<sub>e</sub> = 26 mV/I<sub>E</sub> (dc IE from the bias analysis). Z<sub>b</sub> = βr<sub>e</sub>.</li></ul>"},
+{h:"Summary of configurations",b:"<div class='eq'>CE fixed/divider: A<sub>v</sub> = −R<sub>C</sub>/r<sub>e</sub>, Z<sub>i</sub> = R<sub>B</sub>‖βr<sub>e</sub>, Z<sub>o</sub> = R<sub>C</sub><br>CE unbypassed R<sub>E</sub>: A<sub>v</sub> = −R<sub>C</sub>/(r<sub>e</sub>+R<sub>E</sub>), Z<sub>b</sub> = β(r<sub>e</sub>+R<sub>E</sub>)<br>EF: A<sub>v</sub> = R<sub>E</sub>/(R<sub>E</sub>+r<sub>e</sub>) ≈ 1, Z<sub>o</sub> ≈ r<sub>e</sub><br>CB: A<sub>v</sub> = R<sub>C</sub>/r<sub>e</sub> (in phase), Z<sub>i</sub> = R<sub>E</sub>‖r<sub>e</sub></div>"},
+{h:"Loading, cascade, Darlington",b:"<ul><li>A<sub>vL</sub> = A<sub>vNL</sub>R<sub>L</sub>/(R<sub>L</sub>+R<sub>o</sub>); A<sub>vs</sub> = A<sub>v</sub>Z<sub>i</sub>/(Z<sub>i</sub>+R<sub>s</sub>).</li><li>Cascade: Z<sub>i2</sub> loads stage 1; gains multiply (add in dB).</li><li>Darlington: β<sub>D</sub> = β<sub>1</sub>β<sub>2</sub>, V<sub>BE</sub> ≈ 1.4 V.</li></ul>"},
+{h:"Hybrid parameters",b:"<ul><li>h<sub>ie</sub> = βr<sub>e</sub>, h<sub>fe</sub> = β, h<sub>oe</sub> = 1/r<sub>o</sub>, h<sub>re</sub> ≈ 10⁻⁴ (ignored).</li><li>Hybrid-π: g<sub>m</sub> = 1/r<sub>e</sub>.</li></ul>"}],
+deriv:[
+{h:"r<sub>e</sub> = 26 mV / I<sub>E</sub>",b:"<p>Same as the diode r<sub>d</sub>: from I<sub>E</sub> = I<sub>s</sub>e<sup>V<sub>BE</sub>/V<sub>T</sub></sup>, dI<sub>E</sub>/dV<sub>BE</sub> ≈ I<sub>E</sub>/V<sub>T</sub>.</p><div class='eq'>r<sub>e</sub> = V<sub>T</sub>/I<sub>E</sub> = 26 mV/I<sub>E</sub></div>"},
+{h:"CE gain A<sub>v</sub> = −R<sub>C</sub>/r<sub>e</sub>",b:"<p>V<sub>i</sub> = I<sub>b</sub>βr<sub>e</sub> ⇒ I<sub>b</sub> = V<sub>i</sub>/(βr<sub>e</sub>). The output: V<sub>o</sub> = −βI<sub>b</sub>R<sub>C</sub> = −β(V<sub>i</sub>/βr<sub>e</sub>)R<sub>C</sub>.</p><div class='eq'>A<sub>v</sub> = V<sub>o</sub>/V<sub>i</sub> = −R<sub>C</sub>/r<sub>e</sub></div>"}]});
+// ===== CH6 + CH7 NEW =====
+CH.push({n:6,title:"Field-Effect Transistors",topics:[
+{t:"JFET construction & characteristics (6.1–6.2)",q:[
+["A JFET is a ______ controlled device.",["voltage","current","power","temperature"],0,"VGS controls ID, unlike the BJT."],
+["JFET conduction uses:",["one type of majority carrier (unipolar)","both electrons and holes","only holes always","minority carriers"],0,"It is a unipolar device."],
+["JFET input impedance is:",["very high (MΩ range)","very low","about 26 Ω","zero"],0,"The gate junction is reverse biased."],
+["The gate current of a JFET is:",["IG ≈ 0 A","equal to ID","equal to IS","β·ID"],0,"The reverse-biased gate junction passes almost no current."],
+["For an n-channel JFET, VGS is normally:",["zero or negative","positive","large positive","equal to VDS"],0,"The gate-source junction must stay reverse biased."],
+["At VGS = 0 V (VDS > |VP|), ID =",["IDSS","0","IS/2","VP"],0,"IDSS is the maximum drain current."],
+["In the pinch-off (saturation) region, ID:",["stays nearly constant as VDS increases","rises linearly with VDS","falls to zero","becomes negative"],0,"The channel is pinched, so VGS controls ID."],
+["In the ohmic region the JFET acts as a:",["voltage-controlled resistor","current source","open circuit","capacitor"],0,"ID varies linearly with VDS."],
+["As VGS becomes more negative, ID:",["decreases","increases","stays equal to IDSS","reverses"],0,"The depletion region widens and the channel narrows."],
+["Compared with a BJT, a JFET is generally:",["less temperature sensitive","more temperature sensitive","current controlled","lower in input resistance"],0,"One of its key advantages."]]},
+{t:"Transfer characteristics & Shockley equation (6.3)",q:[
+["Shockley’s equation:",["ID = IDSS(1 − VGS/VP)²","ID = IDSS(1 − VGS/VP)","ID = IDSS·VGS/VP","ID = IDSS(VGS − VP)"],0,"A square-law relation."],
+["VGS = 0: ID =",["IDSS","0","IDSS/4","VP"],0,"Maximum current."],
+["VGS = VP: ID =",["0","IDSS","IDSS/2","IDSS/4"],0,"The channel is fully pinched off (cutoff)."],
+["VGS = VP/2: ID =",["IDSS/4","IDSS/2","IDSS","0"],0,"(1 − 1/2)² = 1/4."],
+["IDSS = 8 mA, VP = −4 V, VGS = −2 V: ID =",["2 mA","4 mA","6 mA","1 mA"],0,"8 × (0.5)²."],
+["IDSS = 8 mA, VP = −4 V, VGS = −1 V: ID =",["4.5 mA","6 mA","2 mA","7 mA"],0,"8 × 0.75²."],
+["The transfer curve is:",["parabolic (non-linear)","a straight line","exponential like a diode","a step"],0,"Square-law dependence."],
+["The transfer characteristic plots:",["ID versus VGS","ID versus VDS","IG versus VGS","VGS versus VP"],0,"Unlike the drain characteristics."],
+["ID ≈ IDSS/2 occurs near VGS ≈",["0.3 VP","0.5 VP","0.7 VP","VP"],0,"Handy plotting point."],
+["Shockley’s equation applies in the:",["saturation (pinch-off) region","ohmic region only","breakdown region","cutoff only"],0,"VDS ≥ |VP| + VGS."]]},
+{t:"Spec sheets, instrumentation & important relationships (6.4–6.6)",q:[
+["VGS(off) on a data sheet is the same as:",["VP","IDSS","BVGSS","gm"],0,"The pinch-off voltage."],
+["BVGSS is the:",["gate-source breakdown voltage","drain current","pinch-off voltage","transconductance"],0,"A maximum reverse rating."],
+["IDSS is the:",["maximum drain current (VGS = 0)","gate leakage","cutoff current","source current at pinch-off"],0,"A spec sheet value."],
+["IGSS is the:",["gate leakage current","saturation current","drain current","base current"],0,"Very small."],
+["Important relations for a JFET:",["IG ≈ 0 and ID = IS","IG = ID","IS = 0","ID = 0"],0,"The gate draws no current."],
+["JFETs suit voltmeter input stages because of:",["their high input impedance","their low impedance","low β","high power"],0,"Little loading of the circuit."],
+["PD(max) =",["VDS·ID","VGS·ID","IDSS·VP","VDD·IG"],0,"Like a BJT’s PCmax."],
+["For an n-channel JFET, data sheets give VGS(off) as:",["negative","positive","zero","infinite"],0,"A p-channel device is the opposite."],
+["Units of the same JFET type:",["vary widely, so min/max values are listed","are identical","never vary","have no data"],0,"Use the worst-case values in design."],
+["JFETs can be used as:",["voltage-variable resistors","rectifiers only","inductors","capacitors"],0,"In the ohmic region."]]},
+{t:"Depletion-type MOSFET (6.7)",q:[
+["A depletion-type MOSFET conducts at VGS =",["0 V (IDSS)","only above VT","only above 5 V","never"],0,"A channel exists physically."],
+["The gate is insulated from the channel by:",["SiO₂","a p–n junction","a metal strip","air"],0,"Hence the name insulated-gate FET."],
+["Input impedance is about:",["10¹⁰–10¹⁵ Ω","1 kΩ","26 Ω","100 Ω"],0,"Even higher than a JFET’s."],
+["An n-channel depletion MOSFET can operate with:",["both negative (depletion) and positive (enhancement) VGS","only negative VGS","only positive VGS","VGS = 0 only"],0,"Unlike a JFET."],
+["For positive VGS (n-channel), ID is:",["greater than IDSS","less than IDSS","zero","negative"],0,"The channel is enhanced."],
+["The drain current follows:",["the same Shockley equation as a JFET","an exponential law","a linear law","Ohm’s law"],0,"ID = IDSS(1 − VGS/VP)²."],
+["The substrate of an n-channel D-MOSFET is:",["p-type","n-type","metal","intrinsic"],0,"The channel is an n region."],
+["The gate current is:",["≈ 0 A","equal to ID","β·ID","large"],0,"The gate is insulated."],
+["In the symbol, the substrate arrow for n-channel points:",["inward","outward","upward only","absent"],0,"For p-channel it points outward."],
+["At VGS = VP: ID =",["0","IDSS","IDSS/4","2IDSS"],0,"Cutoff."]]},
+{t:"Enhancement-type MOSFET (6.8)",q:[
+["At VGS = 0, an E-MOSFET has:",["no channel (ID = 0)","a full channel","ID = IDSS","a short"],0,"A normally-off device."],
+["VGS(Th) is the:",["threshold voltage at which the channel forms","pinch-off voltage","breakdown voltage","supply voltage"],0,"Also written VT."],
+["Drain current:",["ID = k(VGS − VT)²","ID = IDSS(1 − VGS/VP)²","ID = kVGS","ID = k/VGS"],0,"Square law above threshold."],
+["k =",["ID(on)/(VGS(on) − VT)²","ID(on)·(VGS(on) − VT)","IDSS/VP²","VT/ID(on)"],0,"From a known point."],
+["ID(on) = 6 mA at VGS(on) = 8 V, VT = 3 V: k =",["0.24 mA/V²","0.75 mA/V²","2 mA/V²","0.12 mA/V²"],0,"6 mA / 5² V²."],
+["For VGS < VT, ID =",["0","k","IDSS","VT"],0,"No channel."],
+["The E-MOSFET symbol shows a:",["broken (dashed) channel line","solid channel line","no gate","diode only"],0,"No channel at 0 V."],
+["An n-channel E-MOSFET needs ______ VGS.",["positive","negative","zero","any"],0,"Above VT."],
+["The transfer curve:",["starts at VT and rises parabolically","starts at VP","is a straight line from 0","is flat"],0,"Unlike the JFET."],
+["E-MOSFETs are widely used in:",["digital circuits and VLSI","vacuum tubes","only audio","rectifiers"],0,"Small and low-power, with high density."]]},
+{t:"MOSFET handling, VMOS/UMOS, CMOS & MESFET (6.9–6.12)",q:[
+["MOSFETs can be damaged by:",["static charge breaking down the thin gate oxide","high β","low temperature","dc only"],0,"They need careful handling."],
+["A handling precaution is:",["ground yourself and keep the leads shorted until installed","wear gloves only","heat the device","apply high VGS"],0,"Avoids electrostatic damage."],
+["Many MOSFETs include a protective:",["Zener at the gate","coil","fuse at the drain","capacitor to the substrate"],0,"Limits the gate voltage."],
+["VMOS/UMOS devices are designed for:",["high-power operation","low-voltage logic only","RF only","display"],0,"The V or U groove shortens the channel."],
+["VMOS advantages include:",["low rds(on), fast switching and positive temperature coefficient","high rds(on)","slow switching","no heating"],0,"Positive TC avoids thermal runaway."],
+["CMOS uses:",["complementary p- and n-channel MOSFETs","two npn BJTs","two JFETs","only n-channel"],0,"Used in logic."],
+["The main CMOS advantage is:",["very low power dissipation","very high power","low density","slow speed"],0,"One device is always off."],
+["In a CMOS inverter:",["one transistor is off while the other is on","both are on","both are off always","none"],0,"So there is no static current."],
+["A MESFET has a:",["Schottky (metal–semiconductor) gate","SiO₂ gate","p–n junction gate","no gate"],0,"Typically GaAs."],
+["MESFETs are used in:",["high-frequency (microwave) applications","power rectifiers","low-frequency dc","mechanical switches"],0,"They are fast, with high mobility."]]}
+],
+notes:[
+{h:"JFET basics",b:"<ul><li>Voltage-controlled, unipolar device with I<sub>G</sub> ≈ 0 and I<sub>D</sub> = I<sub>S</sub>. High input impedance.</li><li>n-channel: V<sub>GS</sub> ≤ 0. V<sub>GS</sub> = 0 → I<sub>D</sub> = I<sub>DSS</sub>; V<sub>GS</sub> = V<sub>P</sub> → I<sub>D</sub> = 0.</li><li>Regions: ohmic (voltage-controlled resistor), saturation/pinch-off (amplifier), cutoff, breakdown.</li></ul>"},
+{h:"Shockley equation & plotting",b:"<div class='eq'>I<sub>D</sub> = I<sub>DSS</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>)²<br>V<sub>GS</sub> = V<sub>P</sub>(1 − √(I<sub>D</sub>/I<sub>DSS</sub>))</div><p>Points: (0, I<sub>DSS</sub>), (V<sub>P</sub>/2, I<sub>DSS</sub>/4), (0.3V<sub>P</sub>, I<sub>DSS</sub>/2), (V<sub>P</sub>, 0).</p>"},
+{h:"MOSFETs",b:"<ul><li>D-MOSFET: channel exists. Works with ±V<sub>GS</sub>; same Shockley equation; I<sub>D</sub> &gt; I<sub>DSS</sub> for positive V<sub>GS</sub>.</li><li>E-MOSFET: no channel until V<sub>GS</sub> &gt; V<sub>T</sub>. I<sub>D</sub> = k(V<sub>GS</sub> − V<sub>T</sub>)², k = I<sub>D(on)</sub>/(V<sub>GS(on)</sub> − V<sub>T</sub>)².</li><li>Gate is SiO₂-insulated (Z<sub>in</sub> ≈ 10¹⁰–10¹⁵ Ω). Handle against static.</li></ul>"},
+{h:"VMOS, CMOS, MESFET",b:"<ul><li>VMOS/UMOS: power devices, low r<sub>ds(on)</sub>, positive temperature coefficient.</li><li>CMOS: complementary pair, very low power, used in logic.</li><li>MESFET: Schottky gate, GaAs, microwave.</li></ul>"}],
+deriv:[{h:"I<sub>D</sub> = I<sub>DSS</sub>/4 at V<sub>GS</sub> = V<sub>P</sub>/2",b:"<div class='eq'>I<sub>D</sub> = I<sub>DSS</sub>(1 − (V<sub>P</sub>/2)/V<sub>P</sub>)² = I<sub>DSS</sub>(1 − ½)² = I<sub>DSS</sub>/4</div>"}]});
+CH.push({n:7,title:"FET Biasing",topics:[
+{t:"Fixed-bias configuration (7.2)",q:[
+["In JFET fixed bias, VGS =",["−VGG","+VGG","VDD","VDS"],0,"IG = 0, so no drop across RG."],
+["Because IG = 0, the voltage across RG is:",["0 V","VGG","VDD","VDS"],0,"So VG = −VGG."],
+["VGG = 2 V, IDSS = 10 mA, VP = −8 V: ID =",["5.63 mA","2 mA","10 mA","7.5 mA"],0,"10 × (1 − 0.25)²."],
+["VDS =",["VDD − ID·RD","VDD + ID·RD","VDD","ID·RD"],0,"Drain-source loop KVL."],
+["VDD = 16 V, RD = 2 kΩ, ID = 5.63 mA: VDS ≈",["4.75 V","11.3 V","16 V","0 V"],0,"16 − 11.25."],
+["VS in fixed bias =",["0 V","VGG","VDD","VDS"],0,"The source is grounded."],
+["VD =",["VDD − ID·RD","VDD","0","VGS"],0,"Equals VDS here."],
+["Graphically, the Q-point is at:",["the transfer curve ∩ the vertical line VGS = −VGG","the origin","VP","IDSS"],0,"The gate-source loop gives a fixed VGS."],
+["If VGG = 0, ID =",["IDSS","0","IDSS/4","VP"],0,"VGS = 0."],
+["A drawback of fixed bias is:",["it needs a separate negative supply","it needs RS","it has no gain","IG is large"],0,"Self-bias avoids this."]]},
+{t:"Self-bias configuration (7.3)",q:[
+["Self-bias: VGS =",["−ID·RS","+ID·RS","−VDD","IDSS·RS"],0,"VG = 0 and VS = IDRS."],
+["The self-bias line on the transfer plot:",["passes through the origin","passes through VP","is vertical","is horizontal"],0,"VGS = −IDRS."],
+["VDS =",["VDD − ID(RD + RS)","VDD − IDRD","VDD","ID·RS"],0,"KVL through RD and RS."],
+["VS =",["ID·RS","VDD","0","−VGS/2"],0,"Ohm’s law."],
+["RS = 1 kΩ, ID = 2 mA: VGS =",["−2 V","2 V","−0.5 V","−1 V"],0,"−IDRS."],
+["Q-point is found where:",["the self-bias line crosses the transfer curve","the load line meets VP","VGS = 0","IDSS = ID"],0,"Graphical solution."],
+["Self-bias needs:",["a single supply (VDD only)","two supplies","a battery for VGS","an ac source"],0,"The source resistor makes the gate negative relative to the source."],
+["VD =",["VDD − ID·RD","VDD","ID·RS","0"],0,"Drain voltage."],
+["Increasing RS moves the Q-point to:",["lower ID","higher ID","IDSS","no change"],0,"The line becomes steeper."],
+["VG in self-bias is:",["0 V (IG = 0)","VDD","−VGS","VS"],0,"RG carries no current."]]},
+{t:"Voltage-divider bias (7.4)",q:[
+["VG =",["VDD·R2/(R1 + R2)","VDD·R1/(R1 + R2)","VDD","0"],0,"IG = 0, so the divider is unloaded."],
+["VDD = 16 V, R1 = 2.1 MΩ, R2 = 270 kΩ: VG ≈",["1.82 V","14.2 V","16 V","0.7 V"],0,"16 × 270/2370."],
+["VGS =",["VG − ID·RS","VG + ID·RS","−ID·RS","VG"],0,"KVL on the gate-source loop."],
+["The bias line crosses the VGS axis at:",["VGS = VG (ID = 0)","VGS = 0","VP","IDSS"],0,"It doesn’t pass through the origin."],
+["The bias line crosses the ID axis at:",["VG/RS","VDD/RS","IDSS","VP/RS"],0,"VGS = 0."],
+["For an n-channel JFET, the bias line must yield:",["VGS ≤ 0 at the Q-point","VGS > 0","VGS = VDD","IG = ID"],0,"Reverse-biased gate junction."],
+["Compared with self-bias, the divider gives:",["a more stable Q-point","a less stable Q-point","no difference","no Q-point"],0,"Less sensitive to device spread."],
+["VS =",["ID·RS","VG","0","VDD"],0,"Source resistor drop."],
+["VDS =",["VDD − ID(RD + RS)","VDD − IDRD","VG − VS","VDD"],0,"Loop KVL."],
+["R1 and R2 are usually large to keep:",["input impedance high","gain low","IG high","VP high"],0,"Typically MΩ."]]},
+{t:"Common-gate configuration & special case VGSQ = 0 (7.5–7.6)",q:[
+["In the common-gate (CG) configuration, the input is applied at the:",["source","gate","drain","substrate"],0,"The gate is grounded for ac."],
+["The CG output is taken at the:",["drain","source","gate","VDD"],0,"Like the BJT CB."],
+["CG input impedance is:",["low (≈ 1/gm)","very high","infinite","MΩ"],0,"The source is the input terminal."],
+["Special case VGSQ = 0: ID =",["IDSS","0","IDSS/4","VP"],0,"The Q-point is on the vertical axis."],
+["With VGSQ = 0: VDS =",["VDD − IDSS·RD","VDD","0","IDSS·RS"],0,"RS = 0 or the gate-source drop is zero."],
+["ID = IDSS holds only if:",["VDS ≥ |VP| (pinch-off region)","VDS = 0","VDD = 0","ID < 0"],0,"Otherwise the device is in the ohmic region."],
+["Shockley’s equation is still used in CG:",["yes, for finding ID","no","only at cutoff","only at IDSS"],0,"The bias analysis is the same."],
+["In bias analysis, IG for a FET is:",["≈ 0","= ID","= IS","large"],0,"Gate leakage only."],
+["CG is mainly useful at:",["high frequencies","dc only","audio only","power rectification"],0,"Good isolation, low input C."],
+["In VGSQ = 0 case, the gate and source are at:",["the same dc potential","opposite polarity","VDD","−VDD"],0,"By definition."]]},
+{t:"Depletion-type MOSFET bias (7.7)",q:[
+["The self-bias analysis for a D-MOSFET is:",["the same as for a JFET","entirely different","not possible","for BJTs"],0,"Same Shockley equation."],
+["A D-MOSFET can be biased with VGS:",["positive, zero or negative","negative only","zero only","positive only"],0,"Unlike the JFET."],
+["The simplest D-MOSFET bias (VGS = 0) gives ID =",["IDSS","0","IDSS/4","VP"],0,"Direct bias."],
+["In voltage-divider bias, the Q-point can have:",["VGS > 0","VGS = VP always","ID = 0 always","IG = ID"],0,"If the bias line crosses above the axis."],
+["The bias line meets the VGS axis at VG, which can be:",["positive","only negative","only zero","undefined"],0,"For a D-MOSFET, that’s allowed."],
+["For positive VGS, ID is:",["greater than IDSS","less than IDSS","zero","equal to IDSS"],0,"Enhancement mode."],
+["VDS =",["VDD − ID(RD + RS)","VDD","ID·RD","VGS"],0,"Loop KVL."],
+["IG =",["0 (insulated gate)","ID","IS","large"],0,"The gate is insulated."],
+["The graphical method uses the:",["transfer curve and the bias line","load line only","Q-point only","h-parameters"],0,"Same as for JFETs."],
+["IDSS = 6 mA, VP = −3 V, VGS = +1 V: ID ≈",["10.7 mA","6 mA","8 mA","2 mA"],0,"6 × (1 + 1/3)²."]]},
+{t:"Enhancement-type MOSFET bias (7.8)",q:[
+["In drain-feedback bias, VGS =",["VDS","VDD","0","ID·RS"],0,"IG = 0, so VDG = 0."],
+["Drain feedback: VDS =",["VDD − ID·RD","VDD","VDD + ID·RD","0"],0,"KVL, and VGS = VDS."],
+["Because VDS = VGS > VT, the MOSFET is in:",["saturation","the ohmic region","cutoff","breakdown"],0,"VDS > VGS − VT."],
+["Voltage-divider: VGS =",["VG − ID·RS","VG","−ID·RS","VDD"],0,"VG = VDD·R2/(R1 + R2)."],
+["Drain current:",["ID = k(VGS − VT)²","ID = IDSS(1 − VGS/VP)²","ID = VGS/RD","ID = kVGS"],0,"Square law."],
+["k =",["ID(on)/(VGS(on) − VT)²","ID(on)·VT","VT/ID","IDSS/VP"],0,"From a data point."],
+["For the device to conduct, VGS must be:",["greater than VT","less than VT","zero","negative"],0,"n-channel."],
+["k from ID(on) = 6 mA, VGS(on) = 8 V, VT = 3 V:",["0.24 mA/V²","0.75 mA/V²","2 mA/V²","1.2 mA/V²"],0,"6/25."],
+["VG in divider bias =",["VDD·R2/(R1 + R2)","VDD","VDD·R1/R2","0"],0,"IG = 0."],
+["The Q-point is found by:",["intersecting the bias line with the transfer curve","using VP","IDSS","β"],0,"Or solving the quadratic."]]},
+{t:"Combination networks, design & troubleshooting (7.10–7.12)",q:[
+["For a combination network, start with:",["KVL on the gate-source loop (IG = 0)","the output loop only","β","VP"],0,"Gives VGS in terms of ID."],
+["A common design target is ID about:",["IDSS/2","IDSS·2","0","VP"],0,"Mid-range bias."],
+["RS =",["|VGS|/ID","VDD/ID","VP/IDSS","VDS/ID"],0,"From the bias point."],
+["RD =",["(VDD − VDS − ID·RS)/ID","VDD/ID","VDS/ID","VDD·ID"],0,"Loop KVL."],
+["Design VDS is often chosen near:",["VDD/2","VDD","0","VP"],0,"Room for symmetric swing."],
+["VDS ≈ VDD suggests:",["ID ≈ 0 (device off or open)","saturation","normal bias","a short"],0,"No drop across RD."],
+["VDS ≈ 0 suggests:",["a short or a very large ID","cutoff","normal","open gate"],0,"Check RD and the device."],
+["Troubleshooting begins with:",["measuring the dc voltages","replacing the device","scoping the output","adding feedback"],0,"Compare with calculated values."],
+["A significant gate current indicates:",["a damaged gate","normal operation","saturation","cutoff"],0,"IG should be ≈ 0."],
+["Standard resistor values:",["cause small deviations from the design Q","have no effect","change β","are exact"],0,"Re-check the Q-point."]]},
+{t:"p-channel FETs & universal JFET bias curve (7.13–7.14)",q:[
+["For p-channel devices, compared with n-channel:",["polarities and current directions are reversed","equations are different","VP = 0","IDSS = 0"],0,"Same equations, mirrored signs."],
+["A p-channel JFET has VP:",["positive","negative","zero","infinite"],0,"VGS ≥ 0 in operation."],
+["In p-channel self-bias, VGS =",["+ID·RS","−ID·RS","−VDD","0"],0,"The source is above the gate."],
+["p-channel drain current direction:",["from source toward drain","from drain to source","none","random"],0,"Opposite to the n-channel case."],
+["Shockley’s equation for p-channel:",["has the same form","doesn’t apply","uses ln","is linear"],0,"ID = IDSS(1 − VGS/VP)²."],
+["The universal JFET bias curve plots:",["ID/IDSS vs VGS/VP","ID vs VDS","gm vs ID","IG vs VGS"],0,"A normalised curve."],
+["It avoids the need to:",["sketch each device’s transfer curve","know VDD","know RS","know RD"],0,"A general-purpose solution."],
+["The normalised bias parameter m =",["|VP/(IDSS·RS)|","VP·IDSS·RS","IDSS/VP","RS/RD"],0,"Determines the slope of the bias line."],
+["The universal curve uses:",["normalised axes so it fits any JFET","a single device only","BJT data","ac parameters"],0,"A one-chart method."],
+["p-channel bias: VDD polarity is:",["negative (or reversed)","positive","zero","ac"],0,"Reversed supply."]]}
+],
+notes:[
+{h:"Golden rules of FET biasing",b:"<ul><li>I<sub>G</sub> = 0 ⇒ no voltage drop across R<sub>G</sub>; I<sub>D</sub> = I<sub>S</sub>.</li><li>Gate-source loop gives V<sub>GS</sub>; solve with Shockley (JFET/D-MOSFET) or I<sub>D</sub> = k(V<sub>GS</sub> − V<sub>T</sub>)² (E-MOSFET). The drain loop gives V<sub>DS</sub>.</li></ul>"},
+{h:"Bias equations",b:"<div class='eq'>Fixed: V<sub>GS</sub> = −V<sub>GG</sub>, V<sub>DS</sub> = V<sub>DD</sub> − I<sub>D</sub>R<sub>D</sub><br>Self: V<sub>GS</sub> = −I<sub>D</sub>R<sub>S</sub>, V<sub>DS</sub> = V<sub>DD</sub> − I<sub>D</sub>(R<sub>D</sub>+R<sub>S</sub>)<br>Divider: V<sub>G</sub> = V<sub>DD</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>), V<sub>GS</sub> = V<sub>G</sub> − I<sub>D</sub>R<sub>S</sub><br>E-MOSFET drain-feedback: V<sub>GS</sub> = V<sub>DS</sub> = V<sub>DD</sub> − I<sub>D</sub>R<sub>D</sub></div>"},
+{h:"Graphical method",b:"<ul><li>Plot the transfer curve. Fixed: vertical line at −V<sub>GG</sub>. Self: line through the origin with slope −1/R<sub>S</sub>. Divider: line from (V<sub>G</sub>, 0) to (0, V<sub>G</sub>/R<sub>S</sub>).</li><li>Q-point = intersection.</li></ul>"},
+{h:"Design, troubleshooting, p-channel",b:"<ul><li>Design: pick I<sub>D</sub> ≈ I<sub>DSS</sub>/2, R<sub>S</sub> = |V<sub>GS</sub>|/I<sub>D</sub>, V<sub>DS</sub> ≈ V<sub>DD</sub>/2.</li><li>V<sub>DS</sub> ≈ V<sub>DD</sub> → I<sub>D</sub> ≈ 0; V<sub>DS</sub> ≈ 0 → short or large I<sub>D</sub>.</li><li>p-channel: reverse polarities and current direction; same equations.</li></ul>"}],
+deriv:[{h:"Self-bias line",b:"<p>Gate at 0 V (I<sub>G</sub> = 0) and source at V<sub>S</sub> = I<sub>D</sub>R<sub>S</sub>.</p><div class='eq'>V<sub>GS</sub> = V<sub>G</sub> − V<sub>S</sub> = −I<sub>D</sub>R<sub>S</sub> ⇒ I<sub>D</sub> = −V<sub>GS</sub>/R<sub>S</sub></div><p>A straight line through the origin. Its intersection with the transfer curve is the Q-point.</p>"},
+{h:"E-MOSFET constant k",b:"<p>From I<sub>D</sub> = k(V<sub>GS</sub> − V<sub>T</sub>)² at a known point (V<sub>GS(on)</sub>, I<sub>D(on)</sub>):</p><div class='eq'>k = I<sub>D(on)</sub>/(V<sub>GS(on)</sub> − V<sub>T</sub>)²</div>"}]});
+// ===== CH9 + CH10 =====
+CH.push({n:9,title:"BJT & JFET Frequency Response",topics:[
+{t:"Logarithms & decibels (9.2–9.3)",q:[
+["log₁₀ 100 =",["2","10","100","0.01"],0,"10² = 100."],
+["log₁₀(1/b) =",["−log₁₀ b","log₁₀ b","1/log₁₀ b","0"],0,"Reciprocal rule."],
+["ln a ≈",["2.3 log₁₀ a","0.43 log₁₀ a","log₁₀ a","10 log₁₀ a"],0,"Change of base."],
+["Power gain of 100 is:",["20 dB","10 dB","40 dB","100 dB"],0,"10 log 100."],
+["Voltage gain of 100 is:",["40 dB","20 dB","10 dB","100 dB"],0,"20 log 100."],
+["Doubling the power adds about:",["3 dB","6 dB","10 dB","20 dB"],0,"10 log 2 = 3.01."],
+["Doubling the voltage adds about:",["6 dB","3 dB","12 dB","20 dB"],0,"20 log 2 = 6.02."],
+["Stages of 20 dB and 30 dB cascaded give:",["50 dB","600 dB","10 dB","25 dB"],0,"dB values add."],
+["0 dB corresponds to a gain ratio of:",["1 (unity)","0","10","∞"],0,"log 1 = 0."],
+["0 dBm is referenced to:",["1 mW","1 W","1 V","1 μW"],0,"Power reference level."]]},
+{t:"General frequency considerations & normalization (9.4–9.5)",q:[
+["In the midband, coupling and bypass capacitors act as:",["short circuits","open circuits","resistors","inductors"],0,"Reactance is negligible."],
+["Low-frequency gain falls due to:",["coupling and bypass capacitors","stray capacitances","transistor β","VCC"],0,"Their reactance grows."],
+["High-frequency gain falls due to:",["stray and internal device capacitances","coupling capacitors","RE","dc supply"],0,"Their reactance shrinks, shunting the signal."],
+["Half-power frequencies are where gain =",["0.707 of midband","0.5 of midband","0.1 of midband","midband"],0,"−3 dB."],
+["Bandwidth =",["f2 − f1","f2 + f1","f2/f1","f1 − f2"],0,"Between the half-power frequencies."],
+["The −3 dB point equals:",["half power","half voltage","double power","zero power"],0,"P = P_mid/2."],
+["Normalizing means dividing the gain by:",["the midband gain","the supply","β","fL"],0,"Av/Av(mid), which is 1 in the midband."],
+["At f = f₁, |Av/Av(mid)| =",["1/√2","1/2","1","0"],0,"0.707."],
+["An RC roll-off is:",["−20 dB/decade (−6 dB/octave)","−40 dB/decade","−3 dB/decade","0"],0,"A single-pole slope."],
+["Raising the gain of a stage typically:",["narrows the bandwidth","widens the bandwidth","doesn’t change it","removes poles"],0,"A gain–bandwidth trade-off."]]},
+{t:"Low-frequency analysis — Bode plot (9.6)",q:[
+["RC high-pass cutoff: f₁ =",["1/(2πRC)","2πRC","RC/2π","1/RC"],0,"At XC = R."],
+["Av/Av(mid) =",["1/(1 − j f₁/f)","1/(1 + j f₁/f)","1 − j f/f₁","f₁/f"],0,"High-pass response."],
+["At f = f₁ the phase is:",["+45°","−45°","90°","0°"],0,"Phase lead."],
+["Below f₁ the asymptote slope is:",["+20 dB/decade","−20 dB/decade","0","+40 dB/decade"],0,"Gain rises with f."],
+["A Bode plot uses:",["straight-line asymptotes","exact curves only","random points","tables"],0,"A quick approximation."],
+["The maximum error at f₁ between actual and asymptote is:",["3 dB","6 dB","0 dB","10 dB"],0,"Actual −3 dB vs 0 dB."],
+["R = 1 kΩ, C = 1 μF: f₁ ≈",["159 Hz","1 kHz","16 Hz","1.6 kHz"],0,"1/(2π·10⁻³)."],
+["At f = f₁/10 the asymptotic gain is:",["−20 dB","−3 dB","−10 dB","0 dB"],0,"One decade below the corner."],
+["An octave is a frequency ratio of:",["2:1","10:1","3:1","1:2 only"],0,"A decade is 10:1."],
+["At f = f₁/2 the asymptotic gain is:",["−6 dB","−3 dB","−12 dB","0 dB"],0,"One octave below."]]},
+{t:"Low-frequency response — BJT amplifier, RL and Rs (9.7–9.8)",q:[
+["Input coupling: fLs =",["1/[2π(Rs + Ri)Cs]","1/[2πRsCs]","1/[2πRiCs]","Cs/2πR"],0,"Series R seen by Cs."],
+["Output coupling: fLc =",["1/[2π(Ro + RL)Cc]","1/[2πRLCc]","1/[2πRoCc]","1/Cc"],0,"R seen by Cc."],
+["Emitter bypass: fLE =",["1/(2πReCE)","1/(2πRECE)","RE/2πCE","1/(2πRCCE)"],0,"Re = RE‖(Rs′/β + re)."],
+["The overall low cutoff is set by:",["the highest fL (dominant)","the lowest fL","the average","fHi"],0,"The nearest to midband."],
+["Ri (voltage divider) =",["R1‖R2‖βre","R1 + R2","βre","RC"],0,"Input resistance."],
+["The emitter bypass capacitor typically gives:",["the highest fL","the lowest fL","fL = 0","no effect"],0,"Re is very small, so fLE is large."],
+["Larger capacitors give:",["a lower fL","a higher fL","no change","a flat phase"],0,"Longer time constants."],
+["Adding source resistance Rs:",["raises Rs + Ri and lowers fLs","raises fLs","kills gain only","removes Cs"],0,"The time constant grows."],
+["At each capacitor’s cutoff the gain drops:",["3 dB","6 dB","20 dB","0 dB"],0,"One pole."],
+["To extend low-frequency response:",["increase coupling/bypass capacitance","decrease it","remove them","raise Rs"],0,"Lowers every fL."]]},
+{t:"Low-frequency FET response & Miller effect (9.9–9.10)",q:[
+["FET input coupling: fLG =",["1/[2π(Rsig + Ri)CG]","1/[2πRsigCG]","1/[2πRDCG]","CG/2πRi"],0,"Ri = RG."],
+["FET output coupling: fLC =",["1/[2π(Ro + RL)CC]","1/[2πRLCC]","1/[2πRG·CC]","CC/R"],0,"Ro = RD‖rd."],
+["FET source bypass: fLS =",["1/(2πReqCS), Req ≈ RS‖1/gm","1/(2πRSCS)","1/(2πRDCS)","gm/2πCS"],0,"The effective source resistance."],
+["fLG is usually very low because:",["RG is very large","RG is tiny","gm is large","CG is tiny"],0,"The FET input resistance is huge."],
+["Miller input capacitance: CMi =",["(1 − Av)Cf","(1 + Av)Cf","Cf/Av","Cf·Av"],0,"Av is negative for an inverting stage."],
+["Miller output capacitance: CMo ≈",["Cf (for large |Av|)","Av·Cf","0","Cf/Av"],0,"(1 − 1/Av)Cf."],
+["Av = −100, Cf = 5 pF: CMi =",["505 pF","500 pF","5 pF","95 pF"],0,"(1 + 100) × 5."],
+["The Miller effect ______ the effective input capacitance.",["increases","decreases","doesn’t change","zeros"],0,"For inverting stages."],
+["The Miller effect mainly reduces:",["high-frequency response","low-frequency response","dc gain","β"],0,"It lowers fHi."],
+["Miller capacitance arises from a:",["capacitor bridging input and output","capacitor to ground only","coil","resistor"],0,"Feedback capacitance."]]},
+{t:"High-frequency response — BJT & FET (9.11–9.12)",q:[
+["BJT input side: fHi =",["1/(2πRThiCi)","1/(2πRCCi)","RThi/2πCi","Ci/2πR"],0,"With Ci = CWi + Cbe + CMi."],
+["BJT output side: fHo =",["1/(2πRThoCo)","1/(2πRLCo)","1/(2πRECo)","Co/2π"],0,"Co = CWo + Cce + CMo."],
+["Internal BJT capacitances are:",["Cbe, Cbc, Cce","Cs, Cc, CE","L1, L2","none"],0,"Plus the wiring capacitances."],
+["fβ is where β falls to:",["0.707 β₀","0.5 β₀","β₀","0.1 β₀"],0,"The −3 dB point of β."],
+["fT is the frequency where β =",["1 (unity)","β₀","0.707","10"],0,"fT ≈ β₀·fβ."],
+["fβ =",["1/[2πβre(Cπ + Cμ)]","1/(2πreCπ)","βre/2πC","β/2π"],0,"Hybrid-π result."],
+["FET input capacitance Ci =",["CWi + Cgs + CMi","Cgd only","CWo + Cds","Cgs only"],0,"CMi = (1 − Av)Cgd."],
+["FET output capacitance Co =",["CWo + Cds + CMo","CWi + Cgs","Cgd only","Cgs"],0,"Same form as the BJT."],
+["The overall fH is set by:",["the lower of fHi and fHo","the higher","their sum","their product"],0,"The dominant pole."],
+["A larger Rs ______ fHi.",["lowers","raises","doesn’t change","doubles"],0,"A larger Rs raises RThi, so fHi falls."]]},
+{t:"Multistage frequency effects & square-wave testing (9.13–9.14)",q:[
+["For n identical stages: f₂′ =",["f₂·√(2^(1/n) − 1)","f₂/n","n·f₂","f₂"],0,"The overall bandwidth shrinks."],
+["For n identical stages: f₁′ =",["f₁/√(2^(1/n) − 1)","n·f₁","f₁/n","f₁"],0,"The low cutoff rises."],
+["Two identical stages: f₂′ ≈",["0.64 f₂","0.5 f₂","0.9 f₂","f₂"],0,"√(√2 − 1) = 0.644."],
+["Cascaded gains:",["multiply (add in dB)","add","subtract","average"],0,"AvT = Av1 × Av2."],
+["A square-wave test shows the high-frequency response through the:",["rise time","tilt","amplitude","duty cycle"],0,"Slow edges mean poor fH."],
+["Tilt (sag) of the flat top indicates the:",["low-frequency response","high-frequency response","β","power"],0,"Capacitor droop."],
+["BW ≈",["0.35/tr","tr/0.35","0.7/tr","1/tr"],0,"The rise-time relation."],
+["Rise time tr is measured from:",["10% to 90% of the final value","0 to 100%","50% to 100%","0 to 50%"],0,"By definition."],
+["Tilt P = (V − V′)/V and fL ≈",["P·fs/π","P·fs","π·fs/P","fs/P"],0,"fs is the square-wave frequency."],
+["A square wave of perfect fidelity requires:",["a wide bandwidth (low fL, high fH)","a narrow bandwidth","only one frequency","only dc"],0,"It contains many harmonics."]]}
+],
+notes:[
+{h:"Decibels & logs",b:"<div class='eq'>G<sub>dB</sub> = 10 log<sub>10</sub>(P<sub>2</sub>/P<sub>1</sub>) = 20 log<sub>10</sub>(V<sub>2</sub>/V<sub>1</sub>) (equal impedances)</div><ul><li>×2 power = +3 dB; ×2 voltage = +6 dB; ×10 voltage = +20 dB; cascaded gains add in dB.</li><li>Half-power point = −3 dB = 0.707 A<sub>v(mid)</sub>. BW = f<sub>2</sub> − f<sub>1</sub>.</li></ul>"},
+{h:"Low-frequency cutoffs",b:"<div class='eq'>f<sub>Ls</sub> = 1/[2π(R<sub>s</sub>+R<sub>i</sub>)C<sub>s</sub>] · f<sub>Lc</sub> = 1/[2π(R<sub>o</sub>+R<sub>L</sub>)C<sub>C</sub>] · f<sub>LE</sub> = 1/(2πR<sub>e</sub>C<sub>E</sub>)</div><p>R<sub>e</sub> = R<sub>E</sub>‖(R<sub>s</sub>′/β + r<sub>e</sub>). The highest f<sub>L</sub> dominates. A single RC gives ±20 dB/decade slopes with ±45° phase at the corner.</p>"},
+{h:"High-frequency cutoffs & Miller",b:"<div class='eq'>f<sub>Hi</sub> = 1/(2πR<sub>Thi</sub>C<sub>i</sub>), C<sub>i</sub> = C<sub>Wi</sub> + C<sub>be</sub> + (1−A<sub>v</sub>)C<sub>bc</sub><br>f<sub>Ho</sub> = 1/(2πR<sub>Tho</sub>C<sub>o</sub>), C<sub>o</sub> = C<sub>Wo</sub> + C<sub>ce</sub> + C<sub>Mo</sub></div><p>f<sub>β</sub>: β falls to 0.707β<sub>0</sub>; f<sub>T</sub> ≈ β<sub>0</sub>f<sub>β</sub>. The lower of f<sub>Hi</sub>, f<sub>Ho</sub> dominates.</p>"},
+{h:"Multistage & square-wave testing",b:"<ul><li>n identical stages: f<sub>2</sub>′ = f<sub>2</sub>√(2<sup>1/n</sup>−1), f<sub>1</sub>′ = f<sub>1</sub>/√(2<sup>1/n</sup>−1). Bandwidth shrinks.</li><li>BW ≈ 0.35/t<sub>r</sub>; low-frequency: f<sub>L</sub> ≈ P f<sub>s</sub>/π (P = tilt as a decimal).</li></ul>"}]});
+CH.push({n:10,title:"Operational Amplifiers",topics:[
+{t:"Differential amplifier circuit (10.2–10.3)",q:[
+["A differential amplifier amplifies:",["the difference of its two inputs","their sum","only dc","only one input"],0,"Vo = Ad·Vd."],
+["A constant-current source in the emitter circuit:",["raises CMRR","lowers CMRR","removes gain","adds offset"],0,"It gives high common-mode rejection."],
+["Ad is the:",["differential-mode gain","common-mode gain","dc gain","open-loop gain only"],0,"For opposite-phase inputs."],
+["Ac should be:",["very small","very large","1","negative"],0,"Common-mode gain should be near zero."],
+["Single-ended output: Ad ≈",["RC/(2re)","RC/re","2RC/re","re/RC"],0,"Half of the double-ended gain."],
+["Double-ended output: Ad ≈",["RC/re","RC/(2re)","re/RC","2re/RC"],0,"Output across both collectors."],
+["Each-transistor dc current: IE ≈",["(VEE − VBE)/(2RE)","VEE/RE","VBE/RE","VEE/(4RE)"],0,"The two emitter currents share RE."],
+["Differential input impedance: Zi =",["2βre","βre","re","RC"],0,"Two base–emitter paths in series."],
+["Output impedance: Zo ≈",["RC","re","βre","2RC"],0,"Seen at each collector."],
+["BiFET/BiMOS inputs give an op amp:",["very high input impedance","low input impedance","lower gain","a lower supply"],0,"FET input pair."]]},
+{t:"Op-amp basics (10.4)",q:[
+["An ideal op amp has:",["infinite Zi, zero Zo, infinite gain","zero Zi, infinite Zo","unity gain","β = 100"],0,"Defining ideals."],
+["Virtual ground appears at the inverting input when:",["the non-inverting input is grounded","both are open","Rf = 0","the output is open"],0,"V⁻ ≈ V⁺ = 0."],
+["Inverting amp: Av =",["−Rf/R1","1 + Rf/R1","Rf/R1","−R1/Rf"],0,"Standard result."],
+["Non-inverting amp: Av =",["1 + Rf/R1","−Rf/R1","Rf/R1","R1/Rf"],0,"Standard result."],
+["Voltage follower (unity buffer): Av =",["1","0","−1","∞"],0,"Rf = 0 and R1 = ∞."],
+["Typical op-amp stages are:",["differential input, gain stage, output buffer","only one stage","a rectifier chain","a filter bank"],0,"Internal structure."],
+["Vo =",["Ad(V⁺ − V⁻)","Ad(V⁺ + V⁻)","V⁺/V⁻","V⁺·V⁻"],0,"Open-loop."],
+["V⁺ ≈ V⁻ because:",["Ad is very large","Ad is zero","Rf is zero","Vo is large"],0,"A tiny Vd gives a finite Vo."],
+["An ideal op amp draws ______ input current.",["zero","infinite","1 A","1 mA"],0,"Infinite input impedance."],
+["Open-loop gain of a typical op amp is about:",["10⁵","10","1","10⁻³"],0,"Very large."]]},
+{t:"Practical op-amp circuits (10.5)",q:[
+["Inverting amp: Rf = 100 kΩ, R1 = 10 kΩ: Av =",["−10","10","−11","−0.1"],0,"−Rf/R1."],
+["Non-inverting: Rf = 90 kΩ, R1 = 10 kΩ: Av =",["10","9","−9","11"],0,"1 + 9."],
+["Summing amp: Vo =",["−(Rf/R1·V1 + Rf/R2·V2)","(V1 + V2)","Rf(V1 + V2)","−V1V2"],0,"Weighted inverting sum."],
+["Integrator: Vo =",["−(1/RC)∫Vi dt","−RC·dVi/dt","−Vi/RC","RC·Vi"],0,"A capacitor in the feedback."],
+["Differentiator: Vo =",["−RC·dVi/dt","−(1/RC)∫Vi dt","Vi/RC","RC·Vi"],0,"A capacitor at the input."],
+["Inverting amp input impedance ≈",["R1","very high","0","Rf"],0,"Virtual ground at the input."],
+["Non-inverting amp input impedance is:",["very high","R1","0","Rf"],0,"At the + input."],
+["The inverting output is:",["180° out of phase","in phase","90° shifted","unchanged"],0,"The minus sign."],
+["Vi = 0.5 V, Av = −10: Vo =",["−5 V","5 V","−0.5 V","−10 V"],0,"Product."],
+["A unity-gain follower is used as a:",["buffer","oscillator","rectifier","amplifier of 10"],0,"High Zi, low Zo."]]},
+{t:"DC offset parameters (10.6)",q:[
+["Input offset voltage VIO is the voltage needed to:",["bring Vo to 0 V with Vi = 0","double the gain","zero Zi","bias the supply"],0,"A specification of mismatch."],
+["Input offset current IIO =",["|I₁ − I₂|","I₁ + I₂","(I₁ + I₂)/2","I₁·I₂"],0,"Difference of the two bias currents."],
+["Input bias current IIB =",["(I₁ + I₂)/2","|I₁ − I₂|","I₁·I₂","0"],0,"The average."],
+["Offsets come from:",["mismatch in the input stage","the load","the supply ripple only","the gain setting"],0,"Imperfect matching."],
+["Output offset due to VIO ≈",["VIO(1 + Rf/R1)","VIO·Rf","VIO/R1","VIO"],0,"Amplified by the noise gain."],
+["Offset can be nulled using:",["an offset null potentiometer","a bigger Rf","a Zener","bias current"],0,"Pins on the package."],
+["Bias-current compensation uses Rcomp =",["R1‖Rf","R1 + Rf","Rf","0"],0,"Equalises the dc resistances at both inputs."],
+["Typical VIO is in the:",["mV range","kV range","nV range","V range"],0,"A few mV."],
+["Offset errors are ______ by the closed-loop gain.",["amplified","attenuated","ignored","phased"],0,"They appear at the output."],
+["Compared with IIB, IIO is generally:",["smaller","larger","equal","infinite"],0,"A difference of nearly equal currents."]]},
+{t:"Frequency parameters & unit specifications (10.7–10.8)",q:[
+["Gain–bandwidth product is approximately:",["constant","zero","proportional to gain","random"],0,"Closed-loop BW = GBW/Acl."],
+["Unity-gain bandwidth f₁ is where:",["open-loop gain = 1","gain = 100","gain = 0.5","gain = ∞"],0,"A key frequency spec."],
+["Slew rate SR =",["ΔVo/Δt (V/μs)","Vo·t","Vo/R","Δf/Δt"],0,"Maximum rate of output change."],
+["The 741’s slew rate is about:",["0.5 V/μs","50 V/μs","5000 V/μs","0.5 mV/μs"],0,"A classic value."],
+["Maximum undistorted frequency: f =",["SR/(2πVp)","2πVp/SR","SR·Vp","Vp/SR"],0,"For a sine of peak Vp."],
+["Closed-loop bandwidth =",["GBW/Acl","GBW·Acl","Acl/GBW","GBW"],0,"Higher gain gives lower BW."],
+["Slew-rate-limited output looks:",["triangular instead of sinusoidal","larger","dc","noisy only"],0,"The output can’t keep up."],
+["Open-loop gain of a 741 is about:",["200,000","20","2,000,000,000","1"],0,"AVD ≈ 2×10⁵."],
+["Typical supply for a 741:",["±15 V dual","+3 V only","±100 V","0 V"],0,"Common practice."],
+["A typical CMRR for a 741 is about:",["90 dB","10 dB","0 dB","300 dB"],0,"Large rejection."]]},
+{t:"Differential & common-mode operation, CMRR (10.9)",q:[
+["Differential input Vd =",["V₁ − V₂","V₁ + V₂","(V₁ + V₂)/2","V₁V₂"],0,"The difference."],
+["Common-mode input Vc =",["(V₁ + V₂)/2","V₁ − V₂","V₁/V₂","V₁ + V₂"],0,"The average."],
+["Vo =",["Ad·Vd + Ac·Vc","Ad·Vc + Ac·Vd","Ad + Ac","Ad·Ac"],0,"Superposition."],
+["CMRR =",["Ad/Ac","Ac/Ad","Ad·Ac","Ad − Ac"],0,"Higher is better."],
+["CMRR in dB =",["20 log₁₀(Ad/Ac)","10 log₁₀(Ad/Ac)","log₁₀(Ad·Ac)","Ad/Ac"],0,"Voltage ratio."],
+["Ad = 1000, Ac = 0.1: CMRR =",["80 dB","40 dB","60 dB","100 dB"],0,"10,000 = 80 dB."],
+["Ideal CMRR is:",["infinite","0","1","100"],0,"Ac = 0."],
+["Common-mode rejection removes:",["noise common to both inputs","the signal","dc supply","the output"],0,"Like hum picked up on both leads."],
+["V₁ = 5.01 V, V₂ = 4.99 V: Vd, Vc =",["20 mV, 5 V","10 mV, 5.01 V","5 V, 20 mV","0, 0"],0,"Difference and average."],
+["A high-resistance emitter current source ______ Ac.",["lowers","raises","doubles","reverses"],0,"It limits the common-mode current."]]}
+],
+notes:[
+{h:"Ideal op amp & basic circuits",b:"<ul><li>Ideal: Z<sub>i</sub> = ∞, Z<sub>o</sub> = 0, A = ∞, I<sub>in</sub> = 0, V⁺ = V⁻.</li></ul><div class='eq'>Inverting: A<sub>v</sub> = −R<sub>f</sub>/R<sub>1</sub> · Non-inverting: A<sub>v</sub> = 1 + R<sub>f</sub>/R<sub>1</sub> · Follower: A<sub>v</sub> = 1<br>Summer: V<sub>o</sub> = −(R<sub>f</sub>/R<sub>1</sub>V<sub>1</sub> + R<sub>f</sub>/R<sub>2</sub>V<sub>2</sub>) · Integrator: V<sub>o</sub> = −(1/RC)∫V<sub>i</sub>dt · Differentiator: V<sub>o</sub> = −RC dV<sub>i</sub>/dt</div>"},
+{h:"Differential amplifier",b:"<div class='eq'>I<sub>E</sub> ≈ (V<sub>EE</sub>−V<sub>BE</sub>)/(2R<sub>E</sub>), A<sub>d</sub> = R<sub>C</sub>/r<sub>e</sub> (double-ended) or R<sub>C</sub>/2r<sub>e</sub> (single-ended), Z<sub>i</sub> = 2βr<sub>e</sub></div><p>A current source in the emitter makes A<sub>c</sub> tiny and the CMRR large.</p>"},
+{h:"Offsets & specs",b:"<ul><li>V<sub>IO</sub>, I<sub>IO</sub> = |I<sub>1</sub>−I<sub>2</sub>|, I<sub>IB</sub> = (I<sub>1</sub>+I<sub>2</sub>)/2. R<sub>comp</sub> = R<sub>1</sub>‖R<sub>f</sub>.</li><li>Output offset ≈ V<sub>IO</sub>(1 + R<sub>f</sub>/R<sub>1</sub>) + I<sub>IO</sub> R<sub>f</sub> terms.</li><li>GBW constant; SR in V/μs; f<sub>max</sub> = SR/(2πV<sub>p</sub>). 741: SR ≈ 0.5 V/μs, A<sub>OL</sub> ≈ 2×10⁵.</li></ul>"},
+{h:"Common-mode operation",b:"<div class='eq'>V<sub>d</sub> = V<sub>1</sub>−V<sub>2</sub>, V<sub>c</sub> = (V<sub>1</sub>+V<sub>2</sub>)/2, V<sub>o</sub> = A<sub>d</sub>V<sub>d</sub> + A<sub>c</sub>V<sub>c</sub><br>CMRR = A<sub>d</sub>/A<sub>c</sub>; CMRR(dB) = 20 log<sub>10</sub>(A<sub>d</sub>/A<sub>c</sub>)</div>"}]});
+// ===== FULL-LENGTH DERIVATIONS =====
+const E=s=>"<div class='eq'>"+s+"</div>";
+CH[0].deriv=[
+{h:"Dynamic resistance r<sub>d</sub> = 26 mV / I<sub>D</sub>",b:"<p><b>Aim:</b> find the ac resistance at a forward-biased Q-point.</p><p><b>1. Start from Shockley (n = 1):</b></p>"+E("I<sub>D</sub> = I<sub>s</sub>(e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1), V<sub>T</sub> = kT/q")+"<p><b>2. Thermal voltage at 300 K:</b></p>"+E("V<sub>T</sub> = (1.38×10⁻²³ J/K)(300 K)/(1.6×10⁻¹⁹ C) ≈ 25.9 mV ≈ 26 mV")+"<p><b>3. Differentiate with respect to V<sub>D</sub>:</b></p>"+E("dI<sub>D</sub>/dV<sub>D</sub> = (I<sub>s</sub>/V<sub>T</sub>) e<sup>V<sub>D</sub>/V<sub>T</sub></sup>")+"<p><b>4. Use the forward-bias approximation.</b> For V<sub>D</sub> ≫ V<sub>T</sub>, I<sub>s</sub>e<sup>V<sub>D</sub>/V<sub>T</sub></sup> ≈ I<sub>D</sub> + I<sub>s</sub> ≈ I<sub>D</sub>:</p>"+E("dI<sub>D</sub>/dV<sub>D</sub> ≈ I<sub>D</sub>/V<sub>T</sub>")+"<p><b>5. Invert (r<sub>d</sub> = ΔV/ΔI):</b></p>"+E("r<sub>d</sub> = V<sub>T</sub>/I<sub>D</sub> = 26 mV / I<sub>D</sub>")+"<p><b>Check:</b> I<sub>D</sub> = 2 mA → r<sub>d</sub> = 13 Ω; 26 mV/I<sub>D</sub> ignores the small bulk resistance r<sub>B</sub> (add 0.1–2 Ω).</p>"},
+{h:"Forward voltage from current, and the doubling rule for I<sub>s</sub>",b:"<p><b>A. Diode voltage for a given current.</b> Rearranging Shockley for I<sub>D</sub> ≫ I<sub>s</sub>:</p>"+E("I<sub>D</sub> ≈ I<sub>s</sub>e<sup>V<sub>D</sub>/nV<sub>T</sub></sup> ⇒ V<sub>D</sub> = nV<sub>T</sub> ln(I<sub>D</sub>/I<sub>s</sub>)")+"<p>So V<sub>D</sub> grows only logarithmically: ×10 current adds 2.3 nV<sub>T</sub> ≈ 60 mV (n = 1), which is why V<sub>D</sub> ≈ 0.7 V over a wide current range.</p><p><b>B. Temperature rule.</b> I<sub>s</sub> doubles every 10 °C:</p>"+E("I<sub>s</sub>(T<sub>2</sub>) = I<sub>s</sub>(T<sub>1</sub>) · 2<sup>(T<sub>2</sub>−T<sub>1</sub>)/10</sup>")+"<p>Example: 25 °C → 75 °C is 50 °C, so 2⁵ = 32× larger reverse current.</p>"}];
+CH[1].deriv=[
+{h:"Average (dc) values of half-wave and full-wave rectifiers",b:"<p>Input v = V<sub>m</sub> sin θ. The dc value is the average over one period.</p><p><b>1. Half-wave (conducts 0 to π):</b></p>"+E("V<sub>dc</sub> = (1/2π)∫<sub>0</sub><sup>π</sup> V<sub>m</sub> sin θ dθ = (V<sub>m</sub>/2π)[−cos θ]<sub>0</sub><sup>π</sup> = (V<sub>m</sub>/2π)(2) = V<sub>m</sub>/π = 0.318V<sub>m</sub>")+"<p><b>2. Full-wave</b> (both halves rectified, period π):</p>"+E("V<sub>dc</sub> = (1/π)∫<sub>0</sub><sup>π</sup> V<sub>m</sub> sin θ dθ = (V<sub>m</sub>/π)(2) = 2V<sub>m</sub>/π = 0.636V<sub>m</sub>")+"<p><b>3. With silicon diodes:</b> replace V<sub>m</sub> by V<sub>m</sub> − V<sub>K</sub> (half-wave, centre-tap) or V<sub>m</sub> − 2V<sub>K</sub> (bridge).</p><p><b>4. Why PIV differs:</b> in a bridge each off diode sees about V<sub>m</sub>. In a centre-tap circuit the off diode sees the other half-winding (V<sub>m</sub>) plus the conducting half’s output (V<sub>m</sub>), so PIV = 2V<sub>m</sub>.</p>"},
+{h:"Zener shunt regulator conditions (V<sub>i</sub> min, R<sub>L</sub> min)",b:"<p>Series resistor R<sub>s</sub>, Zener V<sub>Z</sub> in parallel with load R<sub>L</sub>.</p><p><b>1. Remove the Zener</b> and find the open-circuit voltage across R<sub>L</sub>:</p>"+E("V<sub>L</sub> = V<sub>i</sub>R<sub>L</sub>/(R<sub>L</sub> + R<sub>s</sub>)")+"<p><b>2. The Zener is ON</b> only if V<sub>L</sub> ≥ V<sub>Z</sub>:</p>"+E("V<sub>iMIN</sub> = V<sub>Z</sub>(R<sub>L</sub> + R<sub>s</sub>)/R<sub>L</sub>")+"<p><b>3. For fixed V<sub>i</sub></b>, set the boundary V<sub>L</sub> = V<sub>Z</sub> with I<sub>Z</sub> = 0, so I<sub>L</sub> = I<sub>R</sub> = (V<sub>i</sub> − V<sub>Z</sub>)/R<sub>s</sub>:</p>"+E("R<sub>LMIN</sub> = V<sub>Z</sub>/I<sub>LMAX</sub> = R<sub>s</sub>V<sub>Z</sub>/(V<sub>i</sub> − V<sub>Z</sub>)")+"<p><b>4. Zener current:</b> I<sub>Z</sub> = I<sub>R</sub> − I<sub>L</sub>, max when R<sub>L</sub> is open (I<sub>L</sub> = 0), where P<sub>Z</sub> = V<sub>Z</sub>I<sub>R</sub> must be ≤ P<sub>ZM</sub>.</p><p><b>Example:</b> V<sub>Z</sub> = 10 V, R<sub>s</sub> = 0.5 kΩ, R<sub>L</sub> = 1 kΩ ⇒ V<sub>iMIN</sub> = 10(1.5)/1 = 15 V.</p>"}];
+CH[2].deriv=[
+{h:"α, β relationships",b:"<p><b>Definitions:</b> α = I<sub>C</sub>/I<sub>E</sub>, β = I<sub>C</sub>/I<sub>B</sub>, and I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub>.</p><p><b>1. β in terms of α.</b> Substitute I<sub>E</sub> = I<sub>C</sub>/α:</p>"+E("I<sub>C</sub>/α = I<sub>C</sub> + I<sub>B</sub> ⇒ I<sub>C</sub>(1/α − 1) = I<sub>B</sub> ⇒ β = I<sub>C</sub>/I<sub>B</sub> = 1/(1/α − 1) = α/(1 − α)")+"<p><b>2. α in terms of β.</b> Divide I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub> by I<sub>B</sub>: I<sub>E</sub>/I<sub>B</sub> = β + 1.</p>"+E("α = I<sub>C</sub>/I<sub>E</sub> = βI<sub>B</sub>/[(β+1)I<sub>B</sub>] = β/(β + 1)")+"<p><b>Checks:</b> α = 0.98 → β = 49; β = 100 → α = 0.990.</p>"},
+{h:"I<sub>C</sub> = βI<sub>B</sub> + (β+1)I<sub>CBO</sub> and I<sub>CEO</sub>",b:"<p>In the CB view the collector current has a leakage part: I<sub>C</sub> = αI<sub>E</sub> + I<sub>CBO</sub>.</p><p><b>1. Put I<sub>E</sub> = I<sub>C</sub> + I<sub>B</sub>:</b></p>"+E("I<sub>C</sub> = α(I<sub>C</sub> + I<sub>B</sub>) + I<sub>CBO</sub>")+"<p><b>2. Collect I<sub>C</sub>:</b></p>"+E("I<sub>C</sub>(1 − α) = αI<sub>B</sub> + I<sub>CBO</sub> ⇒ I<sub>C</sub> = [α/(1−α)]I<sub>B</sub> + I<sub>CBO</sub>/(1−α)")+"<p><b>3. Use β = α/(1−α) and 1/(1−α) = β + 1:</b></p>"+E("I<sub>C</sub> = βI<sub>B</sub> + (β+1)I<sub>CBO</sub>")+"<p><b>4. Cutoff in CE (I<sub>B</sub> = 0):</b></p>"+E("I<sub>CEO</sub> = I<sub>CBO</sub>/(1 − α) = (β+1)I<sub>CBO</sub> ≈ βI<sub>CBO</sub>")+"<p>This is why leakage is amplified in CE and why I<sub>C</sub> is never exactly 0 at I<sub>B</sub> = 0.</p>"}];
+CH[3].deriv=[
+{h:"Emitter bias: I<sub>B</sub>, I<sub>C</sub>, V<sub>CE</sub>",b:"<p><b>1. KVL, base–emitter loop</b> (V<sub>CC</sub> → R<sub>B</sub> → base → emitter → R<sub>E</sub> → ground):</p>"+E("V<sub>CC</sub> − I<sub>B</sub>R<sub>B</sub> − V<sub>BE</sub> − I<sub>E</sub>R<sub>E</sub> = 0")+"<p><b>2. Use I<sub>E</sub> = (β+1)I<sub>B</sub>:</b></p>"+E("I<sub>B</sub>[R<sub>B</sub> + (β+1)R<sub>E</sub>] = V<sub>CC</sub> − V<sub>BE</sub> ⇒ I<sub>B</sub> = (V<sub>CC</sub> − V<sub>BE</sub>)/(R<sub>B</sub> + (β+1)R<sub>E</sub>)")+"<p><b>3. Then</b> I<sub>C</sub> = βI<sub>B</sub>.</p><p><b>4. KVL, collector loop:</b> V<sub>CC</sub> − I<sub>C</sub>R<sub>C</sub> − V<sub>CE</sub> − I<sub>E</sub>R<sub>E</sub> = 0, with I<sub>E</sub> ≈ I<sub>C</sub>:</p>"+E("V<sub>CE</sub> = V<sub>CC</sub> − I<sub>C</sub>(R<sub>C</sub> + R<sub>E</sub>)")+"<p><b>Interpretation:</b> R<sub>E</sub> is “reflected” into the base loop multiplied by (β+1).</p>"},
+{h:"Voltage-divider bias (exact Thevenin method)",b:"<p><b>1. Thevenin of the divider</b> seen from the base:</p>"+E("R<sub>Th</sub> = R<sub>1</sub>‖R<sub>2</sub>, E<sub>Th</sub> = V<sub>CC</sub>R<sub>2</sub>/(R<sub>1</sub> + R<sub>2</sub>)")+"<p><b>2. KVL on the input loop:</b></p>"+E("E<sub>Th</sub> − I<sub>B</sub>R<sub>Th</sub> − V<sub>BE</sub> − I<sub>E</sub>R<sub>E</sub> = 0, I<sub>E</sub> = (β+1)I<sub>B</sub>")+E("I<sub>B</sub> = (E<sub>Th</sub> − V<sub>BE</sub>)/(R<sub>Th</sub> + (β+1)R<sub>E</sub>)")+"<p><b>3. Approximate method.</b> If βR<sub>E</sub> ≥ 10R<sub>2</sub>, the base draws negligible divider current, so V<sub>B</sub> ≈ E<sub>Th</sub>, V<sub>E</sub> = V<sub>B</sub> − V<sub>BE</sub>, I<sub>E</sub> = V<sub>E</sub>/R<sub>E</sub> ≈ I<sub>C</sub> (no β needed).</p>"+E("V<sub>CE</sub> = V<sub>CC</sub> − I<sub>C</sub>(R<sub>C</sub> + R<sub>E</sub>)")},
+{h:"Collector-feedback bias & stability factor of fixed bias",b:"<p><b>A. Collector feedback.</b> The current through R<sub>C</sub> is I′<sub>C</sub> = I<sub>C</sub> + I<sub>B</sub> ≈ I<sub>C</sub>. KVL through R<sub>C</sub>, R<sub>B</sub> and the emitter:</p>"+E("V<sub>CC</sub> − I<sub>C</sub>R<sub>C</sub> − I<sub>B</sub>R<sub>B</sub> − V<sub>BE</sub> − I<sub>E</sub>R<sub>E</sub> = 0")+"<p>Put I<sub>C</sub> ≈ I<sub>E</sub> = βI<sub>B</sub>:</p>"+E("I<sub>B</sub> = (V<sub>CC</sub> − V<sub>BE</sub>)/(R<sub>B</sub> + β(R<sub>C</sub> + R<sub>E</sub>))")+"<p>Stabilising action: if I<sub>C</sub> rises, V<sub>C</sub> falls, so I<sub>B</sub> falls, which pulls I<sub>C</sub> back.</p><p><b>B. Stability factor of fixed bias.</b> From I<sub>C</sub> = βI<sub>B</sub> + (β+1)I<sub>CO</sub> with I<sub>B</sub> = (V<sub>CC</sub>−V<sub>BE</sub>)/R<sub>B</sub> fixed:</p>"+E("S(I<sub>CO</sub>) = ΔI<sub>C</sub>/ΔI<sub>CO</sub> = β + 1")+"<p>A large S means poor stability. The divider with R<sub>Th</sub>/R<sub>E</sub> small gives S → 1.</p>"}];
+CH[4].deriv=[
+{h:"r<sub>e</sub> = 26 mV / I<sub>E</sub> and Z<sub>b</sub> = βr<sub>e</sub>",b:"<p><b>1. Transistor law</b> (active region): I<sub>E</sub> ≈ I<sub>s</sub>e<sup>V<sub>BE</sub>/V<sub>T</sub></sup>.</p><p><b>2. Differentiate:</b> dI<sub>E</sub>/dV<sub>BE</sub> = I<sub>E</sub>/V<sub>T</sub>, so the ac emitter resistance is</p>"+E("r<sub>e</sub> = dV<sub>BE</sub>/dI<sub>E</sub> = V<sub>T</sub>/I<sub>E</sub> = 26 mV/I<sub>E</sub>")+"<p><b>3. Input impedance at the base.</b> The ac input voltage appears across r<sub>e</sub> carrying I<sub>e</sub> = (β+1)I<sub>b</sub>:</p>"+E("V<sub>i</sub> = I<sub>e</sub>r<sub>e</sub> = (β+1)I<sub>b</sub>r<sub>e</sub> ≈ βI<sub>b</sub>r<sub>e</sub> ⇒ Z<sub>b</sub> = V<sub>i</sub>/I<sub>b</sub> ≈ βr<sub>e</sub>")+"<p>Example: I<sub>E</sub> = 2.6 mA → r<sub>e</sub> = 10 Ω; β = 100 → Z<sub>b</sub> = 1 kΩ.</p>"},
+{h:"CE fixed-bias: Z<sub>i</sub>, Z<sub>o</sub>, A<sub>v</sub> = −R<sub>C</sub>/r<sub>e</sub>",b:"<p><b>ac model:</b> capacitors short, V<sub>CC</sub> = ground. R<sub>B</sub> in parallel with βr<sub>e</sub> at the input; current source βI<sub>b</sub> in parallel with r<sub>o</sub> and R<sub>C</sub> at the output.</p><p><b>1. Input:</b> Z<sub>i</sub> = R<sub>B</sub>‖βr<sub>e</sub> ≈ βr<sub>e</sub> if R<sub>B</sub> ≫ βr<sub>e</sub>.</p><p><b>2. Base current:</b> I<sub>b</sub> = V<sub>i</sub>/(βr<sub>e</sub>).</p><p><b>3. Output voltage</b> (current βI<sub>b</sub> flows through R<sub>C</sub>‖r<sub>o</sub>, directed so V<sub>o</sub> is negative):</p>"+E("V<sub>o</sub> = −βI<sub>b</sub>(R<sub>C</sub>‖r<sub>o</sub>) = −β[V<sub>i</sub>/(βr<sub>e</sub>)](R<sub>C</sub>‖r<sub>o</sub>)")+"<p><b>4. Gain:</b></p>"+E("A<sub>v</sub> = V<sub>o</sub>/V<sub>i</sub> = −(R<sub>C</sub>‖r<sub>o</sub>)/r<sub>e</sub> ≈ −R<sub>C</sub>/r<sub>e</sub>")+"<p><b>5. Output impedance:</b> set V<sub>i</sub> = 0 ⇒ I<sub>b</sub> = 0 ⇒ source dead: Z<sub>o</sub> = R<sub>C</sub>‖r<sub>o</sub> ≈ R<sub>C</sub>. The minus sign means a 180° phase shift.</p><p>Example: R<sub>C</sub> = 2.2 kΩ, r<sub>e</sub> = 10 Ω → A<sub>v</sub> ≈ −220.</p>"},
+{h:"Unbypassed R<sub>E</sub>: Z<sub>b</sub> = β(r<sub>e</sub>+R<sub>E</sub>), A<sub>v</sub> = −R<sub>C</sub>/(r<sub>e</sub>+R<sub>E</sub>)",b:"<p><b>1. Input loop:</b> now both r<sub>e</sub> and R<sub>E</sub> carry I<sub>e</sub>:</p>"+E("V<sub>i</sub> ≈ I<sub>e</sub>(r<sub>e</sub> + R<sub>E</sub>) = (β+1)I<sub>b</sub>(r<sub>e</sub> + R<sub>E</sub>)")+E("Z<sub>b</sub> ≈ β(r<sub>e</sub> + R<sub>E</sub>)")+"<p><b>2. Output:</b> V<sub>o</sub> = −βI<sub>b</sub>R<sub>C</sub> with I<sub>b</sub> = V<sub>i</sub>/Z<sub>b</sub>:</p>"+E("A<sub>v</sub> = −βR<sub>C</sub>/[β(r<sub>e</sub>+R<sub>E</sub>)] = −R<sub>C</sub>/(r<sub>e</sub> + R<sub>E</sub>) ≈ −R<sub>C</sub>/R<sub>E</sub> (R<sub>E</sub> ≫ r<sub>e</sub>)")+"<p>Gain now depends on a resistor ratio, not on r<sub>e</sub> (which varies with I<sub>E</sub>). That’s the stability trade for lower gain. Bypassing R<sub>E</sub> restores A<sub>v</sub> = −R<sub>C</sub>/r<sub>e</sub>.</p>"},
+{h:"Emitter follower: A<sub>v</sub> = R<sub>E</sub>/(R<sub>E</sub> + r<sub>e</sub>)",b:"<p>Output is taken at the emitter. The same emitter current flows through r<sub>e</sub> and R<sub>E</sub> in series:</p>"+E("V<sub>i</sub> = I<sub>e</sub>(r<sub>e</sub> + R<sub>E</sub>), V<sub>o</sub> = I<sub>e</sub>R<sub>E</sub>")+E("A<sub>v</sub> = V<sub>o</sub>/V<sub>i</sub> = R<sub>E</sub>/(R<sub>E</sub> + r<sub>e</sub>) ≈ 1 (in phase)")+"<p><b>Z<sub>b</sub> = β(r<sub>e</sub> + R<sub>E</sub>)</b> (high). <b>Z<sub>o</sub> ≈ r<sub>e</sub></b> (set V<sub>i</sub> = 0 and look back into the emitter). High Z<sub>i</sub>, low Z<sub>o</sub>, gain ≈ 1 makes it a buffer.</p>"}];
+CH[5].deriv=[
+{h:"Shockley equation points: I<sub>D</sub> = I<sub>DSS</sub>/4 at V<sub>P</sub>/2, and 0.3V<sub>P</sub> for I<sub>DSS</sub>/2",b:"<p><b>1. Start:</b> I<sub>D</sub> = I<sub>DSS</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>)². Let x = V<sub>GS</sub>/V<sub>P</sub> (between 0 and 1 for an n-channel).</p><p><b>2. V<sub>GS</sub> = V<sub>P</sub>/2 (x = 0.5):</b></p>"+E("I<sub>D</sub> = I<sub>DSS</sub>(1 − 0.5)² = I<sub>DSS</sub>/4")+"<p><b>3. I<sub>D</sub> = I<sub>DSS</sub>/2:</b></p>"+E("(1 − x)² = 1/2 ⇒ 1 − x = 0.707 ⇒ x = 0.293 ≈ 0.3 ⇒ V<sub>GS</sub> ≈ 0.3V<sub>P</sub>")+"<p><b>4. Inverse form</b> (to get V<sub>GS</sub> from I<sub>D</sub>):</p>"+E("√(I<sub>D</sub>/I<sub>DSS</sub>) = 1 − V<sub>GS</sub>/V<sub>P</sub> ⇒ V<sub>GS</sub> = V<sub>P</sub>(1 − √(I<sub>D</sub>/I<sub>DSS</sub>))")+"<p><b>Plot points:</b> (0, I<sub>DSS</sub>), (0.3V<sub>P</sub>, I<sub>DSS</sub>/2), (V<sub>P</sub>/2, I<sub>DSS</sub>/4), (V<sub>P</sub>, 0). Example (I<sub>DSS</sub> = 8 mA, V<sub>P</sub> = −4 V): V<sub>GS</sub> = −2 V → 2 mA.</p>"},
+{h:"E-MOSFET constant k and the square-law",b:"<p><b>Model:</b> I<sub>D</sub> = k(V<sub>GS</sub> − V<sub>T</sub>)², valid for V<sub>GS</sub> &gt; V<sub>T</sub> in saturation.</p><p><b>1. Use one datasheet point</b> (V<sub>GS(on)</sub>, I<sub>D(on)</sub>):</p>"+E("k = I<sub>D(on)</sub>/(V<sub>GS(on)</sub> − V<sub>T</sub>)²")+"<p><b>2. Example:</b> I<sub>D(on)</sub> = 6 mA at V<sub>GS(on)</sub> = 8 V, V<sub>T</sub> = 3 V:</p>"+E("k = 6 mA/(5 V)² = 0.24 mA/V²")+"<p><b>3. Predict I<sub>D</sub> at V<sub>GS</sub> = 5 V:</b> I<sub>D</sub> = 0.24(5 − 3)² = 0.96 mA.</p>"}];
+CH[6].deriv=[
+{h:"Self-bias: the bias line and Q-point (worked example)",b:"<p><b>1. Gate loop:</b> I<sub>G</sub> = 0, so V<sub>G</sub> = 0. The source voltage is V<sub>S</sub> = I<sub>D</sub>R<sub>S</sub>:</p>"+E("V<sub>GS</sub> = V<sub>G</sub> − V<sub>S</sub> = −I<sub>D</sub>R<sub>S</sub>")+"<p>This is a straight line through the origin (slope −1/R<sub>S</sub>) on the I<sub>D</sub>–V<sub>GS</sub> plane.</p><p><b>2. Solve algebraically</b> (I<sub>DSS</sub> = 8 mA, V<sub>P</sub> = −4 V, R<sub>S</sub> = 1 kΩ, I<sub>D</sub> in mA, V<sub>GS</sub> in V):</p>"+E("V<sub>GS</sub>/V<sub>P</sub> = (−I<sub>D</sub>)/(−4) = I<sub>D</sub>/4 ⇒ I<sub>D</sub> = 8(1 − I<sub>D</sub>/4)²")+E("I<sub>D</sub> = 8 − 4I<sub>D</sub> + I<sub>D</sub>²/2 ⇒ I<sub>D</sub>² − 10I<sub>D</sub> + 16 = 0 ⇒ I<sub>D</sub> = 2 or 8 mA")+"<p><b>3. Reject the root</b> that gives V<sub>GS</sub> = −8 V (&lt; V<sub>P</sub>, device off). So I<sub>D</sub> = 2 mA, V<sub>GS</sub> = −2 V.</p><p><b>4. Output loop:</b></p>"+E("V<sub>DS</sub> = V<sub>DD</sub> − I<sub>D</sub>(R<sub>D</sub> + R<sub>S</sub>), V<sub>S</sub> = I<sub>D</sub>R<sub>S</sub>, V<sub>D</sub> = V<sub>DD</sub> − I<sub>D</sub>R<sub>D</sub>")},
+{h:"Voltage-divider bias: bias line and gate-loop KVL",b:"<p><b>1. Gate voltage</b> (I<sub>G</sub> = 0, divider unloaded):</p>"+E("V<sub>G</sub> = V<sub>DD</sub>R<sub>2</sub>/(R<sub>1</sub> + R<sub>2</sub>)")+"<p>Example: 16 V, R<sub>1</sub> = 2.1 MΩ, R<sub>2</sub> = 270 kΩ ⇒ V<sub>G</sub> = 1.82 V.</p><p><b>2. KVL on the gate-source loop:</b></p>"+E("V<sub>G</sub> − V<sub>GS</sub> − I<sub>D</sub>R<sub>S</sub> = 0 ⇒ V<sub>GS</sub> = V<sub>G</sub> − I<sub>D</sub>R<sub>S</sub>")+"<p><b>3. Two points define the bias line:</b> I<sub>D</sub> = 0 ⇒ V<sub>GS</sub> = V<sub>G</sub>; V<sub>GS</sub> = 0 ⇒ I<sub>D</sub> = V<sub>G</sub>/R<sub>S</sub>. Plot it with the transfer curve; the intersection is the Q-point.</p><p><b>4. Why it’s more stable:</b> a larger V<sub>G</sub> shifts the line away from the origin and makes it steeper in effect, so changes in I<sub>DSS</sub> and V<sub>P</sub> between devices move I<sub>D</sub> less.</p>"}];
+CH.find(c=>c.n==9).deriv=[
+{h:"Decibels and why 3 dB means half power",b:"<p><b>1. Definition (power):</b> G<sub>dB</sub> = 10 log<sub>10</sub>(P<sub>2</sub>/P<sub>1</sub>).</p><p><b>2. Voltage form.</b> For equal resistances P = V²/R:</p>"+E("G<sub>dB</sub> = 10 log(V<sub>2</sub>²/V<sub>1</sub>²) = 20 log(V<sub>2</sub>/V<sub>1</sub>)")+"<p><b>3. Half-power point:</b> P<sub>2</sub>/P<sub>1</sub> = 1/2 ⇒ 10 log 0.5 = −3.01 dB. Equivalent voltage ratio:</p>"+E("V<sub>2</sub>/V<sub>1</sub> = 1/√2 = 0.707 ⇒ 20 log 0.707 = −3 dB")+"<p><b>4. Cascading:</b> A<sub>v,T</sub> = A<sub>v1</sub>A<sub>v2</sub> ⇒ log turns the product into a sum, so dB gains add.</p>"},
+{h:"Low-frequency cutoff of an RC coupling network",b:"<p>Series C with resistance R (R<sub>s</sub> + R<sub>i</sub> for input coupling).</p><p><b>1. Divider:</b> V<sub>o</sub>/V<sub>i</sub> = R/(R − jX<sub>C</sub>) with X<sub>C</sub> = 1/(2πfC).</p><p><b>2. Normalise:</b> divide numerator and denominator by R:</p>"+E("A<sub>v</sub>/A<sub>v(mid)</sub> = 1/(1 − j X<sub>C</sub>/R) = 1/(1 − j f<sub>1</sub>/f), f<sub>1</sub> = 1/(2πRC)")+"<p><b>3. Magnitude and phase:</b></p>"+E("|A| = 1/√(1 + (f<sub>1</sub>/f)²), θ = arctan(f<sub>1</sub>/f)")+"<p>At f = f<sub>1</sub>: |A| = 0.707 (−3 dB), θ = +45°. For f ≪ f<sub>1</sub>: |A| ≈ f/f<sub>1</sub> (+20 dB/decade). For f ≫ f<sub>1</sub>: |A| → 1.</p>"},
+{h:"Miller effect: C<sub>Mi</sub> = (1 − A<sub>v</sub>)C<sub>f</sub>",b:"<p>A capacitor C<sub>f</sub> connects input (V<sub>i</sub>) and output (V<sub>o</sub> = A<sub>v</sub>V<sub>i</sub>).</p><p><b>1. Current through C<sub>f</sub> from the input:</b></p>"+E("I<sub>i</sub> = (V<sub>i</sub> − V<sub>o</sub>)/X<sub>Cf</sub> = (V<sub>i</sub> − A<sub>v</sub>V<sub>i</sub>)/X<sub>Cf</sub> = (1 − A<sub>v</sub>)V<sub>i</sub>/X<sub>Cf</sub>")+"<p><b>2. Equivalent input impedance</b> Z<sub>Mi</sub> = V<sub>i</sub>/I<sub>i</sub> = X<sub>Cf</sub>/(1 − A<sub>v</sub>), i.e. a capacitor</p>"+E("C<sub>Mi</sub> = (1 − A<sub>v</sub>)C<sub>f</sub>")+"<p><b>3. Output side:</b> similarly C<sub>Mo</sub> = (1 − 1/A<sub>v</sub>)C<sub>f</sub> ≈ C<sub>f</sub> for |A<sub>v</sub>| ≫ 1.</p><p>Example: A<sub>v</sub> = −100, C<sub>f</sub> = 5 pF ⇒ C<sub>Mi</sub> = 505 pF, which lowers f<sub>Hi</sub>.</p>"},
+{h:"Bandwidth of n identical stages",b:"<p>One stage at high frequency: |A| = 1/√(1 + (f/f<sub>2</sub>)²). n stages: |A|<sup>n</sup>.</p><p><b>1. Find the new −3 dB frequency f<sub>2</sub>′:</b></p>"+E("[1/√(1 + (f<sub>2</sub>′/f<sub>2</sub>)²)]<sup>n</sup> = 1/√2")+"<p><b>2. Raise both sides to 2/n:</b></p>"+E("1/(1 + (f<sub>2</sub>′/f<sub>2</sub>)²) = 2<sup>−1/n</sup> ⇒ (f<sub>2</sub>′/f<sub>2</sub>)² = 2<sup>1/n</sup> − 1")+E("f<sub>2</sub>′ = f<sub>2</sub>√(2<sup>1/n</sup> − 1), and likewise f<sub>1</sub>′ = f<sub>1</sub>/√(2<sup>1/n</sup> − 1)")+"<p>n = 2: √(√2 − 1) = 0.644, so each added stage narrows the bandwidth.</p>"},
+{h:"Rise time and bandwidth: t<sub>r</sub> ≈ 0.35 / BW",b:"<p>Model the amplifier as a single-pole low-pass with time constant τ = 1/(2πf<sub>2</sub>) driven by a step.</p><p><b>1. Step response:</b> v(t) = V(1 − e<sup>−t/τ</sup>).</p><p><b>2. 10% point:</b> 0.1 = 1 − e<sup>−t₁/τ</sup> ⇒ t<sub>1</sub> = 0.105τ. <b>90% point:</b> t<sub>2</sub> = 2.303τ.</p>"+E("t<sub>r</sub> = t<sub>2</sub> − t<sub>1</sub> = 2.2τ = 2.2/(2πf<sub>2</sub>) = 0.35/f<sub>2</sub>")+"<p>For a wideband amplifier BW ≈ f<sub>2</sub>, so BW ≈ 0.35/t<sub>r</sub>.</p>"}];
+CH.find(c=>c.n==10).deriv=[
+{h:"Inverting amplifier: A<sub>v</sub> = −R<sub>f</sub>/R<sub>1</sub>",b:"<p><b>Ideal op-amp rules:</b> (a) no current enters the inputs; (b) V⁻ = V⁺.</p><p><b>1.</b> V⁺ is grounded ⇒ V⁻ = 0 (virtual ground).</p><p><b>2. Current in R<sub>1</sub>:</b> I<sub>1</sub> = (V<sub>i</sub> − 0)/R<sub>1</sub>.</p><p><b>3. KCL at the inverting node</b> (no current into the op amp): all of I<sub>1</sub> flows through R<sub>f</sub>:</p>"+E("(0 − V<sub>o</sub>)/R<sub>f</sub> = V<sub>i</sub>/R<sub>1</sub>")+"<p><b>4.</b></p>"+E("A<sub>v</sub> = V<sub>o</sub>/V<sub>i</sub> = −R<sub>f</sub>/R<sub>1</sub>")+"<p>Input impedance ≈ R<sub>1</sub> (virtual ground). Example: R<sub>f</sub> = 100 kΩ, R<sub>1</sub> = 10 kΩ ⇒ −10.</p>"},
+{h:"Non-inverting amplifier and the summer",b:"<p><b>A. Non-inverting.</b> V<sub>i</sub> at +, feedback divider R<sub>f</sub>/R<sub>1</sub> at −:</p>"+E("V⁻ = V<sub>o</sub>R<sub>1</sub>/(R<sub>1</sub> + R<sub>f</sub>) = V⁺ = V<sub>i</sub>")+E("A<sub>v</sub> = V<sub>o</sub>/V<sub>i</sub> = (R<sub>1</sub> + R<sub>f</sub>)/R<sub>1</sub> = 1 + R<sub>f</sub>/R<sub>1</sub>")+"<p>(R<sub>f</sub> = 0 gives the follower, A<sub>v</sub> = 1.)</p><p><b>B. Inverting summer.</b> Virtual ground, so I<sub>1</sub> = V<sub>1</sub>/R<sub>1</sub>, I<sub>2</sub> = V<sub>2</sub>/R<sub>2</sub>. KCL at the node: I<sub>1</sub> + I<sub>2</sub> = −V<sub>o</sub>/R<sub>f</sub>:</p>"+E("V<sub>o</sub> = −(R<sub>f</sub>/R<sub>1</sub>V<sub>1</sub> + R<sub>f</sub>/R<sub>2</sub>V<sub>2</sub>)")},
+{h:"Integrator: V<sub>o</sub> = −(1/RC)∫V<sub>i</sub> dt",b:"<p>Input R, feedback capacitor C. Virtual ground at the − input.</p><p><b>1. Input current:</b> I = V<sub>i</sub>/R, and it all flows into C.</p><p><b>2. Capacitor law:</b> I = C dv<sub>C</sub>/dt, with v<sub>C</sub> = 0 − V<sub>o</sub> = −V<sub>o</sub>:</p>"+E("V<sub>i</sub>/R = −C dV<sub>o</sub>/dt")+"<p><b>3. Integrate:</b></p>"+E("V<sub>o</sub>(t) = −(1/RC)∫<sub>0</sub><sup>t</sup> V<sub>i</sub> dt + V<sub>o</sub>(0)")+"<p>Check: constant V<sub>i</sub> gives a ramp of slope −V<sub>i</sub>/RC. Swapping R and C gives the differentiator V<sub>o</sub> = −RC dV<sub>i</sub>/dt.</p>"},
+{h:"Differential/common-mode output and CMRR",b:"<p><b>1. Decompose</b> the inputs: V<sub>1</sub> = V<sub>c</sub> + V<sub>d</sub>/2, V<sub>2</sub> = V<sub>c</sub> − V<sub>d</sub>/2, so</p>"+E("V<sub>d</sub> = V<sub>1</sub> − V<sub>2</sub>, V<sub>c</sub> = (V<sub>1</sub> + V<sub>2</sub>)/2")+"<p><b>2. Superposition</b> (linear amplifier):</p>"+E("V<sub>o</sub> = A<sub>d</sub>V<sub>d</sub> + A<sub>c</sub>V<sub>c</sub>")+"<p><b>3. Factor out A<sub>d</sub>V<sub>d</sub>:</b></p>"+E("V<sub>o</sub> = A<sub>d</sub>V<sub>d</sub>[1 + (1/CMRR)(V<sub>c</sub>/V<sub>d</sub>)], CMRR = A<sub>d</sub>/A<sub>c</sub>")+"<p>The second term is the error from common-mode signals; CMRR(dB) = 20 log(A<sub>d</sub>/A<sub>c</sub>). Example: A<sub>d</sub> = 1000, A<sub>c</sub> = 0.1 ⇒ 10⁴ = 80 dB.</p>"},
+{h:"Slew rate and maximum undistorted frequency",b:"<p><b>1.</b> Sine output v<sub>o</sub> = V<sub>p</sub> sin(2πft). Its steepest slope (at the zero crossing):</p>"+E("dv<sub>o</sub>/dt|<sub>max</sub> = 2πfV<sub>p</sub>")+"<p><b>2.</b> No distortion requires this ≤ SR:</p>"+E("f<sub>max</sub> = SR/(2πV<sub>p</sub>)")+"<p>Example: 741, SR = 0.5 V/μs = 5×10⁵ V/s, V<sub>p</sub> = 10 V ⇒ f<sub>max</sub> = 5×10⁵/(2π·10) ≈ 8 kHz.</p>"}];
+// ===== CH8 =====
+CH.push({n:8,title:"FET Amplifiers",topics:[
+{t:"JFET small-signal model: gm and rd (8.1–8.2)",q:[
+["gm =",["ΔID/ΔVGS","ΔVGS/ΔID","ΔVDS/ΔID","ID/VDS"],0,"Transconductance, in siemens."],
+["gm0 (at VGS = 0) =",["2IDSS/|VP|","IDSS/|VP|","2|VP|/IDSS","IDSS·VP"],0,"From the derivative of Shockley."],
+["gm at any VGS:",["gm0(1 − VGS/VP)","gm0·VGS/VP","gm0(1 + VGS/VP)","gm0·VP"],0,"A linear function of VGS."],
+["gm in terms of ID:",["gm0√(ID/IDSS)","gm0·ID/IDSS","gm0(ID/IDSS)²","gm0·IDSS"],0,"Alternative form."],
+["IDSS = 8 mA, VP = −4 V: gm0 =",["4 mS","2 mS","8 mS","1 mS"],0,"2(8 mA)/4 V."],
+["Same device at VGS = −2 V: gm =",["2 mS","4 mS","1 mS","3 mS"],0,"4 mS × (1 − 0.5)."],
+["rd (output resistance) is:",["ΔVDS/ΔID at constant VGS","ΔVGS/ΔID","1/gm","RD"],0,"The inverse of the slope of the drain characteristic."],
+["Typical rd is:",["tens of kΩ","a few ohms","exactly 0","a few MΩ always"],0,"It is often ignored if rd ≥ 10RD."],
+["The FET ac model has the gate:",["open (Zi ≈ ∞)","shorted to the source","connected to the drain","grounded through gm"],0,"IG = 0."],
+["The ac model’s controlled source is:",["gm·Vgs in parallel with rd","β·Ib","Vgs/rd","Vds·gm"],0,"From drain to source."]]},
+{t:"JFET fixed-bias & self-bias amplifiers (8.3–8.4)",q:[
+["Fixed bias: Zi =",["RG","RG‖rd","gm","RD"],0,"The gate is open at ac."],
+["Fixed bias: Zo =",["RD‖rd ≈ RD","RG","1/gm","rd"],0,"Looking into the drain with Vi = 0."],
+["Fixed bias: Av =",["−gm(RD‖rd) ≈ −gmRD","gmRD","−RD/gm","1"],0,"The output is inverted."],
+["The CS amplifier output phase is:",["180° out of phase","in phase","90°","270°"],0,"The minus sign."],
+["gm = 2 mS, RD = 2 kΩ: Av ≈",["−4","4","−2","−40"],0,"gm·RD."],
+["Self-bias with RS bypassed: Av =",["−gmRD (same as fixed bias)","−gmRD/(1 + gmRS)","1","gmRS"],0,"The capacitor shorts RS at ac."],
+["Self-bias, unbypassed RS: Av =",["−gmRD/(1 + gmRS)","−gmRD","−gmRS","gm/(1 + RS)"],0,"RS gives negative feedback."],
+["Unbypassed RS ______ the gain.",["reduces","increases","doesn’t change","reverses"],0,"Trade-off for stability."],
+["Self-bias: Zi =",["RG","RS","RD","1/gm"],0,"Gate resistor."],
+["Self-bias Zo (unbypassed RS, rd ≥ 10(RD + RS)) ≈",["RD","RS","RG","gm"],0,"Approximation."]]},
+{t:"Voltage-divider, common-gate & source follower (8.5–8.7)",q:[
+["Voltage-divider JFET: Zi =",["R1‖R2","R1 + R2","RG","RD"],0,"The bias resistors are in parallel at the gate."],
+["Voltage-divider JFET: Av =",["−gm(RD‖rd)","gmRD","1","−1/gm"],0,"Same as fixed bias with RS bypassed."],
+["Source follower: Av ≈",["gmRS/(1 + gmRS)","−gmRS","1 + gmRS","gm/RS"],0,"Always less than 1."],
+["Source follower output is:",["in phase with the input","180° out of phase","90° shifted","unrelated"],0,"Non-inverting."],
+["gm = 2 mS, RS = 1 kΩ: follower Av ≈",["0.67","2","1.5","0.5"],0,"2/(1 + 2)."],
+["Source follower Zo ≈",["RS‖1/gm","RD","RG","∞"],0,"Low output impedance."],
+["Source follower Zi =",["RG","RS","1/gm","RD"],0,"High, set by the gate bias resistor."],
+["Common-gate: Zi =",["RS‖1/gm","RG","∞","RD"],0,"Low input impedance."],
+["Common-gate: Av =",["gmRD (in phase)","−gmRD","1","gm/RD"],0,"Non-inverting."],
+["Common-gate: Zo =",["RD","RS","1/gm","RG"],0,"At the drain."]]},
+{t:"Depletion & enhancement MOSFET amplifiers (8.8–8.11)",q:[
+["D-MOSFET ac analysis is:",["identical to the JFET","completely different","not possible","BJT-based"],0,"Same gm and rd model."],
+["E-MOSFET gm =",["2k(VGS − VT)","k(VGS − VT)","2k/(VGS − VT)","kVGS"],0,"The derivative of k(VGS − VT)²."],
+["k = 0.24 mA/V², VGS = 5 V, VT = 3 V: gm =",["0.96 mS","0.48 mS","2.4 mS","1.2 mS"],0,"2(0.24)(2) mS."],
+["E-MOSFET drain-feedback: Av ≈",["−gm(RF‖RD‖rd)","gmRD","1","−gm/RF"],0,"RF is bridged between drain and gate."],
+["E-MOSFET drain-feedback: Zo ≈",["RF‖RD‖rd","RG","1/gm","RS"],0,"Seen at the drain."],
+["Drain-feedback RF appears at the input through the:",["Miller effect","a coupling capacitor","β","a transformer"],0,"It lowers Zi."],
+["E-MOSFET divider: Zi =",["R1‖R2","RF","1/gm","∞ only"],0,"Same as the JFET."],
+["E-MOSFET divider: Av =",["−gm(RD‖rd)","gmRD","1","−gm/RD"],0,"Inverting."],
+["E-MOSFET divider: Zo =",["RD‖rd","R1‖R2","1/gm","RS"],0,"At the drain."],
+["The ac gate current of any MOSFET is:",["≈ 0","= ID","= gm·Vgs","large"],0,"The gate is insulated."]]},
+{t:"Designing FET amplifiers & summary of configurations (8.12–8.13)",q:[
+["Design usually starts by fixing:",["the Q-point and the required gain","the colour of components","β","the supply tolerance"],0,"Then solve for R values."],
+["For a desired Av ≈ −gmRD, RD =",["|Av|/gm","gm/|Av|","|Av|·gm","1/(gm|Av|)"],0,"Rearranged."],
+["A CS stage with RS bypassed has:",["high gain, inverted output","gain below 1","no phase shift","low Zi"],0,"Medium–high Zo = RD."],
+["Source follower is used as a:",["buffer","power amplifier","oscillator","rectifier"],0,"High Zi, low Zo."],
+["Common-gate is used for:",["high-frequency, low-Zi applications","dc amplifiers","buffering a high-Z source","filters"],0,"Good isolation."],
+["Of CS, CD and CG, which has the highest input impedance?",["CS and CD (≈ RG)","CG","none","all equal"],0,"The CG is low."],
+["Of the three, which is non-inverting?",["CD and CG","CS only","none","all three"],0,"CS inverts."],
+["Typical FET gains compared with BJT:",["lower for the same current","much higher","identical","infinite"],0,"gm is smaller than the BJT’s 1/re."],
+["The ac gain depends on the Q-point through:",["gm","VDD only","RG","VT only"],0,"gm varies with ID."],
+["Increasing ID typically ______ gm.",["increases","decreases","doesn’t change","reverses"],0,"gm ∝ √ID."]]},
+{t:"Effect of RL and cascaded FET systems (8.14–8.15)",q:[
+["Loaded CS gain: Av =",["−gm(RD‖RL‖rd)","−gmRD","−gmRL","gm/(RD + RL)"],0,"RL appears in parallel with RD."],
+["Adding RL ______ the gain magnitude.",["reduces","increases","doesn’t change","doubles"],0,"The effective load is lower."],
+["Zi and Zo of the FET stage (unloaded) are:",["independent of RL for the CS stage","proportional to RL","zero","infinite"],0,"Unilateral model."],
+["gm = 2 mS, RD = 2 kΩ, RL = 2 kΩ: Av ≈",["−2","−4","−1","−0.5"],0,"gm(RD‖RL) = 2 mS × 1 kΩ."],
+["Cascaded gain: AvT =",["Av1 × Av2","Av1 + Av2","Av1 − Av2","Av1/Av2"],0,"Include the loading of stage 1 by stage 2."],
+["Stage 2’s Zi acts as the ______ of stage 1.",["load","source","bias","feedback"],0,"RL1 = Zi2."],
+["A FET first stage is chosen in cascades to give:",["high input impedance","high power","low noise only","low gain"],0,"RG is large."],
+["Two stages with gains −10 and −5: AvT =",["50","−15","−50","15"],0,"Inversions cancel."],
+["Source resistance Rs reduces gain by:",["Zi/(Zi + Rs)","Rs/Zi","1","0"],0,"Rs is small relative to Zi for FETs."],
+["Total gain in dB of the same two stages:",["≈ 34 dB","≈ 20 dB","≈ 50 dB","≈ 3 dB"],0,"20 log 50 = 34 dB."]]},
+{t:"Troubleshooting & practical applications (8.16–8.17)",q:[
+["First step in troubleshooting a FET amplifier:",["check the dc bias levels","replace the FET","change C","scope the load"],0,"The ac depends on the dc Q-point."],
+["VDS ≈ VDD indicates:",["ID ≈ 0","saturation","normal operation","a short"],0,"No drop across RD."],
+["VD ≈ 0 and large ID may indicate:",["a short or wrong bias","cutoff","ideal operation","open load"],0,"Check the resistors."],
+["No ac gain but correct dc suggests:",["an open bypass or coupling capacitor","too large VDD","a short RD","wrong VP"],0,"Check the capacitors."],
+["An open RG gives:",["floating gate / unstable bias","fine operation","higher gain","a short"],0,"No dc path."],
+["A FET’s gate current in a good circuit is:",["≈ 0","large","= ID","negative large"],0,"The gate is insulated."],
+["FETs are widely used as:",["voltage-variable resistors in AGC and filters","only rectifiers","only power transformers","magnets"],0,"In the ohmic region."],
+["The FET’s high Zi makes it suit:",["buffer stages for high-impedance sources","low-power only","heat sinks","antennas only"],0,"Little loading."],
+["A FET analog switch works by using:",["cutoff (open) and ohmic (closed) states","only saturation","only cutoff","breakdown"],0,"Voltage-controlled."],
+["In an AGC circuit, a FET acts as a:",["voltage-controlled variable resistance","fixed resistor","capacitor","diode"],0,"The gain changes with the control voltage."]]}
+],
+notes:[
+{h:"Small-signal model",b:"<div class='eq'>g<sub>m</sub> = ΔI<sub>D</sub>/ΔV<sub>GS</sub>, g<sub>m0</sub> = 2I<sub>DSS</sub>/|V<sub>P</sub>|, g<sub>m</sub> = g<sub>m0</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>) = g<sub>m0</sub>√(I<sub>D</sub>/I<sub>DSS</sub>)<br>E-MOSFET: g<sub>m</sub> = 2k(V<sub>GS</sub> − V<sub>T</sub>)</div><p>ac model: open gate, current source g<sub>m</sub>V<sub>gs</sub> in parallel with r<sub>d</sub>. r<sub>d</sub> is often ignored if r<sub>d</sub> ≥ 10R<sub>D</sub>.</p>"},
+{h:"Configuration summary",b:"<div class='eq'>CS (RS bypassed/fixed): Z<sub>i</sub> = R<sub>G</sub> (or R<sub>1</sub>‖R<sub>2</sub>), Z<sub>o</sub> = R<sub>D</sub>, A<sub>v</sub> = −g<sub>m</sub>R<sub>D</sub><br>CS unbypassed R<sub>S</sub>: A<sub>v</sub> = −g<sub>m</sub>R<sub>D</sub>/(1 + g<sub>m</sub>R<sub>S</sub>)<br>Source follower: A<sub>v</sub> = g<sub>m</sub>R<sub>S</sub>/(1 + g<sub>m</sub>R<sub>S</sub>) &lt; 1, Z<sub>o</sub> = R<sub>S</sub>‖1/g<sub>m</sub><br>CG: Z<sub>i</sub> = R<sub>S</sub>‖1/g<sub>m</sub>, A<sub>v</sub> = g<sub>m</sub>R<sub>D</sub> (in phase)</div>"},
+{h:"E-MOSFET amplifiers",b:"<ul><li>Drain-feedback: A<sub>v</sub> ≈ −g<sub>m</sub>(R<sub>F</sub>‖R<sub>D</sub>‖r<sub>d</sub>); R<sub>F</sub> lowers Z<sub>i</sub> through the Miller effect.</li><li>Divider: Z<sub>i</sub> = R<sub>1</sub>‖R<sub>2</sub>, A<sub>v</sub> = −g<sub>m</sub>(R<sub>D</sub>‖r<sub>d</sub>).</li></ul>"},
+{h:"Loading, cascade, troubleshooting",b:"<ul><li>A<sub>vL</sub> = −g<sub>m</sub>(R<sub>D</sub>‖R<sub>L</sub>‖r<sub>d</sub>); cascade gains multiply, with Z<sub>i2</sub> loading stage 1.</li><li>Check dc first: V<sub>DS</sub> ≈ V<sub>DD</sub> → I<sub>D</sub> ≈ 0; no ac gain with good dc → open capacitor.</li></ul>"}],
+deriv:[
+{h:"Transconductance g<sub>m</sub> from the Shockley equation",b:"<p><b>1. Definition:</b> g<sub>m</sub> = dI<sub>D</sub>/dV<sub>GS</sub> at the Q-point.</p><p><b>2. Differentiate</b> I<sub>D</sub> = I<sub>DSS</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>)² using the chain rule:</p>"+"<div class='eq'>g<sub>m</sub> = 2I<sub>DSS</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>)·(−1/V<sub>P</sub>) = (−2I<sub>DSS</sub>/V<sub>P</sub>)(1 − V<sub>GS</sub>/V<sub>P</sub>)</div><p><b>3. V<sub>P</sub> is negative</b> (n-channel), so −1/V<sub>P</sub> = 1/|V<sub>P</sub>|:</p><div class='eq'>g<sub>m0</sub> = 2I<sub>DSS</sub>/|V<sub>P</sub>|, g<sub>m</sub> = g<sub>m0</sub>(1 − V<sub>GS</sub>/V<sub>P</sub>)</div><p><b>4. In terms of I<sub>D</sub>:</b> (1 − V<sub>GS</sub>/V<sub>P</sub>) = √(I<sub>D</sub>/I<sub>DSS</sub>), so g<sub>m</sub> = g<sub>m0</sub>√(I<sub>D</sub>/I<sub>DSS</sub>).</p><p><b>Example:</b> I<sub>DSS</sub> = 8 mA, V<sub>P</sub> = −4 V ⇒ g<sub>m0</sub> = 4 mS; at V<sub>GS</sub> = −2 V, g<sub>m</sub> = 2 mS.</p>"},
+{h:"CS amplifier with unbypassed R<sub>S</sub>: A<sub>v</sub> = −g<sub>m</sub>R<sub>D</sub>/(1 + g<sub>m</sub>R<sub>S</sub>)",b:"<p>Ignore r<sub>d</sub>. The gate is at V<sub>i</sub>; the source sits at V<sub>s</sub> = I<sub>d</sub>R<sub>S</sub>.</p><p><b>1. Controlled source:</b> I<sub>d</sub> = g<sub>m</sub>V<sub>gs</sub> = g<sub>m</sub>(V<sub>i</sub> − I<sub>d</sub>R<sub>S</sub>).</p><p><b>2. Solve for I<sub>d</sub>:</b></p><div class='eq'>I<sub>d</sub>(1 + g<sub>m</sub>R<sub>S</sub>) = g<sub>m</sub>V<sub>i</sub> ⇒ I<sub>d</sub> = g<sub>m</sub>V<sub>i</sub>/(1 + g<sub>m</sub>R<sub>S</sub>)</div><p><b>3. Output</b> (current flows up through R<sub>D</sub>): V<sub>o</sub> = −I<sub>d</sub>R<sub>D</sub>:</p><div class='eq'>A<sub>v</sub> = −g<sub>m</sub>R<sub>D</sub>/(1 + g<sub>m</sub>R<sub>S</sub>)</div><p>If R<sub>S</sub> is bypassed, R<sub>S</sub> → 0 and A<sub>v</sub> = −g<sub>m</sub>R<sub>D</sub>. For g<sub>m</sub>R<sub>S</sub> ≫ 1, A<sub>v</sub> ≈ −R<sub>D</sub>/R<sub>S</sub>.</p>"},
+{h:"Source follower: A<sub>v</sub> = g<sub>m</sub>R<sub>S</sub>/(1 + g<sub>m</sub>R<sub>S</sub>), Z<sub>o</sub> = R<sub>S</sub>‖1/g<sub>m</sub>",b:"<p>Output at the source: V<sub>o</sub> = I<sub>d</sub>R<sub>S</sub>, drain at ac ground.</p><p><b>1.</b> V<sub>gs</sub> = V<sub>i</sub> − V<sub>o</sub>, so I<sub>d</sub> = g<sub>m</sub>(V<sub>i</sub> − V<sub>o</sub>).</p><p><b>2.</b> V<sub>o</sub> = g<sub>m</sub>(V<sub>i</sub> − V<sub>o</sub>)R<sub>S</sub> ⇒ V<sub>o</sub>(1 + g<sub>m</sub>R<sub>S</sub>) = g<sub>m</sub>R<sub>S</sub>V<sub>i</sub>:</p><div class='eq'>A<sub>v</sub> = g<sub>m</sub>R<sub>S</sub>/(1 + g<sub>m</sub>R<sub>S</sub>) &lt; 1 (in phase)</div><p><b>3. Output impedance:</b> set V<sub>i</sub> = 0 and apply V<sub>x</sub> at the source. Then V<sub>gs</sub> = −V<sub>x</sub>, so the source draws I = V<sub>x</sub>/R<sub>S</sub> + g<sub>m</sub>V<sub>x</sub> ⇒ Z<sub>o</sub> = V<sub>x</sub>/I = R<sub>S</sub>‖(1/g<sub>m</sub>).</p><p>Example: g<sub>m</sub> = 2 mS, R<sub>S</sub> = 1 kΩ ⇒ A<sub>v</sub> = 0.67, Z<sub>o</sub> = 1 kΩ‖500 Ω = 333 Ω.</p>"}]});
+// ===== CH11–CH14 =====
+CH.push({n:11,title:"Op-Amp Applications",topics:[
+{t:"Constant-gain multiplier (11.1)",q:[
+["Inverting multiplier: Av =",["−Rf/R1","1 + Rf/R1","Rf/R1","−R1/Rf"],0,"Virtual ground."],
+["Non-inverting multiplier: Av =",["1 + Rf/R1","−Rf/R1","Rf/R1","1"],0,"Feedback divider."],
+["Rf = 240 kΩ, R1 = 2.4 kΩ (inverting): Av =",["−100","100","−101","−10"],0,"−240/2.4."],
+["Same resistors, non-inverting: Av =",["101","100","−100","99"],0,"1 + 100."],
+["Inverting output phase:",["180° from input","in phase","90°","random"],0,"Minus sign."],
+["Closed-loop gain accuracy depends on:",["the resistor ratio","the open-loop gain","VCC","slew rate"],0,"A is huge."],
+["Vi = 0.1 V, Av = −50: Vo =",["−5 V","5 V","−0.5 V","−50 V"],0,"Product."],
+["Output cannot exceed:",["the supply rails (saturation)","VIO","Rf","CMRR"],0,"Clipping."],
+["Inverting Zi ≈",["R1","very high","0","Rf"],0,"Virtual ground."],
+["Non-inverting Zi is:",["very high","R1","0","Rf"],0,"At the + input."]]},
+{t:"Voltage summing (11.2)",q:[
+["Inverting summer: Vo =",["−(Rf/R1·V1 + Rf/R2·V2 + Rf/R3·V3)","(V1 + V2 + V3)","Rf(V1 + V2)","−V1V2V3"],0,"KCL at the virtual ground."],
+["All resistors equal: Vo =",["−(V1 + V2 + V3)","V1 + V2 + V3","−average","0"],0,"Unity weights."],
+["R = Rf = 10 kΩ, V1 = 1, V2 = 2, V3 = 3 V: Vo =",["−6 V","6 V","−2 V","−3 V"],0,"Sum, inverted."],
+["Different input resistors give:",["a weighted sum","an average only","no sum","a product"],0,"Weight = Rf/Rn."],
+["For averaging n inputs of resistance R, use Rf =",["R/n","nR","R","2R"],0,"Gain 1/n each."],
+["Three equal inputs with Rf = R/3 give:",["−(average of the inputs)","−sum","+sum","0"],0,"Each has weight 1/3."],
+["Inputs don’t interact because of:",["the virtual ground","high Rf","β","CMRR"],0,"Node held at 0 V."],
+["A binary-weighted DAC uses a:",["summing amplifier","comparator","oscillator","rectifier"],0,"Weights R, 2R, 4R…"],
+["Rf = 100 kΩ, R1 = 50 kΩ, R2 = 25 kΩ, V1 = V2 = 1 V: Vo =",["−6 V","−2 V","6 V","−4 V"],0,"−(2 + 4)."],
+["The summing amplifier output is:",["inverted","non-inverted","unchanged","dc only"],0,"Inverting configuration."]]},
+{t:"Voltage buffer & controlled sources (11.3–11.4)",q:[
+["Voltage follower gain:",["1","0","−1","∞"],0,"Rf = 0."],
+["A buffer has:",["high Zi and low Zo","low Zi and high Zo","low both","high both"],0,"Isolates source from load."],
+["A voltage-controlled voltage source (VCVS) gives:",["Vo = k·Vi","Io = g·Vi","Vo = r·Ii","Io = β·Ii"],0,"A non-inverting amp is a VCVS."],
+["VCVS gain k for a non-inverting amplifier:",["1 + Rf/R1","−Rf/R1","Rf","1"],0,"Standard."],
+["A voltage-controlled current source gives:",["Io = Vi/R1","Io = Vi·R1","Io = Ii","Io = 0"],0,"Load current is set by Vi."],
+["The VCCS load current is:",["independent of the load resistance","proportional to RL","inverse in RL","zero"],0,"Within compliance limits."],
+["Vi = 5 V, R1 = 1 kΩ (VCCS): Io =",["5 mA","5 A","0.2 mA","50 mA"],0,"Vi/R1."],
+["A current-controlled voltage source (CCVS):",["Vo = −Ii·Rf (inverting amp)","Io = Vi","Vo = Vi","Io = Ii"],0,"Virtual-ground input."],
+["A current-controlled current source gives:",["an output current proportional to the input current","a voltage output","no gain","an oscillation"],0,"Current gain."],
+["Controlled sources are useful for:",["converting between voltage and current","rectifying","filtering only","storing data"],0,"Sensor interfaces."]]},
+{t:"Instrumentation circuits (11.5)",q:[
+["An instrumentation amplifier has:",["high Zi, high CMRR, differential input","low Zi","unity gain only","no gain"],0,"Used for small sensor signals."],
+["The classic design uses:",["three op amps","one op amp","two transistors","a transformer"],0,"Two input buffers and a difference stage."],
+["Gain is set by:",["a single resistor RG","a capacitor","VCC","the load"],0,"Adjustable."],
+["First-stage gain: Vo1 − Vo2 = (1 + 2R/RG)",["(V1 − V2)","(V1 + V2)","V1V2","Vc"],0,"Differential gain."],
+["Common-mode signals in the first stage have gain:",["1","1 + 2R/RG","0","∞"],0,"RG carries no current."],
+["Typical applications:",["bridges, strain gauges, thermocouples","power supplies","rectifiers","oscillators"],0,"Small differential voltages."],
+["High Zi prevents:",["loading the sensor","gain","CMRR","offset"],0,"Little current drawn."],
+["An unbalanced resistive bridge gives:",["a small differential voltage","a large dc","no output","a common-mode only"],0,"Proportional to the change."],
+["The second stage is typically a:",["difference amplifier","integrator","comparator","oscillator"],0,"It removes the common mode."],
+["Good instrumentation CMRR is on the order of:",["100 dB or more","10 dB","0 dB","3 dB"],0,"To reject noise."]]},
+{t:"Active filters (11.6)",q:[
+["An active filter uses:",["an op amp with RC networks","inductors only","diodes only","a transformer"],0,"No inductors needed."],
+["A low-pass filter passes:",["frequencies below fc","above fc","only fc","only dc blocking"],0,"Attenuates higher f."],
+["A high-pass filter passes:",["frequencies above fc","below fc","only dc","a band"],0,"Blocks low f."],
+["A band-pass filter passes:",["a band of frequencies","all frequencies","only dc","none"],0,"Between f1 and f2."],
+["First-order roll-off:",["20 dB/decade","40 dB/decade","60 dB/decade","6 dB/decade"],0,"One pole."],
+["Second-order roll-off:",["40 dB/decade","20 dB/decade","80 dB/decade","10 dB/decade"],0,"Two poles."],
+["Cutoff frequency: fc =",["1/(2πRC)","2πRC","RC/2π","1/RC"],0,"At the −3 dB point."],
+["R = 10 kΩ, C = 0.01 μF: fc ≈",["1.59 kHz","15.9 kHz","159 Hz","10 kHz"],0,"1/(2π·10⁴·10⁻⁸)."],
+["Non-inverting first-order LP: passband gain =",["1 + Rf/R1","−Rf/R1","1","Rf"],0,"Same as the amplifier."],
+["The main advantage over passive filters is:",["gain and no inductors","no capacitors","higher power","no supply needed"],0,"They also buffer the load."]]}
+],
+notes:[
+{h:"Basic circuits",b:"<div class='eq'>Inverting: −R<sub>f</sub>/R<sub>1</sub> · Non-inverting: 1+R<sub>f</sub>/R<sub>1</sub> · Summer: V<sub>o</sub> = −ΣR<sub>f</sub>/R<sub>n</sub>V<sub>n</sub> · Averager: R<sub>f</sub> = R/n<br>VCCS: I<sub>o</sub> = V<sub>i</sub>/R<sub>1</sub> · Follower: A<sub>v</sub> = 1</div>"},
+{h:"Instrumentation amp",b:"<ul><li>Three op amps: two input buffers with gain set by R<sub>G</sub>, then a difference stage.</li><li>Gain (first stage) = 1 + 2R/R<sub>G</sub>. High Z<sub>i</sub>, high CMRR. Used with bridges, thermocouples, strain gauges.</li></ul>"},
+{h:"Active filters",b:"<ul><li>LP, HP, BP, notch. f<sub>c</sub> = 1/(2πRC). Roll-off 20 dB/dec per pole.</li><li>Higher order (2nd, 3rd…) gives a sharper cutoff by cascading sections.</li></ul>"}],
+deriv:[
+{h:"Instrumentation amplifier first-stage gain",b:"<p>Op amps A1, A2 buffer V<sub>1</sub>, V<sub>2</sub> (at the + inputs). R<sub>G</sub> joins the two inverting inputs; each feedback resistor is R.</p><p><b>1. Virtual shorts:</b> the inverting inputs sit at V<sub>1</sub> and V<sub>2</sub>.</p><p><b>2. Current in R<sub>G</sub>:</b> I = (V<sub>1</sub> − V<sub>2</sub>)/R<sub>G</sub> (no current enters the op amps).</p><p><b>3. Same I flows through both R:</b></p>"+E("V<sub>o1</sub> − V<sub>o2</sub> = I(R + R<sub>G</sub> + R) = (V<sub>1</sub> − V<sub>2</sub>)(1 + 2R/R<sub>G</sub>)")+"<p>For a common-mode input V<sub>1</sub> = V<sub>2</sub>, I = 0, so the gain is 1. The difference stage then removes what remains of the common mode.</p>"},
+{h:"First-order active low-pass filter",b:"<p>RC at the + input of a non-inverting amplifier with gain K = 1 + R<sub>f</sub>/R<sub>1</sub>.</p><p><b>1. RC divider:</b></p>"+E("V⁺ = V<sub>i</sub>·[1/(jωC)]/[R + 1/(jωC)] = V<sub>i</sub>/(1 + jωRC)")+"<p><b>2. Amplify:</b></p>"+E("V<sub>o</sub>/V<sub>i</sub> = K/(1 + j f/f<sub>c</sub>), f<sub>c</sub> = 1/(2πRC)")+"<p>|A| = K/√(1 + (f/f<sub>c</sub>)²). At f<sub>c</sub> the gain is K/√2 (−3 dB), and well above f<sub>c</sub> it falls at 20 dB/decade.</p>"}]});
+CH.push({n:12,title:"Power Amplifiers",topics:[
+{t:"Definitions & amplifier types (12.1)",q:[
+["Class A conducts for:",["360°","180°","less than 180°","270° only"],0,"Full cycle."],
+["Class B conducts for:",["180°","360°","90°","less than 90°"],0,"Half cycle."],
+["Class AB conducts for:",["between 180° and 360°","360°","180° exactly","90°"],0,"Reduces crossover distortion."],
+["Class C conducts for:",["less than 180°","360°","exactly 180°","270°"],0,"Needs a tuned load."],
+["Class D is a:",["switching (pulse) amplifier","linear class A","push-pull class B","tuned amplifier"],0,"PWM operation."],
+["Efficiency η =",["Po(ac)/Pi(dc) × 100%","Pi/Po","Po·Pi","Pi − Po"],0,"Output over input power."],
+["Max efficiency of series-fed class A:",["25%","50%","78.5%","100%"],0,"A known result."],
+["Max efficiency of transformer-coupled class A:",["50%","25%","78.5%","90%"],0,"Better coupling."],
+["Max efficiency of class B:",["78.5%","25%","50%","100%"],0,"π/4."],
+["Power amplifiers are characterised by:",["large-signal operation","small-signal only","only dc","low power"],0,"Large swings."]]},
+{t:"Series-fed class A amplifier (12.2)",q:[
+["Input dc power:",["Pi = VCC·ICQ","VCC/ICQ","VCE·IB","VCC·IB"],0,"Supply current is ICQ."],
+["Output ac power:",["P = VCE(rms)·IC(rms) = V(pp)I(pp)/8","V(pp)I(pp)","VCC²","I²RC only at dc"],0,"For a sine wave."],
+["Max efficiency:",["25%","50%","78.5%","10%"],0,"At the maximum swing."],
+["Transistor dissipation at the Q-point:",["PQ = VCEQ·ICQ","VCC·IB","VBE·IE","0"],0,"No signal."],
+["Dissipation is greatest when the signal is:",["zero","maximum","negative","clipped"],0,"All Pi becomes heat."],
+["For maximum swing, the Q-point is at:",["mid load line","saturation","cutoff","VCC"],0,"Symmetric."],
+["In the series-fed circuit, the load is in the:",["collector circuit (RC)","base circuit","emitter only","bypassed"],0,"Series with the supply."],
+["VCC = 20 V, ICQ = 0.5 A: Pi =",["10 W","40 W","20 W","5 W"],0,"20 × 0.5."],
+["ac power in a resistance:",["P = I²R","I/R","V/R²","IR"],0,"rms values."],
+["Device dissipation =",["Pi − Po (plus load)","Pi + Po","Po only","Pi only"],0,"Energy balance."]]},
+{t:"Transformer-coupled class A amplifier (12.3)",q:[
+["Reflected load: R′L =",["(N1/N2)²·RL","(N2/N1)²·RL","RL","N1·RL"],0,"Impedance reflection."],
+["Voltage ratio:",["V2/V1 = N2/N1","V2/V1 = N1/N2","V2 = V1","V2/V1 = (N2/N1)²"],0,"Transformer law."],
+["Current ratio:",["I2/I1 = N1/N2","I2/I1 = N2/N1","I2 = I1","I2·I1 = 1"],0,"Inverse of the voltage ratio."],
+["Max efficiency:",["50%","25%","78.5%","90%"],0,"Ideal transformer."],
+["The dc load line is almost:",["vertical (small winding resistance)","horizontal","at 45°","zero"],0,"The dc drop is tiny."],
+["The Q-point has VCEQ ≈",["VCC","VCC/2","0","2VCC"],0,"No dc drop in the primary."],
+["N1/N2 = 3, RL = 8 Ω: R′L =",["72 Ω","24 Ω","2.7 Ω","8 Ω"],0,"9 × 8."],
+["The transformer’s main role:",["impedance matching","rectifying","filtering","amplifying voltage only"],0,"Matches the load."],
+["Output power: Po =",["(VCEmax − VCEmin)(ICmax − ICmin)/8","VCC·IC","VCEmax·ICmax","IC²·VCE"],0,"Peak-to-peak form."],
+["Advantage over series-fed:",["higher efficiency","lower efficiency","no distortion","no transformer"],0,"And a better match."]]},
+{t:"Class B operation & circuits (12.4–12.5)",q:[
+["A push-pull class B stage uses:",["two transistors, each conducting 180°","one transistor","three transistors","a Zener"],0,"Alternately."],
+["Max efficiency:",["78.5%","25%","50%","100%"],0,"π/4 × 100."],
+["Idc =",["2Ip/π","Ip/π","Ip","2Ip"],0,"Average of a half-wave rectified current."],
+["Max output power: Po =",["VCC²/(2RL)","VCC²/RL","VCC/RL","2VCC²/RL"],0,"At Vp = VCC."],
+["Complementary symmetry uses:",["an npn and a pnp pair","two npn only","a JFET","a Zener"],0,"No transformer needed."],
+["Crossover distortion arises from:",["the VBE turn-on threshold","the supply ripple","β","temperature only"],0,"Both devices off near 0 V."],
+["Class AB biasing:",["reduces crossover distortion","increases it","no effect","doubles Po"],0,"Small standing bias."],
+["Max transistor dissipation occurs near:",["Vp ≈ 0.636VCC","Vp = VCC","Vp = 0","Vp = 2VCC"],0,"Not at the maximum output."],
+["With no signal, class B dissipation is:",["very low","maximum","50%","infinite"],0,"Almost no current."],
+["Quasi-complementary stages use:",["same-type output transistors with a complementary driver","only pnp","only JFETs","no output stage"],0,"Matched npn pair."]]},
+{t:"Amplifier distortion (12.6)",q:[
+["Harmonic distortion produces:",["multiples of the input frequency","only dc","lower frequencies","no change"],0,"2f, 3f…"],
+["nth harmonic distortion: Dn =",["|An|/|A1| × 100%","|A1|/|An|","An·A1","An − A1"],0,"Ratio to the fundamental."],
+["Total distortion: THD =",["√(D2² + D3² + …)","D2 + D3","D2·D3","max(D)"],0,"Root-sum-square."],
+["A1 = 2, A2 = 0.1: D2 =",["5%","0.5%","20%","50%"],0,"0.1/2."],
+["D2 = 3%, D3 = 4%: THD =",["5%","7%","12%","1%"],0,"√(9 + 16)."],
+["Push-pull operation cancels:",["even harmonics","odd harmonics","dc","all"],0,"Symmetry."],
+["The dominant distortion in a single-ended class A stage:",["second harmonic","fifth harmonic","none","crossover"],0,"Asymmetric curve."],
+["Negative feedback ______ distortion.",["reduces","increases","doesn’t change","doubles"],0,"By (1 + βA)."],
+["Distortion in class A comes from:",["the non-linear transfer characteristic","the supply only","the load only","the heat sink"],0,"Curved IC–VBE."],
+["Distortion increases the total power by the factor:",["(1 + THD²)","(1 − THD)","THD","1/THD"],0,"P = (1 + THD²)·P1."]]},
+{t:"Power transistor heat sinking (12.7)",q:[
+["Junction temperature: TJ =",["TA + PD·θJA","TA − PD","PD/θJA","TA·PD"],0,"Thermal Ohm’s law."],
+["θ is the thermal resistance in:",["°C/W","W/°C","°C·W","V/A"],0,"Temperature rise per watt."],
+["θJA =",["θJC + θCS + θSA","θJC·θSA","θSA − θCS","θCS only"],0,"Series thermal path."],
+["A heat sink lowers:",["θSA","PD","VCC","TA"],0,"More surface area."],
+["PD = 20 W, θJA = 2.5 °C/W, TA = 25 °C: TJ =",["75 °C","50 °C","125 °C","45 °C"],0,"25 + 50."],
+["Thermal grease or a mica washer affects:",["θCS (case-to-sink)","θJC","TA","VCC"],0,"Contact resistance."],
+["Max junction temperature for silicon is about:",["150–200 °C","50 °C","1000 °C","25 °C"],0,"Data sheet limit."],
+["Thermal runaway is:",["rising temperature causing more current causing more heat","a cooling effect","a dc drift only","stable operation"],0,"Positive feedback."],
+["Allowable PD ______ as case temperature rises.",["decreases (derating)","increases","stays same","doubles"],0,"Derate above 25 °C."],
+["Heat flows from:",["junction to case to sink to ambient","ambient to junction","sink to junction","base to collector only"],0,"Series path."]]},
+{t:"Class C and class D amplifiers (12.8)",q:[
+["Class C conduction angle:",["< 180°","360°","180°","270°"],0,"Short pulses."],
+["Class C uses a:",["tuned (LC) load","resistive load","transformer only","no load"],0,"Restores the sine wave."],
+["Class C efficiency can be:",["above 90%","25%","50%","10%"],0,"Short conduction."],
+["Class C is used in:",["RF transmitters","audio hi-fi","dc supplies","op amps"],0,"A fixed frequency."],
+["Class D uses:",["pulse-width modulation (PWM)","class A bias","a transformer only","no switching"],0,"A switching amplifier."],
+["Class D transistors operate as:",["switches","linear amplifiers","resistors","diodes"],0,"Fully on or off."],
+["Class D efficiency can exceed:",["90%","25%","40%","50%"],0,"Little dissipation."],
+["Class D needs a ______ to recover audio.",["low-pass filter","high-pass filter","rectifier","comparator only"],0,"Removes the switching frequency."],
+["The PWM sampling rate should be:",["much higher than the signal frequency","equal to it","lower","zero"],0,"At least twice, in practice much more."],
+["The LC tank in class C provides:",["flywheel action to restore the sinusoid","amplification","rectification","bias"],0,"Stores and returns energy."]]}
+],
+notes:[
+{h:"Classes & efficiency",b:"<div class='eq'>η = P<sub>o</sub>/P<sub>i</sub> × 100%<br>Class A: 360°, series-fed ≤ 25%, transformer-coupled ≤ 50%<br>Class B: 180°, ≤ 78.5% · AB: 180–360° · C: &lt; 180° (tuned) · D: PWM switching, &gt; 90%</div>"},
+{h:"Key formulas",b:"<div class='eq'>Class A: P<sub>i</sub> = V<sub>CC</sub>I<sub>CQ</sub>, P<sub>o</sub> = V<sub>pp</sub>I<sub>pp</sub>/8<br>Class B: P<sub>i</sub> = V<sub>CC</sub>(2I<sub>p</sub>/π), P<sub>o,max</sub> = V<sub>CC</sub>²/(2R<sub>L</sub>)<br>Transformer: R′<sub>L</sub> = (N<sub>1</sub>/N<sub>2</sub>)²R<sub>L</sub><br>Distortion: D<sub>n</sub> = |A<sub>n</sub>|/|A<sub>1</sub>|, THD = √ΣD<sub>n</sub>²<br>Thermal: T<sub>J</sub> = T<sub>A</sub> + P<sub>D</sub>θ<sub>JA</sub>, θ<sub>JA</sub> = θ<sub>JC</sub> + θ<sub>CS</sub> + θ<sub>SA</sub></div>"},
+{h:"Practical points",b:"<ul><li>Class B has crossover distortion; class AB bias cures it. Push-pull cancels even harmonics.</li><li>Heat sinks lower θ<sub>SA</sub>; avoid thermal runaway with emitter resistors or thermal tracking.</li></ul>"}],
+deriv:[
+{h:"Maximum efficiency of series-fed class A (25%)",b:"<p>Series-fed stage, load R<sub>C</sub>, Q-point at mid load line.</p><p><b>1. Q-point:</b> V<sub>CEQ</sub> = V<sub>CC</sub>/2, I<sub>CQ</sub> = V<sub>CC</sub>/(2R<sub>C</sub>).</p><p><b>2. Input power:</b></p>"+E("P<sub>i</sub> = V<sub>CC</sub>I<sub>CQ</sub> = V<sub>CC</sub>²/(2R<sub>C</sub>)")+"<p><b>3. Maximum swing</b> (limited by cutoff and saturation): V<sub>pp</sub> = V<sub>CC</sub>, I<sub>pp</sub> = V<sub>CC</sub>/R<sub>C</sub>:</p>"+E("P<sub>o</sub> = V<sub>pp</sub>I<sub>pp</sub>/8 = V<sub>CC</sub>²/(8R<sub>C</sub>)")+"<p><b>4. Efficiency:</b></p>"+E("η = P<sub>o</sub>/P<sub>i</sub> = [V<sub>CC</sub>²/8R<sub>C</sub>]/[V<sub>CC</sub>²/2R<sub>C</sub>] = 1/4 = 25%")},
+{h:"Class B efficiency: η = (π/4)(V<sub>p</sub>/V<sub>CC</sub>), maximum 78.5%",b:"<p>Push-pull stage, load R<sub>L</sub>, output peak V<sub>p</sub>, supply V<sub>CC</sub>.</p><p><b>1. Output power:</b></p>"+E("P<sub>o</sub> = V<sub>p</sub>²/(2R<sub>L</sub>)")+"<p><b>2. Supply current:</b> each device passes a half-sine of peak I<sub>p</sub> = V<sub>p</sub>/R<sub>L</sub>; the supply sees the average of the rectified wave:</p>"+E("I<sub>dc</sub> = (1/π)∫<sub>0</sub><sup>π</sup> I<sub>p</sub> sin θ dθ = 2I<sub>p</sub>/π, P<sub>i</sub> = V<sub>CC</sub>·2V<sub>p</sub>/(πR<sub>L</sub>)")+"<p><b>3. Ratio:</b></p>"+E("η = (V<sub>p</sub>²/2R<sub>L</sub>)/(2V<sub>CC</sub>V<sub>p</sub>/πR<sub>L</sub>) = πV<sub>p</sub>/(4V<sub>CC</sub>)")+"<p>For V<sub>p</sub> = V<sub>CC</sub> (maximum): η = π/4 = 78.5%.</p>"},
+{h:"Transformer impedance reflection",b:"<p>Ideal transformer, turns N<sub>1</sub> (primary), N<sub>2</sub> (secondary), load R<sub>L</sub> on the secondary.</p><p><b>1.</b> V<sub>1</sub>/V<sub>2</sub> = N<sub>1</sub>/N<sub>2</sub>, and (power conserved) I<sub>1</sub>/I<sub>2</sub> = N<sub>2</sub>/N<sub>1</sub>.</p><p><b>2. Impedance seen at the primary:</b></p>"+E("R′<sub>L</sub> = V<sub>1</sub>/I<sub>1</sub> = (N<sub>1</sub>/N<sub>2</sub>)(V<sub>2</sub>)/[(N<sub>2</sub>/N<sub>1</sub>)I<sub>2</sub>] = (N<sub>1</sub>/N<sub>2</sub>)²R<sub>L</sub>")+"<p>Example: N<sub>1</sub>/N<sub>2</sub> = 3, R<sub>L</sub> = 8 Ω ⇒ R′<sub>L</sub> = 72 Ω. This matches a low-resistance speaker to the transistor.</p>"}]});
+CH.push({n:13,title:"Linear-Digital ICs",topics:[
+{t:"Comparator unit operation (13.2)",q:[
+["A comparator output swings between:",["two levels (high/low)","a linear range","zero only","±∞"],0,"A digital-like output."],
+["With the signal on the + input and Vref on −:",["output high when Vi > Vref","output high when Vi < Vref","always high","always low"],0,"Non-inverting comparator."],
+["A zero-crossing detector uses Vref =",["0 V","VCC","1 V","−VCC"],0,"It detects sign changes."],
+["An op amp as a comparator runs:",["open loop (no feedback)","with negative feedback","as a follower","as an integrator"],0,"Saturates at the rails."],
+["Hysteresis is obtained with:",["positive feedback (Schmitt trigger)","negative feedback","no feedback","a diode only"],0,"Two thresholds."],
+["Hysteresis prevents:",["output chatter from noise","gain","offset","slew"],0,"Noise immunity."],
+["The Schmitt trigger has an:",["upper and a lower trip point","single trip point","no trip point","dc offset only"],0,"UTP and LTP."],
+["Comparator ICs (e.g. LM339) often have:",["open-collector outputs needing a pull-up","push-pull only","no output","an input only"],0,"External resistor."],
+["Comparator ICs are ______ than general op amps.",["faster","slower","identical","larger"],0,"Designed for saturation."],
+["A window comparator detects:",["whether the input is within a range","only dc","frequency","phase"],0,"Two comparators."]]},
+{t:"Digital–analog converters (13.3)",q:[
+["A DAC converts:",["a digital code to an analog voltage/current","analog to digital","ac to dc","dc to ac"],0,"The opposite of an ADC."],
+["Resolution of an n-bit DAC:",["1/2ⁿ of the full scale","n volts","2n","1 bit only"],0,"Step size."],
+["An 8-bit DAC has ______ output levels.",["256","8","64","128"],0,"2⁸."],
+["A 4-bit DAC has ______ levels.",["16","4","8","32"],0,"2⁴."],
+["A binary-weighted DAC uses resistors:",["R, 2R, 4R, 8R…","all equal","only 2 values","random"],0,"Weights halve."],
+["An R-2R ladder uses:",["only two resistor values","n different values","capacitors","inductors"],0,"Easier to match."],
+["The MSB contributes:",["half of the full scale","1/16","none","the LSB"],0,"Binary weighting."],
+["4-bit code 1010 (10), Vref = 16 V: Vo ≈",["10 V","1.6 V","8 V","16 V"],0,"(10/16)·16."],
+["R-2R advantage:",["easier to match precision resistors","needs no op amp","faster only","no power"],0,"Better accuracy."],
+["Settling time is the time to:",["reach the final value within tolerance","power up","read the code","reset"],0,"A speed spec."]]},
+{t:"555 timer IC unit operation (13.4)",q:[
+["The 555 contains:",["two comparators, an SR flip-flop and a discharge transistor","one op amp","a counter","a DAC"],0,"Plus a 3×5 kΩ divider."],
+["Its comparator thresholds are:",["2/3 VCC and 1/3 VCC","VCC and 0","1/2 VCC","VCC/4"],0,"From the divider."],
+["Astable frequency: f ≈",["1.44/[(RA + 2RB)C]","1.1RC","0.693RC","RC/1.44"],0,"Standard result."],
+["Astable high time:",["0.693(RA + RB)C","0.693RBC","1.1RC","RC"],0,"Charge through RA + RB."],
+["Monostable pulse width:",["T = 1.1RC","0.693RC","1.44RC","RC/1.1"],0,"Charge to 2/3 VCC."],
+["R = 10 kΩ, C = 10 μF (monostable): T =",["0.11 s","1.1 s","11 ms","0.01 s"],0,"1.1 × 0.1 s."],
+["Monostable is triggered when the trigger falls below:",["1/3 VCC","2/3 VCC","VCC","0"],0,"The lower comparator."],
+["Astable duty cycle is always:",["above 50% (without a diode)","below 50%","exactly 50%","0"],0,"High time > low time."],
+["Pin 4 is the:",["reset","output","ground","threshold"],0,"Active low."],
+["The 555 is used as:",["a timer and oscillator","a DAC","a regulator only","a comparator only"],0,"Also for PWM."]]},
+{t:"Voltage-controlled oscillator (13.5)",q:[
+["A VCO’s frequency is set by:",["a control voltage","its supply only","the case","none"],0,"V-to-f converter."],
+["566 VCO: f₀ ≈",["2(V⁺ − VC)/(R1C1V⁺)","1/(2πR1C1)","VC·R1","2R1C1"],0,"Datasheet form."],
+["The 566 provides:",["square and triangle waveforms","only sine","only dc","pulses at 50 Hz fixed"],0,"Two outputs."],
+["For the 566, raising VC ______ the frequency.",["lowers","raises","has no effect","doubles"],0,"f ∝ (V⁺ − VC)."],
+["Uses of a VCO:",["FM modulator, function generator, PLL","rectifier","power amplifier","filter"],0,"Frequency control."],
+["A VCO is a block in a:",["phase-locked loop","DAC ladder","comparator","active filter"],0,"The oscillator of the PLL."],
+["The free-running frequency f₀ is the VCO frequency with:",["no input signal","maximum input","dc fault","VC = ∞"],0,"Reference value."],
+["The timing capacitor sets the:",["frequency range","gain","offset","slew"],0,"Charge/discharge."],
+["Linearity refers to how f varies with:",["the control voltage","temperature only","load","VCC only"],0,"f vs VC."],
+["Inside the VCO, the control voltage varies the:",["charging current of the capacitor","supply","gain only","load"],0,"Current-controlled."]]},
+{t:"Phase-locked loop (13.6)",q:[
+["The PLL contains:",["phase detector, low-pass filter, VCO","comparator, DAC, 555","two op amps","filter bank"],0,"A feedback loop."],
+["Lock means:",["VCO frequency = input frequency","VCO off","phase = 90° only","filter open"],0,"Constant phase difference."],
+["Capture range is the range over which the PLL:",["acquires lock","stays locked","is unlocked","fails"],0,"Starting from unlocked."],
+["Lock range is ______ than capture range.",["wider","narrower","equal","zero"],0,"Once locked it tracks further."],
+["The phase detector output is proportional to:",["the phase difference","the amplitude","the frequency only","the supply"],0,"Error voltage."],
+["PLL applications:",["FM demodulation, frequency synthesis","rectification","amplification only","filtering only"],0,"Also tone decoding."],
+["The loop filter determines:",["capture range and loop stability","VCC","gain only","slew"],0,"A low-pass."],
+["In lock, the phase error is:",["constant","zero always","random","infinite"],0,"A dc error voltage."],
+["Free-running means:",["no input signal and the VCO at f₀","locked","off","shorted"],0,"Initial state."],
+["A divider in the feedback gives:",["frequency multiplication","only filtering","phase inversion","no change"],0,"Synthesizers."]]},
+{t:"Interfacing circuitry (13.7)",q:[
+["An interface circuit:",["adapts levels/types between systems","amplifies only","rectifies","stores"],0,"A bridge between systems."],
+["Line drivers/receivers are used for:",["sending signals over long lines","power regulation","filtering","DAC"],0,"With noise immunity."],
+["RS-232 signals use:",["positive and negative voltage levels","only 0–5 V","only currents","optical"],0,"Beyond logic levels."],
+["An opto-isolator provides:",["electrical isolation","gain","rectification","oscillation"],0,"Light couples the signal."],
+["An open-collector output needs:",["a pull-up resistor","a pull-down capacitor","a transformer","nothing"],0,"External supply."],
+["A level shifter:",["converts voltage levels (e.g. TTL ↔ CMOS)","amplifies power","filters","times"],0,"Compatibility."],
+["Fan-out is:",["the number of gates one output can drive","number of inputs","gain","supply"],0,"A loading limit."],
+["Noise margin is:",["tolerance to noise at logic levels","gain","bandwidth","power"],0,"VOH − VIH etc."],
+["A differential line receiver rejects:",["common-mode noise","the signal","dc","the clock"],0,"Balanced lines."],
+["Isolation helps break:",["ground loops","signals","power","timing"],0,"Prevents noise coupling."]]}
+],
+notes:[
+{h:"Comparators & DACs",b:"<ul><li>Comparator: open-loop, output saturates high/low; Schmitt trigger uses positive feedback for hysteresis (UTP/LTP).</li><li>DAC: n bits → 2<sup>n</sup> levels; binary-weighted or R-2R ladder with a summing op amp.</li></ul>"},
+{h:"555 timer",b:"<div class='eq'>Thresholds: 2V<sub>CC</sub>/3, V<sub>CC</sub>/3<br>Astable: f = 1.44/[(R<sub>A</sub>+2R<sub>B</sub>)C], t<sub>H</sub> = 0.693(R<sub>A</sub>+R<sub>B</sub>)C, t<sub>L</sub> = 0.693R<sub>B</sub>C<br>Monostable: T = 1.1RC</div>"},
+{h:"VCO, PLL, interfacing",b:"<ul><li>VCO: f set by V<sub>C</sub>; 566 gives square/triangle waves.</li><li>PLL = phase detector + low-pass filter + VCO; modes: free-running, capture, lock. Used for FM demodulation, synthesis, tone decoding.</li><li>Interfacing: line drivers/receivers, opto-isolators, level shifters, open-collector with pull-ups.</li></ul>"}],
+deriv:[
+{h:"555 astable: f = 1.44 / [(R<sub>A</sub> + 2R<sub>B</sub>)C]",b:"<p>The capacitor swings between V<sub>CC</sub>/3 and 2V<sub>CC</sub>/3.</p><p><b>1. Charging</b> through R<sub>A</sub> + R<sub>B</sub> from V<sub>CC</sub>/3 toward V<sub>CC</sub>: v = V<sub>CC</sub> − (2V<sub>CC</sub>/3)e<sup>−t/τ</sup>. It reaches 2V<sub>CC</sub>/3 when e<sup>−t/τ</sup> = 1/2:</p>"+E("t<sub>H</sub> = (R<sub>A</sub>+R<sub>B</sub>)C ln 2 = 0.693(R<sub>A</sub>+R<sub>B</sub>)C")+"<p><b>2. Discharging</b> through R<sub>B</sub> from 2V<sub>CC</sub>/3 to V<sub>CC</sub>/3 (halves):</p>"+E("t<sub>L</sub> = 0.693R<sub>B</sub>C")+"<p><b>3. Period and frequency:</b></p>"+E("T = 0.693(R<sub>A</sub> + 2R<sub>B</sub>)C ⇒ f = 1/T = 1.44/[(R<sub>A</sub> + 2R<sub>B</sub>)C]")+"<p>Duty cycle = t<sub>H</sub>/T = (R<sub>A</sub>+R<sub>B</sub>)/(R<sub>A</sub>+2R<sub>B</sub>) &gt; 50%.</p>"},
+{h:"555 monostable pulse width: T = 1.1RC",b:"<p>After the trigger, the capacitor charges from 0 through R toward V<sub>CC</sub> until it reaches the 2V<sub>CC</sub>/3 threshold.</p><p><b>1.</b> v(t) = V<sub>CC</sub>(1 − e<sup>−t/RC</sup>).</p><p><b>2. Set v = 2V<sub>CC</sub>/3:</b></p>"+E("1 − e<sup>−T/RC</sup> = 2/3 ⇒ e<sup>−T/RC</sup> = 1/3 ⇒ T = RC ln 3 ≈ 1.1RC")+"<p>Example: R = 10 kΩ, C = 10 μF ⇒ T = 0.11 s. T is independent of V<sub>CC</sub>.</p>"},
+{h:"R-2R / binary-weighted DAC output",b:"<p>Binary-weighted summer with feedback R<sub>f</sub>, input resistors R, 2R, 4R, 8R for bits b<sub>3</sub>…b<sub>0</sub> (each bit = 0 or V<sub>ref</sub>).</p><p><b>1. Summing amplifier law:</b></p>"+E("V<sub>o</sub> = −R<sub>f</sub>(b<sub>3</sub>V<sub>ref</sub>/R + b<sub>2</sub>V<sub>ref</sub>/2R + b<sub>1</sub>V<sub>ref</sub>/4R + b<sub>0</sub>V<sub>ref</sub>/8R)")+"<p><b>2. Factor:</b></p>"+E("V<sub>o</sub> = −(R<sub>f</sub>V<sub>ref</sub>/8R)(8b<sub>3</sub> + 4b<sub>2</sub> + 2b<sub>1</sub> + b<sub>0</sub>) = −(R<sub>f</sub>V<sub>ref</sub>/8R)·D")+"<p>The output is proportional to the decimal code D. The step (1 LSB) is R<sub>f</sub>V<sub>ref</sub>/8R.</p>"}]});
+CH.push({n:14,title:"Feedback & Oscillator Circuits",topics:[
+{t:"Feedback concepts (14.1)",q:[
+["Feedback gain: Af =",["A/(1 + βA)","A(1 + βA)","A/(1 − βA)","βA"],0,"Negative feedback."],
+["Loop gain =",["βA","A/β","A + β","A − β"],0,"Around the loop."],
+["Negative feedback ______ the gain.",["reduces","increases","doesn’t change","doubles"],0,"By (1 + βA)."],
+["Positive feedback can cause:",["oscillation","stability","lower gain","no effect"],0,"βA → −1."],
+["A = 1000, β = 0.1: Af ≈",["9.9","100","10","1000"],0,"1000/101."],
+["If βA ≫ 1: Af ≈",["1/β","A","β","1"],0,"Set by the network alone."],
+["Advantages of negative feedback:",["stable gain, less distortion/noise, wider BW","higher gain","more noise","lower BW"],0,"At the cost of gain."],
+["Disadvantage:",["reduced gain","distortion","instability always","more noise"],0,"Can be recovered by more stages."],
+["Desensitivity factor D =",["1 + βA","βA","1/βA","A"],0,"Gain/BW/distortion change by D."],
+["Distortion is reduced by a factor of:",["(1 + βA)","βA","1/A","β"],0,"Roughly."]]},
+{t:"Feedback connection types (14.2)",q:[
+["The four feedback types:",["voltage-series, current-series, voltage-shunt, current-shunt","only series","only shunt","none"],0,"Sampling × mixing."],
+["Voltage-series: Zi ______, Zo ______.",["increases, decreases","decreases, increases","increases, increases","decreases, decreases"],0,"Ideal voltage amplifier."],
+["Current-series: Zi ______, Zo ______.",["increases, increases","increases, decreases","decreases, decreases","decreases, increases"],0,"Transconductance."],
+["Voltage-shunt: Zi ______, Zo ______.",["decreases, decreases","increases, decreases","increases, increases","decreases, increases"],0,"Transresistance."],
+["Current-shunt: Zi ______, Zo ______.",["decreases, increases","increases, decreases","decreases, decreases","increases, increases"],0,"Current amplifier."],
+["Series mixing subtracts:",["voltages","currents","powers","charges"],0,"At the input loop."],
+["Shunt mixing subtracts:",["currents","voltages","powers","phases"],0,"At the input node."],
+["Voltage sampling senses:",["the output voltage","the output current","the input only","the power"],0,"The network is in parallel with the load."],
+["Voltage-series: Zif =",["Zi(1 + βA)","Zi/(1 + βA)","Zi","Zi·β"],0,"Raised."],
+["Voltage-series: Zof =",["Zo/(1 + βA)","Zo(1 + βA)","Zo","Zo·β"],0,"Lowered."]]},
+{t:"Practical feedback circuits (14.3)",q:[
+["A non-inverting op-amp amplifier is:",["voltage-series feedback","current-shunt","voltage-shunt","none"],0,"Output voltage sampled, series mixing."],
+["An emitter follower is:",["voltage-series feedback","current-shunt","voltage-shunt","none"],0,"100% feedback."],
+["An inverting op-amp amplifier is:",["voltage-shunt feedback","voltage-series","current-series","none"],0,"Rf from the output to the inverting input."],
+["A CE stage with an unbypassed RE is:",["current-series feedback","voltage-shunt","voltage-series","current-shunt"],0,"RE senses IE."],
+["A two-stage current-shunt circuit has feedback via:",["a resistor from the emitter of stage 2 to the input","none","a capacitor only","a transformer"],0,"A Rf network."],
+["Non-inverting op amp: β =",["R1/(R1 + Rf)","Rf/R1","1","R1/Rf"],0,"A divider."],
+["Voltage-shunt feedback connects:",["Rf from the output to the input node","RE only","a transformer","nothing"],0,"Shunt mixing."],
+["Current-series feedback ______ the output impedance.",["raises","lowers","doesn’t change","zeros"],0,"A current sample."],
+["Non-inverting op amp: Af ≈",["1 + Rf/R1","−Rf/R1","Rf","1"],0,"1/β."],
+["The feedback network is usually:",["resistive","inductive","an amplifier","a diode"],0,"It must be stable."]]},
+{t:"Feedback amplifier — phase and frequency considerations (14.4)",q:[
+["Instability (oscillation) occurs when:",["βA = −1 (unity loop gain at 180°)","βA = 0","βA = 1 at 0°","A = 0"],0,"Negative becomes positive."],
+["Nyquist stability: the amplifier is stable if:",["|βA| < 1 at 180° phase","|βA| > 1 at 180°","βA = 0 only","A is small"],0,"Gain below unity at 180°."],
+["Gain margin is the:",["dB of loop gain below 0 dB at 180° phase","phase at unity gain","bandwidth","slew rate"],0,"A safety margin."],
+["Phase margin =",["180° minus the phase at |βA| = 1","phase at 180°","gain at 180°","BW"],0,"At the unity-gain frequency."],
+["A good phase margin is at least about:",["45°","5°","0°","−45°"],0,"A typical rule."],
+["Each pole adds up to:",["−90° of phase","−180°","+90°","0"],0,"At high f."],
+["With three poles, the phase can reach 180°:",["at high frequency","never","at dc","at midband"],0,"Risk of oscillation."],
+["Compensation uses a:",["dominant-pole capacitor","bigger load","bigger supply","transformer"],0,"Reduces the unity-gain frequency."],
+["Gain margin in dB =",["−20 log|βA| at 180°","20 log|A|","βA","phase"],0,"Positive = stable."],
+["At high frequencies, feedback can become:",["positive","stronger negative","zero","dc"],0,"Extra phase shift."]]},
+{t:"Oscillator operation (14.5)",q:[
+["The Barkhausen criterion:",["|βA| = 1 and loop phase 0°/360°","|βA| = 0","phase 90°","|A| = 1 only"],0,"Sustained oscillation."],
+["An oscillator uses:",["positive feedback","negative feedback only","no feedback","a filter only"],0,"Regenerative."],
+["For a stable amplitude: βA =",["1","0","2","−1"],0,"Exactly unity."],
+["At start-up, the loop gain should be:",["greater than 1","less than 1","0","1 exactly"],0,"Amplitude builds up."],
+["An oscillator converts:",["dc power to ac","ac to dc","ac to ac only","none"],0,"A signal generator."],
+["Amplitude is limited by:",["non-linearity (saturation) or an AGC","the supply only","β","ripple"],0,"It lowers the loop gain."],
+["Frequency is set by:",["the feedback network (RC or LC)","VCC","load","temperature only"],0,"Phase 0° at one f."],
+["Oscillation starts from:",["noise","an external signal","a dc fault","no energy"],0,"Always present."],
+["Relaxation oscillators produce:",["non-sinusoidal waveforms","pure sine only","dc","none"],0,"UJT, 555."],
+["An oscillator needs ______ input signal.",["no","a large","a sine","a pulse"],0,"It is self-sustaining."]]},
+{t:"Phase-shift & Wien bridge oscillators (14.6–14.7)",q:[
+["An RC phase-shift oscillator has ______ RC sections.",["three","one","two","five"],0,"Each gives about 60°."],
+["Phase-shift f =",["1/(2πRC√6)","1/(2πRC)","1/(RC√6)","√6/RC"],0,"For 3 sections."],
+["The amplifier gain must be at least:",["29","3","10","100"],0,"β = 1/29."],
+["The phase-shift network attenuation is:",["1/29","1/3","1/10","1/2"],0,"At f₀."],
+["Wien bridge f =",["1/(2πRC)","1/(2πRC√6)","1/(RC)","2πRC"],0,"Equal R and C."],
+["Wien bridge amplifier gain must be at least:",["3","29","1","10"],0,"β = 1/3."],
+["Wien feedback factor at f₀:",["1/3","1/29","1","0"],0,"With 0° phase."],
+["The Wien amplifier is:",["non-inverting","inverting","a follower only","passive"],0,"0° from the network."],
+["R = 10 kΩ, C = 0.01 μF: Wien f =",["1.59 kHz","15.9 kHz","159 Hz","1 kHz"],0,"1/(2π·10⁻⁴)."],
+["The phase-shift amplifier is:",["inverting (180°)","non-inverting","a follower","passive"],0,"The network gives another 180°."]]},
+{t:"Tuned oscillator circuits (14.8)",q:[
+["A Colpitts oscillator uses:",["two capacitors in the tank","two inductors","a crystal","an RC network"],0,"A capacitive divider."],
+["A Hartley oscillator uses:",["two inductors (tapped coil)","two capacitors","a crystal","RC"],0,"An inductive divider."],
+["Tank resonance: f =",["1/(2π√(LC))","2π√(LC)","1/(LC)","LC/2π"],0,"Resonant frequency."],
+["Colpitts effective capacitance:",["C1C2/(C1 + C2)","C1 + C2","C1 − C2","C1/C2"],0,"Series capacitors."],
+["Hartley effective inductance:",["L1 + L2 (+ 2M)","L1L2","L1/L2","L1 − L2"],0,"Series inductors."],
+["L = 1 mH, C = 1 μF: f ≈",["5.03 kHz","50 kHz","503 Hz","159 Hz"],0,"1/(2π√10⁻⁹)."],
+["Tuned oscillators suit:",["RF frequencies","very low frequencies","dc","audio only"],0,"Small L, C."],
+["The tank circuit stores energy alternately in:",["L and C","R and C","R only","none"],0,"It rings."],
+["Colpitts feedback ratio comes from:",["the capacitor divider","the transformer","RE","RB"],0,"C1/C2."],
+["Hartley feedback comes from:",["the coil tap","the capacitor tap","a crystal","a Zener"],0,"The L1/L2 ratio."]]},
+{t:"Crystal & unijunction oscillators (14.9–14.10)",q:[
+["A crystal oscillator uses the:",["piezoelectric effect","photoelectric effect","Hall effect","Zener effect"],0,"Mechanical resonance."],
+["Crystals have:",["very high Q","low Q","Q = 1","no Q"],0,"Stable frequency."],
+["A crystal has:",["series and parallel resonant frequencies","one only","none","three"],0,"fs and fp."],
+["fp is:",["slightly above fs","far below fs","equal to fs","zero"],0,"Very close."],
+["Crystal oscillator main advantage:",["excellent frequency stability","high power","low cost only","wide tuning"],0,"Used in clocks."],
+["Crystals are found in:",["clocks, microcontrollers","rectifiers","regulators","amplifiers only"],0,"Timing references."],
+["A UJT oscillator is a:",["relaxation oscillator","sinusoidal LC","crystal","phase-shift"],0,"Sawtooth/pulse."],
+["The UJT fires when VE reaches:",["the peak-point voltage VP","0 V","VCC","VBB/2 only"],0,"Then it conducts."],
+["UJT frequency ≈",["1/[RC ln(1/(1 − η))]","1/(2π√LC)","1.44/RC","1.1RC"],0,"η = intrinsic standoff ratio."],
+["The UJT emitter waveform is:",["a sawtooth","a sine","a square","dc"],0,"Capacitor charge/discharge."]]}
+],
+notes:[
+{h:"Feedback fundamentals",b:"<div class='eq'>A<sub>f</sub> = A/(1 + βA), D = 1 + βA<br>βA ≫ 1 ⇒ A<sub>f</sub> ≈ 1/β</div><ul><li>Negative feedback lowers gain but stabilises it, cuts distortion/noise, widens bandwidth.</li><li>Types: voltage-series (Z<sub>i</sub>↑ Z<sub>o</sub>↓), current-series (↑↑), voltage-shunt (↓↓), current-shunt (↓↑).</li></ul>"},
+{h:"Stability",b:"<ul><li>Unstable when βA = −1 (unity loop gain at 180°). Gain margin = −20log|βA| at 180°; phase margin = 180° − phase at |βA| = 1 (≥ 45° preferred).</li><li>Fix by dominant-pole compensation.</li></ul>"},
+{h:"Oscillators",b:"<div class='eq'>Barkhausen: |βA| = 1, ∠βA = 0°<br>Phase-shift: f = 1/(2πRC√6), A ≥ 29 · Wien: f = 1/(2πRC), A ≥ 3<br>LC: f = 1/(2π√(LC)); Colpitts C<sub>eq</sub> = C<sub>1</sub>C<sub>2</sub>/(C<sub>1</sub>+C<sub>2</sub>); Hartley L<sub>eq</sub> = L<sub>1</sub>+L<sub>2</sub>(+2M)<br>Crystal: f<sub>s</sub> (series), f<sub>p</sub> slightly higher · UJT: relaxation, f ≈ 1/[RC ln(1/(1−η))]</div>"}],
+deriv:[
+{h:"Closed-loop gain A<sub>f</sub> = A / (1 + βA) and its benefits",b:"<p>Source X<sub>s</sub>, amplifier A, feedback network β, subtracting at the input.</p><p><b>1. Equations:</b> X<sub>i</sub> = X<sub>s</sub> − X<sub>f</sub>, X<sub>f</sub> = βX<sub>o</sub>, X<sub>o</sub> = AX<sub>i</sub>.</p><p><b>2. Substitute:</b></p>"+E("X<sub>o</sub> = A(X<sub>s</sub> − βX<sub>o</sub>) ⇒ X<sub>o</sub>(1 + βA) = AX<sub>s</sub>")+E("A<sub>f</sub> = X<sub>o</sub>/X<sub>s</sub> = A/(1 + βA)")+"<p><b>3. Gain sensitivity:</b> differentiate with respect to A:</p>"+E("dA<sub>f</sub>/A<sub>f</sub> = (1/(1 + βA))·(dA/A)")+"<p>A 10% change in A gives only 10%/(1 + βA) change in A<sub>f</sub>. Distortion and noise generated inside the loop are also reduced by (1 + βA).</p>"},
+{h:"Wien bridge oscillator: f = 1/(2πRC), gain = 3",b:"<p>Feedback network: series R–C (Z<sub>1</sub>) feeding a parallel R‖C (Z<sub>2</sub>) to ground.</p><p><b>1. Impedances:</b> Z<sub>1</sub> = R + 1/(jωC), Z<sub>2</sub> = R/(1 + jωRC).</p><p><b>2. Feedback factor:</b></p>"+E("β = Z<sub>2</sub>/(Z<sub>1</sub> + Z<sub>2</sub>) = 1/[3 + j(ωRC − 1/ωRC)]")+"<p><b>3. Zero phase</b> requires the imaginary part to vanish: ωRC = 1/(ωRC) ⇒</p>"+E("ω<sub>0</sub> = 1/RC ⇒ f<sub>0</sub> = 1/(2πRC)")+"<p><b>4. At f<sub>0</sub>:</b> β = 1/3, so Barkhausen (βA = 1) needs a non-inverting amplifier gain A = 3 (R<sub>f</sub> = 2R<sub>1</sub>).</p>"},
+{h:"Colpitts oscillator frequency",b:"<p>Tank: inductor L with two series capacitors C<sub>1</sub>, C<sub>2</sub>. The feedback is taken from the capacitor midpoint.</p><p><b>1. Equivalent capacitance:</b></p>"+E("C<sub>eq</sub> = C<sub>1</sub>C<sub>2</sub>/(C<sub>1</sub> + C<sub>2</sub>)")+"<p><b>2. Resonance</b> (X<sub>L</sub> = X<sub>C</sub>):</p>"+E("f<sub>0</sub> = 1/(2π√(L·C<sub>eq</sub>))")+"<p><b>3. Feedback ratio</b> β = C<sub>1</sub>/C<sub>2</sub> (capacitive divider), so the amplifier needs gain A ≥ C<sub>2</sub>/C<sub>1</sub> to satisfy βA ≥ 1.</p><p>Example: L = 1 mH, C<sub>1</sub> = C<sub>2</sub> = 2 μF ⇒ C<sub>eq</sub> = 1 μF ⇒ f<sub>0</sub> = 5.03 kHz.</p>"}]});
+// ===== ENGINE =====
+CH.sort((a,b)=>a.n-b.n);
+function shuf(q){const c=q[1][q[2]],o=q[1].map(x=>x);for(let i=o.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[o[i],o[j]]=[o[j],o[i]]}return [q[0],o,o.indexOf(c),q[3]]}
+CH.forEach(c=>c.topics.forEach(t=>{t.q=t.q.map(shuf)}));
+let P={};try{P=JSON.parse(localStorage.getItem('edct')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('edct',JSON.stringify(P))}catch(e){}};
+let S={c:0,tab:'q',quiz:null};
+const $=id=>document.getElementById(id);
+function nav(){$('nav').innerHTML=CH.map((c,i)=>`<button class="ch ${i==S.c?'on':''}" onclick="S.c=${i};S.quiz=null;draw()">Ch ${c.n} · ${c.title}</button>`).join('')+`<p class="mut">Chapters 1–14 complete.</p>`}
+function draw(){nav();const c=CH[S.c];
+ let h=`<div class="tabs"><button class="${S.tab=='q'?'on':''}" onclick="S.tab='q';S.quiz=null;draw()">Questions</button><button class="${S.tab=='n'?'on':''}" onclick="S.tab='n';draw()">Short notes</button><button class="${S.tab=='d'?'on':''}" onclick="S.tab='d';draw()">Derivations</button></div>`;
+ if(S.tab=='q')h+=S.quiz?quizView():c.topics.map((t,i)=>{const k=`c${c.n}t${i}`,b=P[k]||0;return `<div class="card"><h3>${t.t}</h3><span class="mut">${t.q.length} questions · best ${b}%</span><div class="bar"><i style="width:${b}%"></i></div><p><button class="pri" onclick="start(${i})">Start</button></p></div>`}).join('');
+ if(S.tab=='n')h+=c.notes.map(n=>`<div class="card"><h3>${n.h}</h3>${n.b}</div>`).join('');
+ if(S.tab=='d')h+=c.deriv.map(n=>`<div class="card"><h3>${n.h}</h3>${n.b}</div>`).join('');
+ $('main').innerHTML=h}
+function start(ti,only){const t=CH[S.c].topics[ti];S.quiz={ti,list:(only||t.q.map((_,i)=>i)),pos:0,pick:null,wrong:[],score:0};draw()}
+function quizView(){const Q=S.quiz,t=CH[S.c].topics[Q.ti];
+ if(Q.pos>=Q.list.length){const pct=Math.round(100*Q.score/Q.list.length),k=`c${CH[S.c].n}t${Q.ti}`;
+  if(!Q.only&&Q.list.length==t.q.length&&pct>(P[k]||0)){P[k]=pct;save()}
+  return `<div class="card"><h3>Score: ${Q.score}/${Q.list.length} (${pct}%)</h3>${Q.wrong.length?'<h4>Review: what you missed</h4>'+Q.wrong.map(i=>{const w=t.q[i];return `<div class="exp"><b>${w[0]}</b><br><span style="color:var(--ok)">✔ ${String.fromCharCode(65+w[2])}. ${w[1][w[2]]}</span><br>${w[3]}</div>`}).join('')+'<p></p>':'<p>Perfect!</p>'}${Q.wrong.length?`<button class="pri" onclick="S.quiz.only=1;start(${Q.ti},[${Q.wrong}]);S.quiz.only=1">Retry wrong (${Q.wrong.length})</button> `:''}<button onclick="S.quiz=null;draw()">Back to topics</button></div>`}
+ const i=Q.list[Q.pos],q=t.q[i];
+ return `<div class="card"><span class="mut">${t.t} · Q${Q.pos+1}/${Q.list.length}</span><div class="bar"><i style="width:${100*Q.pos/Q.list.length}%"></i></div><h3 style="margin-top:14px">${q[0]}</h3>`+
+ q[1].map((o,j)=>{let cl='';if(Q.pick!==null){if(j==q[2])cl='ok';else if(j==Q.pick)cl='bad'}return `<button class="opt ${cl}" ${Q.pick!==null?'disabled':''} onclick="ans(${j})">${String.fromCharCode(65+j)}. ${o}</button>`}).join('')+
+ (Q.pick!==null?(Q.pick!=q[2]?`<div class="exp" style="border-color:var(--ok);color:var(--tx)"><b style="color:var(--ok)">✔ Correct answer: ${String.fromCharCode(65+q[2])}. ${q[1][q[2]]}</b></div>`:'')+`<div class="exp">${q[3]}</div><p><button class="pri" onclick="S.quiz.pos++;S.quiz.pick=null;draw()">Next →</button></p>`:'')+`</div>`}
+function ans(j){const Q=S.quiz,i=Q.list[Q.pos],q=CH[S.c].topics[Q.ti].q[i];Q.pick=j;if(j==q[2])Q.score++;else Q.wrong.push(i);draw()}
+$('th').onclick=()=>{const d=document.documentElement;d.dataset.t=d.dataset.t=='light'?'dark':'light'};
+draw();
+</script></body></html>
